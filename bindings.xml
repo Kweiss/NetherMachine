@@ -1,0 +1,14 @@
+<Bindings>
+    <Binding name="NetherMachine Toggle">
+        NetherMachine.buttons.toggle('MasterToggle')
+    </Binding>
+    <Binding name="NetherMachine Cooldowns">
+        NetherMachine.buttons.toggle('cooldowns')
+    </Binding>
+    <Binding name="NetherMachine AoE">
+        NetherMachine.buttons.toggle('multitarget')
+    </Binding>
+    <Binding name="NetherMachine Interrupts">
+        NetherMachine.buttons.toggle('interrupt')
+    </Binding>
+</Bindings>

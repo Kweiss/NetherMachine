@@ -1,0 +1,66 @@
+--[[ ///---INFO---////
+//Priest Disc//
+Thank You For Using My ProFiles
+I Hope Your Enjoy Them
+MTS
+]]--
+
+local fetch = NetherMachine.interface.fetchKey
+
+local exeOnLoad = function()
+mts.Splash("|cff9482C9[MTS]-|cffFFFFFF"..(select(2, GetSpecializationInfo(GetSpecialization())) or "Error").."-|cff9482C9Loaded", 5.0)
+
+end
+
+local inCombat = {
+	
+	-- Keybinds
+		{ "Rain of Fire", "modifier.alt", "ground" },
+
+	--Buffs
+		{ "Dark Intent", "!player.buff" },
+  		{ "Curse of the Elements", "!target.debuff" },
+
+	-- Cooldowns
+  		{"Dark Soul: Instability", {"modifier.shift", "modifier.cooldowns"}},
+  		{"Summon Terrorguard", {"modifier.control", "modifier.cooldowns"}},
+  		{"Summon Doomguard", {"modifier.control", "modifier.cooldowns"}},
+
+	-- Moving
+		{ "Incinerate", {"player.spell(Kil'jaeden's Cunning).exists", "player.moving"} },
+  		{ "Fel Flame", {"!player.spell(Kil'jaeden's Cunning).exists", "player.moving"} }, 	
+
+	{{-- can use FH
+
+   	 	{"Fire and Brimstone","player.area(10).enemies >= 3", "target"}, -- smarth
+
+  	}, (function() return fetch('mtsconf','SAoE') end) },
+		
+	-- AoE
+		{"Fire and Brimstone", "modifier.multitarget", "target"},
+
+  	-- Rotation
+	  	{"Shadowburn", "target.health <=20", "target"},
+	  	{"Immolate", "target.debuff(Immolate).duration <= 4", "target"},
+	  	{"Conflagrate", "player.spell(Conflagrate).charges >= 2", "target"},
+	  	{"Chaos Bolt", {"!modifier.last(Chaos Bolt)", "player.embers >= 35"}, "target"},
+		{"Chaos Bolt", "player.buff(Dark Soul: Instability)", "target"},
+		{"Chaos Bolt", "player.buff(Skull Banner)", "target"},
+	  	{"Conflagrate" },
+	  	{"Incinerate" },
+
+
+}
+
+local outCombat = {
+
+	--Buffs
+		{ "Dark Intent", "!player.buff" },
+  		{ "Curse of the Elements", "!target.debuff" },
+
+	-- Keybinds
+		{ "Rain of Fire", "modifier.alt", "ground" },
+
+}
+
+NetherMachine.rotation.register_custom(267, mts.Icon.."|r[|cff9482C9MTS|r][|cff9482C9Warlock-Destro|r]", inCombat, outCombat, exeOnLoad)

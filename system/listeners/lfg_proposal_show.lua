@@ -1,0 +1,26 @@
+-- NetherMachine.listener.register("LFG_PROPOSAL_SHOW", function()
+--   --if NetherMachine.config.read('autolfg', false) then
+--       local proposalExists, id, typeID, subtypeID, name, texture, role, hasResponded, totalEncounters, completedEncounters, numMembers, isLeader, isHoliday, proposalCategory = GetLFGProposal();
+--       if proposalExists and not UnitIsAFK("player") then
+--         print("LFD Proposal for "..name.."  Encounters: "..completedEncounters.."/"..totalEncounters.."  Members: "..numMembers.."  Role: "..role);
+--         C_Timer.After(15, function() AcceptProposal(); end);
+--       end
+--   --end
+-- end)
+
+-- NetherMachine.listener.register("CONFIRM_SUMMON", function()
+--   --if NetherMachine.config.read('autosummon', false) then
+--     print("Summon from"..GetSummonConfirmSummoner().." to "..GetSummonConfirmAreaName()..". You have "..GetSummonConfirmTimeLeft().." seconds to accept.");
+--     if PlayerCanTeleport() then
+--       C_Timer.After(15, function() ConfirmSummon(); end);
+--     end
+--   --end
+-- end)
+
+-- NetherMachine.listener.register("LFG_ROLE_CHECK_SHOW", function()
+--   --if NetherMachine.config.read('autorole', false) then
+--     --local inProgress, slots, members, category, lfgID, bgQueue = GetLFGRoleUpdate();
+--     print("Role check recieved.");
+--     C_Timer.After(15, function() CompleteLFGRoleCheck(true); end);
+--   --end
+-- end)

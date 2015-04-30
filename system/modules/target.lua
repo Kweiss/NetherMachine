@@ -1,0 +1,3 @@
+NetherMachine.module.register("target", {
+
+})
