@@ -7,7 +7,7 @@
 -- GLYPHS: fortifying_brew, expel_harm, fortuitous_spheres
 -- CONTROLS: Pause - Left Control;  Black Ox Statue - Left Alt;  Dizzying Haze - Left Shift;  Healing Sphere - Right Alt
 
-NetherMachine.rotation.register_custom(268, "bbMonk Brewmaster (SimC T17N)", {
+NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC T17N)", {
 -- COMBAT ROTATION
 	-- PAUSES
 	{ "pause", "modifier.lcontrol" },
