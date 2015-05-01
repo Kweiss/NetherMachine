@@ -194,7 +194,7 @@
   <Script file="rotations\warrior\protection2.lua" />
 
   <!-- MTS Rotations -->
-  <Script file="NetherMachine_MrTheSoulz\system\core.lua" />
+  <!-- <Script file="NetherMachine_MrTheSoulz\system\core.lua" />
   <Script file="NetherMachine_MrTheSoulz\system\tracker.lua" />
   <Script file="NetherMachine_MrTheSoulz\system\extras.lua" />
   <Script file="NetherMachine_MrTheSoulz\system\lib.lua" />
@@ -246,5 +246,5 @@
   <Script file="NetherMachine_MrTheSoulz\rotations\mage\frost.lua" />
   <Script file="NetherMachine_MrTheSoulz\rotations\shaman\resto.lua" />
   <Script file="NetherMachine_MrTheSoulz\rotations\shaman\ele.lua" />
-
+-->
 </Ui>
