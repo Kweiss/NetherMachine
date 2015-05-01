@@ -6,7 +6,7 @@ NetherMachine.dataBroker = { }
 
 NetherMachine.dataBroker.icon = ldb:NewDataObject("NMToggle", {
   type = "launcher",
-  icon = "Interface\\Icons\\SPELL_HOLY_REBUKE",
+  icon = "Interface\\Icons\\INV_Elemental_Primal_Shadow",
   label = "NetherMachine",
   tocname = "NetherMachine",
   OnClick = function(self, button)
