@@ -39,6 +39,7 @@ NetherMachine.rotation.register(10, {
 	-- OOC End --
 	-------------
 },
+
 function()
 	NetherMachine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
 end)
