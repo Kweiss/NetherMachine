@@ -1,6 +1,6 @@
 ## Interface: 60100
 ## X-Min-Interface: 60000
-## Title: |cffffd200NetherMachine|r
+## Title: |cff9482c9NetherMachine|r
 ## Notes: NetherMachine
 ## Author: Somebody
 ## SavedVariablesPerCharacter: NetherMachine_ConfigData, ScriptSettings
