@@ -2,7 +2,7 @@
 -- Rotation is based upon Icy-Veins current logic for Patch 6.1.2
 
 NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF9999(Leveling)", {
----- *** COMBAT ROUTINE SECTION ***
+---- *** Combat Routine Section ***
 	-- Pauses
 	{ "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.pauses" },
@@ -118,7 +118,7 @@ NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF
 	},	{ "modifier.multitarget" } },
 
 },	{
----- *** OUT OF COMBAT ROUTINE SECTION ***
+---- *** Out Of Combat Routine Section ***
 	-- Pauses
 	{ "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.pauses" },
@@ -143,13 +143,12 @@ NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF
 	-- Auto Attack
 	{	{
 		{ "Corruption", "@bbLib.engaugeUnit('ANY', 40, true)" },
---		{ "Corruption", { "target.exists", "target.enemy", "target.alive" } },
 		{ "Unstable Affliction", { "target.exists", "target.enemy", "target.alive" } },
 	},	{ "toggle.autoattack" } },
 	
 }, -- [Section Closing Curly Brace]
 
----- *** TOGGLE BUTTONS ***
+---- *** Toggle Buttons ***
 function()
 	NetherMachine.toggle.create('consume', 'Interface\\Icons\\inv_alchemy_endlessflask_06', 'Use Consumables', 'Toggle the usage of Flasks/Food/Potions etc..')
 	NetherMachine.toggle.create('autopet', 'Interface\\Icons\\achievement_boss_magtheridon', 'Pet Swapping', 'Toggle the usage of automatic pet management.')
