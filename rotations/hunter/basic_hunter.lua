@@ -14,6 +14,7 @@ NetherMachine.rotation.register(3, {
 
 	-- Auto Target
 	{	{
+		{ "/cleartarget", "target.dead" },
 		{ "/targetenemy [noexists]", "!target.exists" },
 		{ "/targetenemy [dead]", { "target.exists", "target.dead" } },
 	},	{ "toggle.autotarget" } },

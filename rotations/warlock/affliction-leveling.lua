@@ -16,6 +16,7 @@ NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF
 
 	-- Auto Target
 	{	{
+		{ "/cleartarget", "target.dead" },
 		{ "/targetenemy [noexists]", "!target.exists" },
 		{ "/targetenemy [dead]", { "target.exists", "target.dead" } },
 	},	{ "toggle.autotarget" } },
