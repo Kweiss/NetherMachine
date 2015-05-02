@@ -142,8 +142,8 @@ NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF
 	
 	-- Auto Attack
 	{	{
-		{ "Agony", "@bbLib.engaugeUnit('ANY', 40, true)" },
-		{ "Corruption", { "target.exists", "target.enemy", "target.alive" } },
+		{ "Corruption", "@bbLib.engaugeUnit('ANY', 40, true)" },
+--		{ "Corruption", { "target.exists", "target.enemy", "target.alive" } },
 		{ "Unstable Affliction", { "target.exists", "target.enemy", "target.alive" } },
 	},	{ "toggle.autoattack" } },
 	
