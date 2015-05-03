@@ -45,10 +45,10 @@ NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF
 	
 	-- Auto Pet Management
 	{	{
-		{ "Summon Doomguard", { "talent(7, 3)", "!modifier.last", "!pet.exists", "player.area(40).enemies < 9" } },
-		{ "Summon Infernal", { "talent(7, 3)", "!modifier.last", "!pet.exists", "player.area(40).enemies >= 9" } },
-		{ "Summon Fel Imp", { "!talent(7, 3)", "talent(5, 1)", "!pet.exists" } },
-		{ "Summon Imp", { "!talent(7, 3)", "!pet.exists" } },
+		{ "Summon Doomguard", { "talent(7, 3)", "!modifier.last", "!pet.exists", "player.area(40).enemies < 9", "!player.casting(Summon Doomguard)" } },
+		{ "Summon Infernal", { "talent(7, 3)", "!modifier.last", "!pet.exists", "player.area(40).enemies >= 9", "!player.casting(Summon Infernal" } },
+		{ "Summon Fel Imp", { "!talent(7, 3)", "talent(5, 1)", "!pet.exists", "!player.casting(Summon Fel Imp)" } },
+		{ "Summon Imp", { "!talent(7, 3)", "!pet.exists", "!player.casting(Summon Imp)" } },
 		{ "Health Funnel", {  "pet.exists", "pet.alive", "pet.health < 40", "pet.distance < 45", "!player.buff(Health Funnel)", "!modifier.last" } },
 	},	{ "toggle.autopet" } },
 	
@@ -134,8 +134,8 @@ NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF
 	{ "Life Tap", { "player.health >= 70", "player.mana <= 90" } },
 	
 	-- Pet Management
-	{ "Summon Doomguard", { "talent(7, 3)", "!modifier.last", "!pet.exists" } },
-	{ "Summon Imp", { "!talent(7, 3)", "!modifier.last", "!pet.exists" } },
+	{ "Summon Doomguard", { "talent(7, 3)", "!modifier.last", "!pet.exists", "!player.casting(Summon Doomguard)" } },
+	{ "Summon Imp", { "!talent(7, 3)", "!modifier.last", "!pet.exists", "!player.casting(Summon Imp)" } },
 	{ "Health Funnel", {  "pet.exists", "pet.alive", "pet.health < 90", "pet.distance < 45", "!player.buff(Health Funnel)", "!modifier.last" } },
 	
 	-- Mass Resurrection
