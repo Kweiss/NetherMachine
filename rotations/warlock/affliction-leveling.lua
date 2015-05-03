@@ -115,7 +115,8 @@ NetherMachine.rotation.register_custom(265, "|cFF9482C9Affliction Warlock |cFFFF
 		{ "Haunt", { "talent(7, 1)", "player.buff(Haunting Spirits).remains > 15", "player.soulshards == 4", "target.health < 20" } },
 		{ "Soulburn", { "player.soulshards >= 1", "player.buff(Soulburn).remains <= 3" } },
 		{ "Seed of Corruption", { "!player.spell(Seed of Corruption).casting", "player.buff(Soulburn).remains >= 3", "!target.debuff(Seed of Corruption)", "!modifier.last" } },
-		{ "Cataclysm", { "target.enemy", "target.alive" }, "target.ground" },
+		{ "Cataclysm", { "target.enemy", "target.alive", "talent(7, 2)" }, "target.ground" },
+		{ "Drain Soul", { "!player.spell(Drain Soul).casting", "!talent(7, 2)" } },
 	},	{ "modifier.multitarget" } },
 
 },	{
