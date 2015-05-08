@@ -403,7 +403,7 @@ NetherMachine.rotation.register_custom(70, "|cff660099Nether|r|cff9482c9Machine 
 		{ "Templar's Verdict", { "player.holypower >= 3", "talent(7, 2)", "player.spell(Seraphim).cooldown > 8.25" } },
 		-- actions.single+=/holy_prism
 		{ "Holy Prism", { true, "!toggle.limitaoe" }, "target" },
-		},	{ "toggle.smartaoe", "player.area(8)enemies <= 2" } },	
+		},	{ "toggle.smartaoe", "!player.area(8)enemies >= 3" } },	
 
 	-- "Non-Smart" Cleave AoE Rotation >= 3
 	{	{
