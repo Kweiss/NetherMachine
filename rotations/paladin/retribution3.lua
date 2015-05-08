@@ -612,6 +612,9 @@ NetherMachine.rotation.register_custom(70, "|cff660099Nether|r|cff9482c9Machine 
 	
 	-- OOC Healing
 	{ "#118935", { "player.health < 80", "!player.ininstance(raid)" } }, -- Ever-Blooming Frond 15% health/mana every 1 sec for 6 sec. 5 min CD
+	{ "Word of Glory", { "player.health < 90", "player.holypower >= 1" }, "player" },
+	{ "Flash of Light", { "player.health < 80", "player.mana >= 50" }, "player" },
+	{ "Cleanse", { "!modifier.last", "player.dispellable(Cleanse)" }, "player" }, -- Cleanse Poison or Disease
 	
 	-- Mass Resurrection
 	{ "Mass Resurrection", { "!player.moving", "!modifier.last", "target.exists", "target.friendly", "!target.alive", "target.distance.actual < 100" } },
