@@ -1,8 +1,8 @@
 NetherMachine = {
   addonName = "NetherMachine",
   addonReal = "NetherMachine",
-  addonColor = "AC6FC7",
-  version = "1.0r3"
+  addonColor = "660099",
+  version = "1.0r4"
 }
 
 function NetherMachine.print(message)
