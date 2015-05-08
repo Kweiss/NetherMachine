@@ -2325,3 +2325,10 @@ end)
 NetherMachine.condition.register("trinket.mastery", function(unit, spell)
   return NetherMachine.MasteryProcs
 end)
+
+--NetherMachine.condition.register("gcd", function(unit, spell)
+--	if (1.5/((GetHaste("player")/100)+1)) > 1 then
+--		return math.floor(1.5/((GetHaste("player")/100)+1))
+--	end
+--	return 1
+--end)

@@ -161,6 +161,7 @@
   <Script file="rotations\paladin\protection2.lua" />
   <Script file="rotations\paladin\retribution.lua" />
   <Script file="rotations\paladin\retribution2.lua" />
+  <Script file="rotations\paladin\retribution3.lua" />
   <Script file="rotations\priest\basic_priest.lua" />
   <Script file="rotations\priest\discipline.lua" />
   <Script file="rotations\priest\holy.lua" />
