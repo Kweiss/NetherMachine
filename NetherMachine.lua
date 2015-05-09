@@ -1,7 +1,7 @@
 NetherMachine = {
   addonName = "NetherMachine",
   addonReal = "NetherMachine",
-  addonColor = "660099",
+  addonColor = "FF0074",
   version = "1.0r4"
 }
 

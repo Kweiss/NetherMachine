@@ -1,6 +1,6 @@
 ## Interface: 60100
 ## X-Min-Interface: 60000
-## Title: |cffffe00a---> |r|cff660099Nether|r|cff9900ccMachine |r|cffffe00a<---|r
+## Title: |cffffe00a<--> |r|cff8A2BE2Nether|r|cffFF0074Machine |r|cffffe00a<-->|r
 ## Notes: NetherMachine
 ## Author: Nether Man
 ## SavedVariablesPerCharacter: NetherMachine_ConfigData, ScriptSettings
