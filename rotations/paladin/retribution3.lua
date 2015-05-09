@@ -73,6 +73,8 @@ NetherMachine.rotation.register_custom(70, "|cff660099Nether|r|cff9482c9Machine 
 	{	{
 		{ "Hand of Freedom", { "toggle.usehands", "!modifier.last(Cleanse)", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root", "!mouseover.buff" }, "mouseover" },
 		{ "Hand of Freedom", { "toggle.usehands", "!modifier.last(Cleanse)", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare", "!mouseover.buff", "player.moving" }, "mouseover" },
+		-- Adding BoP on healer , because Bill is a baddie and needs something to play for him.
+		{ "Hand of Protection", { "toggle.usehands", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.role(healer)", "!mouseove.role(tank)" }, "mouseover" },
 		{ "Hand of Salvation", { "toggle.usehands", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "!mouseover.role(tank)", "mouseover.highthreat(target)" }, "mouseover" },
 		{ "Cleanse", { "!modifier.last(Cleanse)", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.dispellable(Cleanse)" }, "mouseover" },
 		},	{ "toggle.mouseovers", "player.health > 50" } },
