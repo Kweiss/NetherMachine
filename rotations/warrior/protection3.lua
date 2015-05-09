@@ -17,10 +17,10 @@
 
 -- ToDo List:
 --[[		1. )   Need function to detect 2/4 Tier Set Bonus Abilities
-		2. )   Need to rework the GCD detection Function
+			2. )   Need to rework the GCD detection Function
 ]]
 
-NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine |cfC79C6EWarrior Protection |cffff9999(SimC T17N/H) |cff336600Ver: |cff3333cc1.0.1", {
+NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine |cffC79C6EWarrior Protection |cffff9999(SimC T17N/H) |cff336600Ver: |cff3333cc1.0.1", {
 ---- *** COMBAT ROUTINE SECTION ***
 	-- ** Pauses **
 	{ "pause", "modifier.lcontrol" },
@@ -29,9 +29,11 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 
 	{ "/stopcasting", { "boss2.exists", "player.casting", "boss2.casting(Interrupting Shout)" } }, -- boss2 Highmual Pol Interrupting Shout
 
+	-- Stance
+	{ "Defensive Stance", { "!player.buff(Defensive Stance)", "!modifier.last" } },
+	
 	-- ** Survival Logic **
 	{	{
-		{ "some_spell", "some_condition" },
 		{ "#5512", { "toggle.consume", "player.health < 40" } }, -- Healthstone (5512)
 		{ "#76097", { "toggle.consume", "player.health < 15", "target.boss" } }, -- Master Healing Potion (76097)
 	},	{ "toggle.survival" } },
@@ -50,7 +52,6 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 
 	-- ** Interrupts **
 	{	{
-		{ "", "" },
 		{ "Disrupting Shout", { "target.exists", "target.enemy", "target.range < 10", "player.area(10).enemies > 1"  } },
 		{ "Disrupting Shout", { "mouseover.exists", "mouseover.enemy", "mouseover.interruptAt(40)", "mouseover.range < 10", "player.area(10).enemies > 1" }, "mouseover" },
 		{ "Pummel", { "target.exists", "target.enemy", "target.interruptAt(40)", "target.range < 5" } },
@@ -85,10 +86,10 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 	
 	-- ** Cooldowns **
 	{	{
-		-- actions+=/potion,name=draenic_strength,if=(buff.bloodlust.react|buff.avenging_wrath.up|target.time_to_die<=40)
-		{ "#109219", { "toggle.consume", "target.boss", "player.hashero" } }, -- Draenic Strength Potion
-		{ "#109219", { "toggle.consume", "target.boss", "player.buff(Avenging Wrath)" } }, -- Draenic Strength Potion
-		{ "#109219", { "toggle.consume", "target.boss", "target.deathin <= 40" } }, -- Draenic Strength Potion
+		-- actions.prot+=/potion,name=draenic_armor,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)|target.time_to_die<=25
+		{ "#109220", { "toggle.consume", "target.boss", "player.health.max * 0.1", (function() return NetherMachine.condition["buff.remains"]('player', "Maraad's Truth") < NetherMachine.condition["spell.cooldown"]('player', "Judgment") end) } }, -- Draenic Armor Potion (109220)
+		{ "#109220", { "toggle.consume", "target.boss", "player.buff(Avenging Wrath)" } }, -- Draenic Armor Potion (109220)
+		{ "#109220", { "toggle.consume", "target.boss", "target.deathin <= 40" } }, -- Draenic Armor Potion (109220)
 		-- actions+=/use_item,name=tablet_of_turnbuckle_teamwork,if=active_enemies=1&(buff.bloodbath.up|!talent.bloodbath.enabled)|(active_enemies>=2&buff.ravager_protection.up)
 		{ "#trinket1", "player.buff(Avenging Wrath)" },
 		{ "#trinket2", "player.buff(Avenging Wrath)" },
@@ -108,7 +109,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 	-- actions.prot+=/enraged_regeneration,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
 	-- actions.prot+=/shield_wall,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
 	-- actions.prot+=/last_stand,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
-	-- actions.prot+=/potion,name=draenic_armor,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)|target.time_to_die<=25
+	
 	-- actions.prot+=/stoneform,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
 	-- actions.prot+=/call_action_list,name=prot_aoe,if=active_enemies>3
 	-- actions.prot+=/heroic_strike,if=buff.ultimatum.up|(talent.unyielding_strikes.enabled&buff.unyielding_strikes.stack>=6)
@@ -161,29 +162,32 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 	-- Pauses
 	{ "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.pauses" },
-	
+
+	-- Buttons
+	{ "Heroic Leap", { "modifier.lalt" }, "ground" },
+
 	-- Buffs
 	{ "Battle Shout", { "!player.buffs.attackpower", "lowest.distance <= 30" }, "lowest" },
 	{ "Commanding Shout", { "!player.buffs.attackpower", "!player.buffs.stamina", "lowest.distance <= 30" }, "lowest" },
 
-	-- Stance
+	
 	
 
 	-- OOC Healing
 	{ "#118935", { "player.health < 80", "!player.ininstance(raid)" } }, -- Ever-Blooming Frond 15% health/mana every 1 sec for 6 sec. 5 min CD
-	
+
 	-- Mass Resurrection
 	{ "Mass Resurrection", { "!player.moving", "!modifier.last", "target.exists", "target.friendly", "!target.alive", "target.distance.actual < 100" } },
-	
+
 	-- Auto Grinding
 	{	{
 		{ "Battle Shout", "@bbLib.engaugeUnit('ANY', 30, true)" },
 		{ "Taunt" },
 		}, { "toggle.autogrind" } },
-	
+
 }, -- [Section Closing Curly Brace]
-	
-	---- *** TOGGLE BUTTONS ***
+
+---- *** TOGGLE BUTTONS ***
 function()
 	NetherMachine.toggle.create('survival', 'Interface\\Icons\\ability_warrior_defensivestance', 'Use Survival Abilities', 'Toggle usage of various self survival abilities.')
 	NetherMachine.toggle.create('mouseovers', 'Interface\\Icons\\inv_pet_lilsmoky', 'Use Mouseovers', 'Automatically cast spells on mouseover targets.')
