@@ -2,9 +2,9 @@
 -- Profile Created by NetherMan
 -- Custom Retribution Paladin - WoD 6.1.2
 -- Created on 05/06/15
--- Updated on 05/08/2015 @ 09:04
--- Version 1.0.1
--- Status: Functional Alpha Tested [ Estimated Completion: ~100% ]
+-- Updated on 05/08/2015 @ 22:36
+-- Version 1.0.2
+-- Status: Functional - Beta Stage [ Estimated Completion: ~100% ]
 -- Notes: Updating Destro profile to match SimCraft T17-Heroic Action Rotation Lists
 
 -- Suggested Talents: 2112333
@@ -16,7 +16,7 @@
 		2. )   Need to rework the GCD detection Function
 ]]
 
-NetherMachine.rotation.register_custom(70, "|cff660099Nether|r|cff9482c9Machine |cfff58cbaPaladin Retribution |cffff9999(SimC T17H/M) |cff336600Ver: |cff3333cc1.0.1", {
+NetherMachine.rotation.register_custom(70, "|cff660099Nether|r|cff9482c9Machine |cfff58cbaPaladin Retribution |cffff9999(SimC T17H/M) |cff336600Ver: |cff3333cc1.0.2", {
 ---- *** COMBAT ROUTINE SECTION ***
 	-- ** Pauses **
 	{ "pause", "modifier.lcontrol" },
