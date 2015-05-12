@@ -79,7 +79,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 	-- ** Cooldowns **
 	{	{
 		-- actions.prot+=/potion,name=draenic_armor,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)|target.time_to_die<=25
-		{ "#109220", { "toggle.consume", "target.boss", "player.health <= 30",  } }, -- Draenic Armor Potion (109220)
+		{ "#109220", { "toggle.consume", "target.boss", "player.health <= 30" } }, -- Draenic Armor Potion (109220)
 		-- actions+=/use_item,name=tablet_of_turnbuckle_teamwork,if=active_enemies=1&(buff.bloodbath.up|!talent.bloodbath.enabled)|(active_enemies>=2&buff.ravager_protection.up)
 		{ "#trinket1", { "player.area(5).enemies == 1", "player.buff(Bloodbath)" } },
 		{ "#trinket1", { "player.area(5).enemies == 1", "!talent(6, 2)"} },
@@ -89,7 +89,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 		{ "#trinket2", { "player.area(5).enemies >= 2", "player.buff(Ravager Protection)" } },
 		-- actions+=/blood_fury,if=buff.bloodbath.up|buff.avatar.up
 		{ "Blood Fury", "player.buff(Bloodbath)" },
-		{ "Blood Fury", "player.buff(Avatar)"},
+		{ "Blood Fury", "player.buff(Avatar)" },
 		-- actions+=/berserking,if=buff.bloodbath.up|buff.avatar.up
 		{ "Berserking", "player.buff(Bloodbath)" },
 		{ "Berserking", "player.buff(Avatar)" },
@@ -97,7 +97,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 		{ "Arcane Torrent", "player.buff(Bloodbath)" },
 		{ "Arcane Torrent", "player.buff(Avatar)" },
 		-- actions+=/berserker_rage,if=buff.enrage.down
-		{ "Berserker Rage", "!player.buff(Enrage)" }
+		{ "Berserker Rage", "!player.buff(Enrage)" },
 		-- actions.prot=shield_block,if=!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up)
 		{ "Shield Block", "!target.debuff(Demoralizing Shout)" },
 		{ "Shield Block", "!player.buff(Ravager Protection)" },
@@ -117,37 +117,37 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 		{ "Enraged Regeneration", { "talent(2, 1)", "player.health <= 60", "!player.buff(Shield Block)" } },
 		{ "Enraged Regeneration", { "talent(2, 1)", "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
 		-- actions.prot+=/demoralizing_shout,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
-		{ "Demoralizing Shout" { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
-		{ "Demoralizing Shout" { "player.health <= 60", "!player.buff(Ravager Protection)" } },
-		{ "Demoralizing Shout" { "player.health <= 60", "!player.buff(Shield Wall)" } },
-		{ "Demoralizing Shout" { "player.health <= 60", "!player.buff(Last Stand)" } },
-		{ "Demoralizing Shout" { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
-		{ "Demoralizing Shout" { "player.health <= 60", "!player.buff(Shield Block)" } },
-		{ "Demoralizing Shout" { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
+		{ "Demoralizing Shout", { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
+		{ "Demoralizing Shout", { "player.health <= 60", "!player.buff(Ravager Protection)" } },
+		{ "Demoralizing Shout", { "player.health <= 60", "!player.buff(Shield Wall)" } },
+		{ "Demoralizing Shout", { "player.health <= 60", "!player.buff(Last Stand)" } },
+		{ "Demoralizing Shout", { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
+		{ "Demoralizing Shout", { "player.health <= 60", "!player.buff(Shield Block)" } },
+		{ "Demoralizing Shout", { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
 		-- actions.prot+=/shield_wall,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
-		{ "Shield Wall" { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
-		{ "Shield Wall" { "player.health <= 60", "!player.buff(Ravager Protection)" } },
-		{ "Shield Wall" { "player.health <= 60", "!player.buff(Shield Wall)" } },
-		{ "Shield Wall" { "player.health <= 60", "!player.buff(Last Stand)" } },
-		{ "Shield Wall" { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
-		{ "Shield Wall" { "player.health <= 60", "!player.buff(Shield Block)" } },
-		{ "Shield Wall" { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
+		{ "Shield Wall", { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
+		{ "Shield Wall", { "player.health <= 60", "!player.buff(Ravager Protection)" } },
+		{ "Shield Wall", { "player.health <= 60", "!player.buff(Shield Wall)" } },
+		{ "Shield Wall", { "player.health <= 60", "!player.buff(Last Stand)" } },
+		{ "Shield Wall", { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
+		{ "Shield Wall", { "player.health <= 60", "!player.buff(Shield Block)" } },
+		{ "Shield Wall", { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
 		-- actions.prot+=/last_stand,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
-		{ "Last Stand" { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
-		{ "Last Stand" { "player.health <= 60", "!player.buff(Ravager Protection)" } },
-		{ "Last Stand" { "player.health <= 60", "!player.buff(Shield Wall)" } },
-		{ "Last Stand" { "player.health <= 60", "!player.buff(Last Stand)" } },
-		{ "Last Stand" { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
-		{ "Last Stand" { "player.health <= 60", "!player.buff(Shield Block)" } },
-		{ "Last Stand" { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
+		{ "Last Stand", { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
+		{ "Last Stand", { "player.health <= 60", "!player.buff(Ravager Protection)" } },
+		{ "Last Stand", { "player.health <= 60", "!player.buff(Shield Wall)" } },
+		{ "Last Stand", { "player.health <= 60", "!player.buff(Last Stand)" } },
+		{ "Last Stand", { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
+		{ "Last Stand", { "player.health <= 60", "!player.buff(Shield Block)" } },
+		{ "Last Stand", { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
 		-- actions.prot+=/stoneform,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)
-		{ "Stoneform" { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
-		{ "Stoneform" { "player.health <= 60", "!player.buff(Ravager Protection)" } },
-		{ "Stoneform" { "player.health <= 60", "!player.buff(Shield Wall)" } },
-		{ "Stoneform" { "player.health <= 60", "!player.buff(Last Stand)" } },
-		{ "Stoneform" { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
-		{ "Stoneform" { "player.health <= 60", "!player.buff(Shield Block)" } },
-		{ "Stoneform" { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
+		{ "Stoneform", { "player.health <= 60", "!target.debuff(Demoralizing Shout)" } },
+		{ "Stoneform", { "player.health <= 60", "!player.buff(Ravager Protection)" } },
+		{ "Stoneform", { "player.health <= 60", "!player.buff(Shield Wall)" } },
+		{ "Stoneform", { "player.health <= 60", "!player.buff(Last Stand)" } },
+		{ "Stoneform", { "player.health <= 60", "!player.buff(Enraged Regeneration)" } },
+		{ "Stoneform", { "player.health <= 60", "!player.buff(Shield Block)" } },
+		{ "Stoneform", { "player.health <= 60", "!player.buff(Draenic Armor Potion)" } },
 	},	{ "modifier.cooldowns", "target.exists", "target.enemy", "target.alive", "target.distance <= 5" } },
 
 	-- ** "Non-Smart" Single Target Rotation <= 2 **
