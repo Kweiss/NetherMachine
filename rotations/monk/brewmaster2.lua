@@ -38,6 +38,7 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 	{ "Spinning Crane Kick", "modifier.rshift" },
 
 	-- COOLDOWNS
+	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
 	-- actions+=/blood_fury,if=energy<=40
 	{ "Blood Fury", { "modifier.cooldowns", "player.energy <= 40" } },
 	-- actions+=/berserking,if=energy<=40
