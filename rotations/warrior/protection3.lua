@@ -323,7 +323,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 
 	-- Buffs
 	{ "Battle Shout", { "!player.buffs.attackpower", "lowest.distance <= 30", "!modifier.last" }, "lowest" },
-	{ "Commanding Shout", { "player.buffs.attackpower", "!player.buffs.stamina", "lowest.distance <= 30", "!modifier.last" }, "lowest" },
+	{ "Commanding Shout", { "!player.buffs.attackpower", "!player.buffs.stamina", "lowest.distance <= 30", "!modifier.last" }, "lowest" },
 
 	-- OOC Healing
 	{ "#118935", { "player.health < 80", "!player.ininstance(raid)" } }, -- Ever-Blooming Frond 15% health/mana every 1 sec for 6 sec. 5 min CD
