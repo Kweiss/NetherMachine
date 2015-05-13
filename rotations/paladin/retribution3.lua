@@ -50,7 +50,7 @@ NetherMachine.rotation.register_custom(70, "|cff660099Nether|r|cffFF0074Machine 
 	
 	-- ** Interrupts **
 	{	{
-		{ "Rebuke", "modifier.interrupt" },
+		{ "Rebuke", { "modifier.interrupt", "target.distance <= 5" } },
 		{ "Fist of Justice", "target.distance < 20", "talent(2, 1)" },
 		{ "Repentance", "target.distance < 30", "talent(2, 2)" },
 		{ "Blinding Light", "target.distance < 10", "talent(2, 3)" },

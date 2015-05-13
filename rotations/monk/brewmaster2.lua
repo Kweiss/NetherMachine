@@ -175,6 +175,13 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 
 	-- Buffs
 	{ "Legacy of the White Tiger", { "player.ooctime > 3", "!player.buffs.stats" } },
+	
+	-- OOC Healing
+	{ "#118935", { "player.health < 80", "!player.ininstance(raid)" } }, -- Ever-Blooming Frond 15% health/mana every 1 sec for 6 sec. 5 min CD
+	{ "Surging Mist", { "player.health <= 90",  "!player.moving", "player.energy >= 70" } },
+
+	-- Mass Resurrection
+	{ "Mass Resurrection", { "!player.moving", "!modifier.last", "target.exists", "target.friendly", "!target.alive", "target.distance.actual < 100" } },
 
 	-- Ground Stuff
 	{ "Dizzying Haze", { "modifier.lshift", "player.area(40).enemies > 0" }, "ground" },
