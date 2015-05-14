@@ -216,8 +216,6 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 		{ "Jab", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", "player.spell(Expel Harm).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
 		-- actions.st+=/tiger_palm
 		{ "Tiger Palm" },
-		--(function () return (NetherMachine.print("Smart Single Mode Active!")) end),
-		{ "/run print('Smart Single Mode Active!')" },
 	},{
 		"toggle.smartaoe", "!player.area(10).enemies >= 3",
 	} },
@@ -267,8 +265,6 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 		{ "Jab", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", "player.spell(Expel Harm).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
 		-- actions.aoe+=/tiger_palm
 		{ "Tiger Palm" },
-		--(function () return (NetherMachine.print("Smart AoE Mode Active!")) end),NetherMachine.debug.print('Loaded Rotation for ' .. name, 'rotation')
-		{ "/run print('Smart AoE Mode Active!')" },
 	},{
 		"toggle.smartaoe", "player.area(10).enemies >= 3",
 	} },
