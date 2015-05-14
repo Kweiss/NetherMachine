@@ -69,7 +69,41 @@ function NetherMachine.protected.FireHack()
           return GetAveragePositionOfObjects(winners)
         end
 
-        local uau_cache_time = { }
+--        local uau_cache_time = { }
+--        local uau_cache_count = { }
+--        local uau_cache_dura = 0.1
+--        function UnitsAroundUnit(unit, distance, ignoreCombat)
+--            local uau_cache_time_c = uau_cache_time[unit..distance..tostring(ignoreCombat)]
+--            if uau_cache_time_c and ((uau_cache_time_c + uau_cache_dura) > GetTime()) then
+--                return uau_cache_count[unit..distance..tostring(ignoreCombat)]
+--            end
+--            if UnitExists(unit) then
+--                local total = 0
+--                local totalObjects = ObjectCount()
+--                for i = 1, totalObjects do
+--                    local object = ObjectWithIndex(i)
+--                    local _, oType = pcall(ObjectType, object)
+--                    local unitisunit = bit.band(oType, ObjectTypes.Unit)
+--                    if unitisunit and unitisunit > 0 then
+--                        local reaction = UnitReaction("player", object)
+--                        local combat = UnitAffectingCombat(object)
+--                        local health = UnitHealth(object)
+--                        if reaction and reaction <= 4 and (ignoreCombat or combat) then
+--                            if Distance(object, unit) <= distance and health > 0 then
+--                                total = total + 1
+--                            end
+--                        end
+--                    end
+--                end
+--                uau_cache_count[unit..distance..tostring(ignoreCombat)] = total
+--                uau_cache_time[unit..distance..tostring(ignoreCombat)] = GetTime()
+--                return total
+--            else
+--                return 0
+--            end
+--        end
+
+		local uau_cache_time = { }
         local uau_cache_count = { }
         local uau_cache_dura = 0.1
         function UnitsAroundUnit(unit, distance, ignoreCombat)
@@ -83,13 +117,15 @@ function NetherMachine.protected.FireHack()
                 for i = 1, totalObjects do
                     local object = ObjectWithIndex(i)
                     local _, oType = pcall(ObjectType, object)
-                    local unitisunit = bit.band(oType, ObjectTypes.Unit)
-                    if unitisunit and unitisunit > 0 then
+                    if bit.band(oType, ObjectTypes.Unit) > 0 then
                         local reaction = UnitReaction("player", object)
                         local combat = UnitAffectingCombat(object)
-                        local health = UnitHealth(object)
-                        if reaction and reaction <= 4 and (ignoreCombat or combat) then
-                            if Distance(object, unit) <= distance and health > 0 then
+                        local _, special_target = pcall(SpecialTargetCheck, object)
+                        local _, tapped_by_me = pcall(UnitIsTappedByPlayer, object)
+                        local _, tapped_by_all = pcall(UnitIsTappedByAllThreatList, object)
+                        --if reaction and reaction <= 4 and (ignoreCombat or combat) then
+                        if reaction and reaction <= 4 and (ignoreCombat or tapped_by_me or tapped_by_all or special_target) then
+                            if Distance(object, unit) <= distance then
                                 total = total + 1
                             end
                         end
@@ -103,13 +139,44 @@ function NetherMachine.protected.FireHack()
             end
         end
 
-        local fuau_cache_time = { }
-        local fuau_cache_count = { }
-        local fuau_cache_dura = 0.1
-        function FriendlyUnitsAroundUnit(unit, distance, ignoreCombat)
-            local fuau_cache_time_c = fuau_cache_time[unit..distance..tostring(ignoreCombat)..'f']
-            if fuau_cache_time_c and ((fuau_cache_time_c + fuau_cache_dura) > GetTime()) then
-                return fuau_cache_count[unit..distance..tostring(ignoreCombat)..'f']
+--        local fuau_cache_time = { }
+--        local fuau_cache_count = { }
+--        local fuau_cache_dura = 0.1
+--        function FriendlyUnitsAroundUnit(unit, distance, ignoreCombat)
+--            local fuau_cache_time_c = fuau_cache_time[unit..distance..tostring(ignoreCombat)..'f']
+--            if fuau_cache_time_c and ((fuau_cache_time_c + fuau_cache_dura) > GetTime()) then
+--                return fuau_cache_count[unit..distance..tostring(ignoreCombat)..'f']
+--            end
+--            if UnitExists(unit) then
+--                local total = 0
+--                local totalObjects = ObjectCount()
+--                for i = 1, totalObjects do
+--                    local object = ObjectWithIndex(i)
+--                    local _, oType = pcall(ObjectType, object)
+--                    local unitisunit = bit.band(oType, ObjectTypes.Unit)
+--                    if unitisunit and unitisunit > 0 then
+--                        local reaction = UnitReaction("player", object)
+--                        local combat = UnitAffectingCombat(object)
+--                        local health = UnitHealth(object)
+--                        if reaction and reaction >= 5 and (ignoreCombat or combat) then
+--                            if Distance(object, unit) <= distance and health > 0 then
+--                                total = total + 1
+--                            end
+--                        end
+--                    end
+--                end
+--                fuau_cache_count[unit..distance..tostring(ignoreCombat)..'f'] = total
+--                fuau_cache_time[unit..distance..tostring(ignoreCombat)..'f'] = GetTime()
+--                return total
+--            else
+--                return 0
+--            end
+--        end
+
+		function FriendlyUnitsAroundUnit(unit, distance, ignoreCombat)
+            local uau_cache_time_c = uau_cache_time[unit..distance..tostring(ignoreCombat)..'f']
+            if uau_cache_time_c and ((uau_cache_time_c + uau_cache_dura) > GetTime()) then
+                return uau_cache_count[unit..distance..tostring(ignoreCombat)..'f']
             end
             if UnitExists(unit) then
                 local total = 0
@@ -117,20 +184,18 @@ function NetherMachine.protected.FireHack()
                 for i = 1, totalObjects do
                     local object = ObjectWithIndex(i)
                     local _, oType = pcall(ObjectType, object)
-                    local unitisunit = bit.band(oType, ObjectTypes.Unit)
-                    if unitisunit and unitisunit > 0 then
+                    if bit.band(oType, ObjectTypes.Unit) > 0 then
                         local reaction = UnitReaction("player", object)
                         local combat = UnitAffectingCombat(object)
-                        local health = UnitHealth(object)
                         if reaction and reaction >= 5 and (ignoreCombat or combat) then
-                            if Distance(object, unit) <= distance and health > 0 then
+                            if Distance(object, unit) <= distance then
                                 total = total + 1
                             end
                         end
                     end
                 end
-                fuau_cache_count[unit..distance..tostring(ignoreCombat)..'f'] = total
-                fuau_cache_time[unit..distance..tostring(ignoreCombat)..'f'] = GetTime()
+                uau_cache_count[unit..distance..tostring(ignoreCombat)..'f'] = total
+                uau_cache_time[unit..distance..tostring(ignoreCombat)..'f'] = GetTime()
                 return total
             else
                 return 0

@@ -12,6 +12,7 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 	-- PAUSES
 	{ "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.pauses" },
+	{ "pause", "target.istheplayer" },
 
 	-- AUTO TARGET
 	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
@@ -34,8 +35,13 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 	-- Keybinds
 	{ "Dizzying Haze", "modifier.lshift", "ground" },
 	{ "Summon Black Ox Statue", "modifier.lalt", "ground" },
-	{ "Healing Sphere", "modifer.ralt", "ground" },
+	-- { "Healing Sphere", "modifer.ralt", "ground" },
 	{ "Spinning Crane Kick", "modifier.rshift" },
+
+	-- ** Auto Grinding **
+	{	{
+		{ "Legacy of the White Tiger", "@bbLib.engaugeUnit('ANY', 30, true)" },
+		}, { "toggle.autogrind" } },
 
 	-- COOLDOWNS
 	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
@@ -77,7 +83,51 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 	--{ "Dizzying Haze", { "target.exists", "target.enemy", "target.combat", "target.distance > 15", "target.distance < 40", "!target.debuff(Dizzying Haze)", "!modifier.last" }, "target.ground" },
 	--{ "Dizzying Haze", { "toggle.mouseovers", "mouseover.exists", "mouseover.enemy", "mouseover.combat", "mouseover.distance > 15", "mouseover.distance < 40", "!mouseover.debuff(Dizzying Haze)" }, "mouseover.ground" },
 
-	-- MULTIPLE TARGET ROTATION
+	-- "Non-Smart" SINGLE TARGET ROTATION
+	{ {
+		-- actions.st=purifying_brew,if=!talent.chi_explosion.enabled&stagger.heavy
+		{ "Purifying Brew", { "!talent(7, 2)", "player.debuff(Heavy Stagger)" } },
+		-- actions.st+=/blackout_kick,if=buff.shuffle.down
+		{ "Blackout Kick", "!player.buff(Shuffle)" },
+		-- actions.st+=/purifying_brew,if=buff.serenity.up
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Light Stagger)" } },
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Moderate Stagger)" } },
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Heavy Stagger)" } },
+		-- actions.st+=/purifying_brew,if=!talent.chi_explosion.enabled&stagger.moderate&buff.shuffle.remains>=6
+		{ "Purifying Brew", { "!talent(7, 2)", "player.debuff(Moderate Stagger)", "player.buff(Shuffle).remains >= 6" } },
+		-- actions.st+=/guard,if=(charges=1&recharge_time<5)|charges=2|target.time_to_die<15
+		{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 1", "player.spell(Guard).recharge < 5" } },
+		{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 2" } },
+		{ "Guard", { "!player.buff(Guard)", "target.boss", "target.deathin < 15" } },
+		-- actions.st+=/guard,if=incoming_damage_10s>=health.max*0.5
+		{ "Guard", { "!player.buff(Guard)", "player.health <= 70" } },
+		-- actions.st+=/keg_smash,if=chi.max-chi>=1&!buff.serenity.remains
+		{ "Keg Smash", { "player.chi.deficit >= 1", "!player.buff(Serenity)" } },
+		-- actions.st+=/chi_burst,if=(energy+(energy.regen*gcd))<100
+		{ "Chi Burst", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
+		-- actions.st+=/chi_wave,if=(energy+(energy.regen*gcd))<100
+		{ "Chi Wave", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
+		-- actions.st+=/zen_sphere,cycle_targets=1,if=talent.zen_sphere.enabled&!dot.zen_sphere.ticking&(energy+(energy.regen*gcd))<100
+		{ "Zen Sphere", { "talent(2, 2)", "!player.buff(Zen Sphere)", (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) }, "player" },
+		-- actions.st+=/chi_explosion,if=chi>=3
+		{ "Chi Explosion", "player.chi >= 3" },
+		-- actions.st+=/blackout_kick,if=chi>=4
+		{ "Blackout Kick", "player.chi >= 4" },
+		-- actions.st+=/blackout_kick,if=buff.shuffle.remains<=3&cooldown.keg_smash.remains>=gcd
+		{ "Blackout Kick", { "player.buff(Shuffle).remains <= 3", "player.spell(Keg Smash).cooldown >= 1" } },
+		-- actions.st+=/blackout_kick,if=buff.serenity.up
+		{ "Blackout Kick", "player.buff(Serenity)" },
+		-- actions.st+=/expel_harm,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
+		{ "Expel Harm", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
+		-- actions.st+=/jab,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&cooldown.expel_harm.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
+		{ "Jab", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", "player.spell(Expel Harm).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
+		-- actions.st+=/tiger_palm
+		{ "Tiger Palm" },
+	},{
+		"!modifier.multitarget", "!toggle.smartaoe",
+	} },
+
+	-- "Non-Smart" MULTIPLE TARGET ROTATION
 	{ {
 		-- actions.aoe=purifying_brew,if=stagger.heavy
 		{ "Purifying Brew", "player.debuff(Heavy Stagger)" },
@@ -123,49 +173,105 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 		-- actions.aoe+=/tiger_palm
 		{ "Tiger Palm" },
 	},{
-		"modifier.multitarget", "player.area(10).enemies >= 3",
+		"modifier.multitarget", "!toggle.smartaoe",
 	} },
 
+	-- "Smart" SINGLE TARGET ROTATION [<=2]
+	{ {
+		-- actions.st=purifying_brew,if=!talent.chi_explosion.enabled&stagger.heavy
+		{ "Purifying Brew", { "!talent(7, 2)", "player.debuff(Heavy Stagger)" } },
+		-- actions.st+=/blackout_kick,if=buff.shuffle.down
+		{ "Blackout Kick", "!player.buff(Shuffle)" },
+		-- actions.st+=/purifying_brew,if=buff.serenity.up
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Light Stagger)" } },
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Moderate Stagger)" } },
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Heavy Stagger)" } },
+		-- actions.st+=/purifying_brew,if=!talent.chi_explosion.enabled&stagger.moderate&buff.shuffle.remains>=6
+		{ "Purifying Brew", { "!talent(7, 2)", "player.debuff(Moderate Stagger)", "player.buff(Shuffle).remains >= 6" } },
+		-- actions.st+=/guard,if=(charges=1&recharge_time<5)|charges=2|target.time_to_die<15
+		{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 1", "player.spell(Guard).recharge < 5" } },
+		{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 2" } },
+		{ "Guard", { "!player.buff(Guard)", "target.boss", "target.deathin < 15" } },
+		-- actions.st+=/guard,if=incoming_damage_10s>=health.max*0.5
+		{ "Guard", { "!player.buff(Guard)", "player.health <= 70" } },
+		-- actions.st+=/keg_smash,if=chi.max-chi>=1&!buff.serenity.remains
+		{ "Keg Smash", { "player.chi.deficit >= 1", "!player.buff(Serenity)" } },
+		-- actions.st+=/chi_burst,if=(energy+(energy.regen*gcd))<100
+		{ "Chi Burst", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
+		-- actions.st+=/chi_wave,if=(energy+(energy.regen*gcd))<100
+		{ "Chi Wave", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
+		-- actions.st+=/zen_sphere,cycle_targets=1,if=talent.zen_sphere.enabled&!dot.zen_sphere.ticking&(energy+(energy.regen*gcd))<100
+		{ "Zen Sphere", { "talent(2, 2)", "!player.buff(Zen Sphere)", (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) }, "player" },
+		-- actions.st+=/chi_explosion,if=chi>=3
+		{ "Chi Explosion", "player.chi >= 3" },
+		-- actions.st+=/blackout_kick,if=chi>=4
+		{ "Blackout Kick", "player.chi >= 4" },
+		-- actions.st+=/blackout_kick,if=buff.shuffle.remains<=3&cooldown.keg_smash.remains>=gcd
+		{ "Blackout Kick", { "player.buff(Shuffle).remains <= 3", "player.spell(Keg Smash).cooldown >= 1" } },
+		-- actions.st+=/blackout_kick,if=buff.serenity.up
+		{ "Blackout Kick", "player.buff(Serenity)" },
+		-- actions.st+=/expel_harm,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
+		{ "Expel Harm", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
+		-- actions.st+=/jab,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&cooldown.expel_harm.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
+		{ "Jab", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", "player.spell(Expel Harm).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
+		-- actions.st+=/tiger_palm
+		{ "Tiger Palm" },
+		--(function () return (NetherMachine.print("Smart Single Mode Active!")) end),
+		{ "/run print('Smart Single Mode Active!')" },
+	},{
+		"toggle.smartaoe", "!player.area(10).enemies >= 3",
+	} },
 
-	-- SINGLE TARGET ROTATION
-	-- actions.st=purifying_brew,if=!talent.chi_explosion.enabled&stagger.heavy
-	{ "Purifying Brew", { "!talent(7, 2)", "player.debuff(Heavy Stagger)" } },
-	-- actions.st+=/blackout_kick,if=buff.shuffle.down
-	{ "Blackout Kick", "!player.buff(Shuffle)" },
-	-- actions.st+=/purifying_brew,if=buff.serenity.up
-	{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Light Stagger)" } },
-	{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Moderate Stagger)" } },
-	{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Heavy Stagger)" } },
-	-- actions.st+=/purifying_brew,if=!talent.chi_explosion.enabled&stagger.moderate&buff.shuffle.remains>=6
-	{ "Purifying Brew", { "!talent(7, 2)", "player.debuff(Moderate Stagger)", "player.buff(Shuffle).remains >= 6" } },
-	-- actions.st+=/guard,if=(charges=1&recharge_time<5)|charges=2|target.time_to_die<15
-	{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 1", "player.spell(Guard).recharge < 5" } },
-	{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 2" } },
-	{ "Guard", { "!player.buff(Guard)", "target.boss", "target.deathin < 15" } },
-	-- actions.st+=/guard,if=incoming_damage_10s>=health.max*0.5
-	{ "Guard", { "!player.buff(Guard)", "player.health <= 70" } },
-	-- actions.st+=/keg_smash,if=chi.max-chi>=1&!buff.serenity.remains
-	{ "Keg Smash", { "player.chi.deficit >= 1", "!player.buff(Serenity)" } },
-	-- actions.st+=/chi_burst,if=(energy+(energy.regen*gcd))<100
-	{ "Chi Burst", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
-	-- actions.st+=/chi_wave,if=(energy+(energy.regen*gcd))<100
-	{ "Chi Wave", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
-	-- actions.st+=/zen_sphere,cycle_targets=1,if=talent.zen_sphere.enabled&!dot.zen_sphere.ticking&(energy+(energy.regen*gcd))<100
-	{ "Zen Sphere", { "talent(2, 2)", "!player.buff(Zen Sphere)", (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) }, "player" },
-	-- actions.st+=/chi_explosion,if=chi>=3
-	{ "Chi Explosion", "player.chi >= 3" },
-	-- actions.st+=/blackout_kick,if=chi>=4
-	{ "Blackout Kick", "player.chi >= 4" },
-	-- actions.st+=/blackout_kick,if=buff.shuffle.remains<=3&cooldown.keg_smash.remains>=gcd
-	{ "Blackout Kick", { "player.buff(Shuffle).remains <= 3", "player.spell(Keg Smash).cooldown >= 1" } },
-	-- actions.st+=/blackout_kick,if=buff.serenity.up
-	{ "Blackout Kick", "player.buff(Serenity)" },
-	-- actions.st+=/expel_harm,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
-	{ "Expel Harm", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
-	-- actions.st+=/jab,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&cooldown.expel_harm.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
-	{ "Jab", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", "player.spell(Expel Harm).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
-	-- actions.st+=/tiger_palm
-	{ "Tiger Palm" },
+	-- "Smart" MULTIPLE TARGET ROTATION [>=3]
+	{ {
+		-- actions.aoe=purifying_brew,if=stagger.heavy
+		{ "Purifying Brew", "player.debuff(Heavy Stagger)" },
+		-- actions.aoe+=/blackout_kick,if=buff.shuffle.down
+		{ "Blackout Kick", "!player.buff(Shuffle)" },
+		-- actions.aoe+=/purifying_brew,if=buff.serenity.up
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Light Stagger)" } },
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Moderate Stagger)" } },
+		{ "Purifying Brew", { "player.buff(Serenity)", "player.debuff(Heavy Stagger)" } },
+		-- actions.aoe+=/purifying_brew,if=!talent.chi_explosion.enabled&stagger.moderate&buff.shuffle.remains>=6
+		{ "Purifying Brew", { "!talent(7, 2)", "player.debuff(Moderate Stagger)", "player.buff(Shuffle).remains >= 6" } },
+		-- actions.aoe+=/guard,if=(charges=1&recharge_time<5)|charges=2|target.time_to_die<15
+		{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 1", "player.spell(Guard).recharge < 5" } },
+		{ "Guard", { "!player.buff(Guard)", "player.spell(Guard).charges == 2" } },
+		{ "Guard", { "!player.buff(Guard)", "target.boss", "target.deathin < 15" } },
+		-- actions.aoe+=/guard,if=incoming_damage_10s>=health.max*0.5
+		{ "Guard", { "!player.buff(Guard)", "player.health <= 70" } },
+		-- actions.aoe+=/breath_of_fire,if=(chi>=3|buff.serenity.up)&buff.shuffle.remains>=6&dot.breath_of_fire.remains<=2.4&!talent.chi_explosion.enabled
+		{ "Breath of Fire", { "player.chi >= 3", "player.buff(Shuffle).remains >= 6", "target.debuff(Breath of Fire).remains <= 2.4", "!talent(7, 2)" } },
+		{ "Breath of Fire", { "player.buff(Serenity)", "player.buff(Shuffle).remains >= 6", "target.debuff(Breath of Fire).remains <= 2.4", "!talent(7, 2)" } },
+		-- actions.aoe+=/keg_smash,if=chi.max-chi>=1&!buff.serenity.remains
+		{ "Keg Smash", { "player.chi.deficit >= 1", "!player.buff(Serenity)" } },
+		-- actions.aoe+=/rushing_jade_wind,if=chi.max-chi>=1&!buff.serenity.remains&talent.rushing_jade_wind.enabled
+		{ "Rushing Jade Wind", { "player.chi.deficit >= 1", "!player.buff(Serenity)", "talent(6, 1)" } },
+		-- actions.aoe+=/chi_burst,if=(energy+(energy.regen*gcd))<100
+		{ "Chi Burst", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
+		-- actions.aoe+=/chi_wave,if=(energy+(energy.regen*gcd))<100
+		{ "Chi Wave", { (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) } },
+		-- actions.aoe+=/zen_sphere,cycle_targets=1,if=talent.zen_sphere.enabled&!dot.zen_sphere.ticking&(energy+(energy.regen*gcd))<100
+		{ "Zen Sphere", { "talent(2, 2)", "!player.buff(Zen Sphere)", (function() return (NetherMachine.condition["energy"]('player') + (NetherMachine.condition["energy.regen"]('player') * 1)) < 100 end) }, "player" },
+		-- actions.aoe+=/chi_explosion,if=chi>=4
+		{ "Chi Explosion", "player.chi >= 4" },
+		-- actions.aoe+=/blackout_kick,if=chi>=4
+		{ "Blackout Kick", "player.chi >= 4" },
+		-- actions.aoe+=/blackout_kick,if=buff.shuffle.remains<=3&cooldown.keg_smash.remains>=gcd
+		{ "Blackout Kick", { "player.buff(Shuffle).remains <= 3", "player.spell(Keg Smash).cooldown >= 1" } },
+		-- actions.aoe+=/blackout_kick,if=buff.serenity.up
+		{ "Blackout Kick", "player.buff(Serenity)" },
+		-- actions.aoe+=/expel_harm,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
+		{ "Expel Harm", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
+		-- actions.aoe+=/jab,if=chi.max-chi>=1&cooldown.keg_smash.remains>=gcd&cooldown.expel_harm.remains>=gcd&(energy+(energy.regen*(cooldown.keg_smash.remains)))>=80
+		{ "Jab", { "player.chi.deficit >= 1", "player.spell(Keg Smash).cooldown >= 1", "player.spell(Expel Harm).cooldown >= 1", (function() return ((NetherMachine.condition["energy"]('player')+(NetherMachine.condition["energy.regen"]('player')*(NetherMachine.condition["spell.cooldown"]('player', 'Keg Smash')))) >= 80) end) } },
+		-- actions.aoe+=/tiger_palm
+		{ "Tiger Palm" },
+		--(function () return (NetherMachine.print("Smart AoE Mode Active!")) end),NetherMachine.debug.print('Loaded Rotation for ' .. name, 'rotation')
+		{ "/run print('Smart AoE Mode Active!')" },
+	},{
+		"toggle.smartaoe", "player.area(10).enemies >= 3",
+	} },
 
 },{
 -- OUT OF COMBAT ROTATION
@@ -181,11 +287,17 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 	{ "Surging Mist", { "player.health <= 90",  "!player.moving", "player.energy >= 70" } },
 
 	-- Mass Resurrection
-	{ "Mass Resurrection", { "!player.moving", "!modifier.last", "target.exists", "target.friendly", "!target.alive", "target.distance.actual < 100" } },
+	{ "Mass Resurrection", { "!player.moving", "!modifier.last", "target.friendly", "!target.alive" } },
 
 	-- Ground Stuff
-	{ "Dizzying Haze", { "modifier.lshift", "player.area(40).enemies > 0" }, "ground" },
+	{ "Dizzying Haze", { "modifier.ralt", true }, "ground" },
 	{ "Summon Black Ox Statue", "modifier.lalt", "ground" },
+	
+	-- Auto Grinding
+	{	{
+		{ "Legacy of the White Tiger", "@bbLib.engaugeUnit('ANY', 30, true)" },
+		{ "Tiger Palm", true, "target" },
+		}, { "toggle.autogrind" } },
 
 -- actions.precombat=flask,type=greater_draenic_stamina_flask
 -- actions.precombat+=//food,type=sleeper_surprise
@@ -197,9 +309,11 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 
 },
 function()
+	NetherMachine.toggle.create('smartaoe', 'Interface\\Icons\\Ability_Racial_RocketBarrage', 'Enable Smart AoE Detection', 'Toggle the usage of smart detection of Single/AoE target roation selection abilities.')
 	NetherMachine.toggle.create('mouseovers', 'Interface\\Icons\\inv_pet_lilsmoky', 'Use Mouseovers', 'Automatically cast spells on mouseover targets')
 	NetherMachine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'Enable PvP', 'Toggle the usage of PvP abilities.')
 	NetherMachine.toggle.create('limitaoe', 'Interface\\Icons\\spell_fire_flameshock', 'Limit AoE', 'Toggle to avoid using CC breaking aoe effects.')
 	NetherMachine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
 	NetherMachine.toggle.create('autotaunt', 'Interface\\Icons\\spell_nature_reincarnation', 'Auto Taunt', 'Automaticaly taunt the boss at the appropriate stacks')
+	NetherMachine.toggle.create('autogrind', 'Interface\\Icons\\inv_misc_fish_33', 'Auto Attack', 'Automaticly target and attack nearby enemies.')
 end)

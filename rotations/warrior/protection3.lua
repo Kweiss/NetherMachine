@@ -185,42 +185,6 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 		-- actions.prot+=/devastate
 		{ "Devastate" },
 	},	{ "!modifier.multitarget", "!toggle.smartaoe" } },
-
-	-- ** "Smart" Single Target Rotation <= 3 **
-	{	{
-		-- actions.prot+=/heroic_strike,if=buff.ultimatum.up|(talent.unyielding_strikes.enabled&buff.unyielding_strikes.stack>=6)
-		{ "Heroic Strike", "player.buff(Ultimatum)" },
-		{ "Heroic Strike", { "talent(3, 3)", "player.buff(Unyielding Strikes).count >= 6" } },
-		-- actions.prot+=/bloodbath,if=talent.bloodbath.enabled&((cooldown.dragon_roar.remains=0&talent.dragon_roar.enabled)|(cooldown.storm_bolt.remains=0&talent.storm_bolt.enabled)|talent.shockwave.enabled)
-		{ "Bloodbath", { "talent(6, 2)", "player.spell(Dragon Roar).cooldown == 0", "talent(4, 3)" } },
-		{ "Bloodbath", { "talent(6, 2)", "player.spell(Storm Bolt).cooldown == 0", "talent(4, 1)" } },
-		{ "Bloodbath", { "talent(6, 2)", "talent(4, 2)" } },
-		-- actions.prot+=/avatar,if=talent.avatar.enabled&((cooldown.ravager.remains=0&talent.ravager.enabled)|(cooldown.dragon_roar.remains=0&talent.dragon_roar.enabled)|(talent.storm_bolt.enabled&cooldown.storm_bolt.remains=0)|(!(talent.dragon_roar.enabled|talent.ravager.enabled|talent.storm_bolt.enabled)))
-		{ "Avatar", { "talent(6, 1)", "player.spell(Ravager).cooldown == 0", "talent(7, 2)" } },
-		{ "Avatar", { "talent(6, 1)", "player.spell(Dragon Roar).cooldown == 0", "talent(4, 3)" } },
-		{ "Avatar", { "talent(6, 1)", "player.spell(Storm Bolt).cooldown == 0", "talent(4, 1)" } },
-		{ "Avatar", { "talent(6, 1)", "!talent(4, 3)" } },
-		{ "Avatar", { "talent(6, 1)", "!talent(7, 2)" } },
-		{ "Avatar", { "talent(6, 1)", "!talent(4, 1)" } },
-		-- actions.prot+=/shield_slam
-		{ "Shield Slam" },
-		-- actions.prot+=/revenge
-		{ "Revenge" },
-		-- actions.prot+=/ravager
-		{ "Ravager" },
-		-- actions.prot+=/storm_bolt
-		{ "Storm Bolt" },
-		-- actions.prot+=/dragon_roar
-		{ "Dragon Roar" },
-		-- actions.prot+=/impending_victory,if=talent.impending_victory.enabled&cooldown.shield_slam.remains<=execute_time
-		{ "Impending Victory", { "talent(2, 3)", "player.health <= 85" } },
-		-- actions.prot+=/victory_rush,if=!talent.impending_victory.enabled&cooldown.shield_slam.remains<=execute_time
-		{ "Victory Rush", { "!talent(2, 3)", "player.health <= 85" } },
-		-- actions.prot+=/execute,if=buff.sudden_death.react
-		{ "Execute", "player.buff(Sudden Death)" },
-		-- actions.prot+=/devastate
-		{ "Devastate" },
-		},	{ "toggle.smartaoe", "!player.area(5)enemies >= 4" } },	
 		
 	-- actions.prot+=/call_action_list,name=prot_aoe,if=active_enemies>3
 		
@@ -267,7 +231,43 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 		-- actions.prot_aoe+=/devastate
 		{ "Devastate" },
 	},	{ "modifier.multitarget", "!toggle.smartaoe" } },
-	
+
+	-- ** "Smart" Single Target Rotation <= 3 **
+	{	{
+		-- actions.prot+=/heroic_strike,if=buff.ultimatum.up|(talent.unyielding_strikes.enabled&buff.unyielding_strikes.stack>=6)
+		{ "Heroic Strike", "player.buff(Ultimatum)" },
+		{ "Heroic Strike", { "talent(3, 3)", "player.buff(Unyielding Strikes).count >= 6" } },
+		-- actions.prot+=/bloodbath,if=talent.bloodbath.enabled&((cooldown.dragon_roar.remains=0&talent.dragon_roar.enabled)|(cooldown.storm_bolt.remains=0&talent.storm_bolt.enabled)|talent.shockwave.enabled)
+		{ "Bloodbath", { "talent(6, 2)", "player.spell(Dragon Roar).cooldown == 0", "talent(4, 3)" } },
+		{ "Bloodbath", { "talent(6, 2)", "player.spell(Storm Bolt).cooldown == 0", "talent(4, 1)" } },
+		{ "Bloodbath", { "talent(6, 2)", "talent(4, 2)" } },
+		-- actions.prot+=/avatar,if=talent.avatar.enabled&((cooldown.ravager.remains=0&talent.ravager.enabled)|(cooldown.dragon_roar.remains=0&talent.dragon_roar.enabled)|(talent.storm_bolt.enabled&cooldown.storm_bolt.remains=0)|(!(talent.dragon_roar.enabled|talent.ravager.enabled|talent.storm_bolt.enabled)))
+		{ "Avatar", { "talent(6, 1)", "player.spell(Ravager).cooldown == 0", "talent(7, 2)" } },
+		{ "Avatar", { "talent(6, 1)", "player.spell(Dragon Roar).cooldown == 0", "talent(4, 3)" } },
+		{ "Avatar", { "talent(6, 1)", "player.spell(Storm Bolt).cooldown == 0", "talent(4, 1)" } },
+		{ "Avatar", { "talent(6, 1)", "!talent(4, 3)" } },
+		{ "Avatar", { "talent(6, 1)", "!talent(7, 2)" } },
+		{ "Avatar", { "talent(6, 1)", "!talent(4, 1)" } },
+		-- actions.prot+=/shield_slam
+		{ "Shield Slam" },
+		-- actions.prot+=/revenge
+		{ "Revenge" },
+		-- actions.prot+=/ravager
+		{ "Ravager" },
+		-- actions.prot+=/storm_bolt
+		{ "Storm Bolt" },
+		-- actions.prot+=/dragon_roar
+		{ "Dragon Roar" },
+		-- actions.prot+=/impending_victory,if=talent.impending_victory.enabled&cooldown.shield_slam.remains<=execute_time
+		{ "Impending Victory", { "talent(2, 3)", "player.health <= 85" } },
+		-- actions.prot+=/victory_rush,if=!talent.impending_victory.enabled&cooldown.shield_slam.remains<=execute_time
+		{ "Victory Rush", { "!talent(2, 3)", "player.health <= 85" } },
+		-- actions.prot+=/execute,if=buff.sudden_death.react
+		{ "Execute", "player.buff(Sudden Death)" },
+		-- actions.prot+=/devastate
+		{ "Devastate" },
+		},	{ "toggle.smartaoe", "!player.area(8)enemies >= 4" } },
+
 	-- "Smart" Cleave AoE Rotation >= 4
 	{	{
 		-- actions.prot_aoe=bloodbath
