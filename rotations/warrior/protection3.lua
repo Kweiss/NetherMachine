@@ -34,7 +34,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 	
 	-- ** Consumables **
 	{ "#5512", { "toggle.consume", "player.health < 40" } }, -- Healthstone (5512)
-	{ "#76097", { "toggle.consume", "player.health < 15", "target.boss" } }, -- Master Healing Potion (76097)
+	{ "#109223", { "toggle.consume", "player.health < 15", "target.boss" } }, -- WoD Healing Tonic (109223)
 
 	-- Buttons
 	{ "Heroic Leap", { "modifier.lalt" }, "ground" },

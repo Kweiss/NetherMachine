@@ -44,6 +44,7 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96bbMonk Brewmaster|r (SimC
 		}, { "toggle.autogrind" } },
 
 	-- COOLDOWNS
+	{ "#109223", { "toggle.consume", "player.health < 15", "target.boss" } }, -- WoD Healing Tonic (109223)
 	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
 	-- actions+=/blood_fury,if=energy<=40
 	{ "Blood Fury", { "modifier.cooldowns", "player.energy <= 40" } },
@@ -311,5 +312,6 @@ function()
 	NetherMachine.toggle.create('limitaoe', 'Interface\\Icons\\spell_fire_flameshock', 'Limit AoE', 'Toggle to avoid using CC breaking aoe effects.')
 	NetherMachine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
 	NetherMachine.toggle.create('autotaunt', 'Interface\\Icons\\spell_nature_reincarnation', 'Auto Taunt', 'Automaticaly taunt the boss at the appropriate stacks')
+	NetherMachine.toggle.create('consume', 'Interface\\Icons\\inv_alchemy_endlessflask_06', 'Use Consumables', 'Toggle the usage of Flasks/Food/Potions etc..')
 	NetherMachine.toggle.create('autogrind', 'Interface\\Icons\\inv_misc_fish_33', 'Auto Attack', 'Automaticly target and attack nearby enemies.')
 end)

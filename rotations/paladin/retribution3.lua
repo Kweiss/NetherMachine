@@ -35,7 +35,7 @@ NetherMachine.rotation.register_custom(70, "|cff660099Nether|r|cffFF0074Machine 
 		{ "Word of Glory", { "player.health < 65", "player.holypower > 4", "!talent(3, 2)" }, "player" },
 		{ "Word of Glory", { "player.health < 50", "player.holypower > 2", "!talent(3, 2)" }, "player" },
 		{ "#5512", { "toggle.consume", "player.health < 40" } }, -- Healthstone (5512)
-		{ "#76097", { "toggle.consume", "player.health < 15", "target.boss" } }, -- Master Healing Potion (76097)
+		{ "#109223", { "toggle.consume", "player.health < 15", "target.boss" } }, -- WoD Healing Tonic (109223)
 		{ "Cleanse", { "!modifier.last", "player.dispellable(Cleanse)" }, "player" }, -- Cleanse Poison or Disease
 	},	{ "toggle.survival" } },
 	
