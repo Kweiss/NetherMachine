@@ -111,13 +111,25 @@
   <Script file="system\listeners\player_regen_disabled.lua" />
   <Script file="system\listeners\ui_error_message.lua" />
   <Script file="system\listeners\lfg_proposal_show.lua" />
+  
+	<!-- Includes -->
+	<Script file="rotations\shared\Reel\API.lua" />
+	<Script file="rotations\shared\Reel\Reel.lua" />
+	<Script file="rotations\shared\Reel\Lures.lua" />
+	<Include file="rotations\shared\Reel\Reel.xml" />
+	<Script file="rotations\shared\Reel\States\EquipFishingGear.lua" />
+	<Script file="rotations\shared\Reel\States\UseBuff.lua" />
+	<!--<Script file="rotations\shared\Reel\States\UseBait.lua" />-->
+	<Script file="rotations\shared\Reel\States\UseLure.lua" />
+	<Script file="rotations\shared\Reel\States\Catching.lua" />
+	<Script file="rotations\shared\Reel\States\Looting.lua" />
+	<Script file="rotations\shared\Reel\States\Moving.lua" />
+	<Script file="rotations\shared\Reel\States\Fishing.lua" />
 
   <!-- Rotations -->
   <Script file="rotations\shared\ake.lua" />
   <Script file="rotations\shared\library.lua" />
   <Script file="rotations\shared\core.lua" />
-  <Script file="rotations\shared\Reel.lua" />
-  <Include file="rotations\shared\Reel.xml" />
   <Script file="rotations\deathknight\blood.lua" />
   <Script file="rotations\deathknight\blood2.lua" />
   <Script file="rotations\deathknight\frost.lua" />

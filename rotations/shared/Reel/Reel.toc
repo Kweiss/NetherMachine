@@ -1,0 +1,19 @@
+## Interface: 60000
+## Title: Reel
+## Notes: Helps you catch fish.
+## Author: drizz
+## Version: 0.1
+## SavedVariables: Reel_Options
+
+API.lua
+Reel.lua
+Lures.lua
+Reel.xml
+
+States\EquipFishingGear.lua
+States\UseBuff.lua
+States\UseLure.lua
+States\Catching.lua
+States\Looting.lua
+States\Moving.lua
+States\Fishing.lua
