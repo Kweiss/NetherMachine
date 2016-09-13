@@ -859,46 +859,16 @@ NetherMachine.condition.register("runicpower.deficit", function(target, spell)
   return UnitPowerMax(target, SPELL_POWER_RUNIC_POWER) - UnitPower(target, SPELL_POWER_RUNIC_POWER)
 end)
 
-local runes_t = {
-  [1] = 0,
-  [2] = 0,
-  [3] = 0,
-  [4] = 0
-}
-local runes_c = {
-  [1] = 0,
-  [2] = 0,
-  [3] = 0,
-  [4] = 0
-}
-
-NetherMachine.condition.register("runes.count", function(target, rune)
-  -- 12 b, 34 f, 56 u
-  runes_t[1], runes_t[2], runes_t[3], runes_t[4], runes_c[1], runes_c[2], runes_c[3], runes_c[4] = 0,0,0,0,0,0,0,0
+NetherMachine.condition.register("runes", function(target)
+  local runeCount = 0
   for i=1, 6 do
-    local _, _, c = GetRuneCooldown(i)
-    local t = GetRuneType(i)
-    runes_t[t] = runes_t[t] + 1
-    if c then
-      runes_c[t] = runes_c[t] + 1
-    end
+      local _, _, runeReady = GetRuneCooldown(i)
+      if runeReady then
+          runeCount = runeCount+1
+      end
   end
-  if rune == 'frost' then
-    return runes_c[3]
-  elseif rune == 'blood' then
-    return runes_c[1]
-  elseif rune == 'unholy' then
-    return runes_c[2]
-  elseif rune == 'death' then
-    return runes_c[4]
-  elseif rune == 'Frost' then
-    return runes_c[3] + runes_c[4]
-  elseif rune == 'Blood' then
-    return runes_c[1] + runes_c[4]
-  elseif rune == 'Unholy' then
-    return runes_c[2] + runes_c[4]
-  end
-  return 0
+  -- print(runeCount)
+  return runeCount
 end)
 
 NetherMachine.condition.register("runes.frac", function(target, rune)

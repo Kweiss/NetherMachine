@@ -1,390 +1,229 @@
 -- SPEC ID 105 (Restoration)
+-- Talents: 1213113
 NetherMachine.rotation.register(105, {
 
   --------------------
   -- Start Rotation --
   --------------------
-  
-  --Symbiosis
-  { "Spiritwalker's Grace", "player.moving" },
-  { "Icebound Fortitude", "player.health <= 75" },
-  
-  --Screw bear form
-  { "/cancelform", "player.buff(Bear Form)" },
-  
+
   -- Keybinding
-  { "Wild Mushroom: Bloom", "modifier.control" }, 
-  
-  { "Genesis", { 
-    "modifier.shift", 
-    "!modifier.last(Genesis)",
-  }},
-  
+  { "Efflorescence", "modifier.shift", "ground" },
   { "Stampeding Roar", "modifier.alt" },
-  
-  -- Mouseover
-  { "Rebirth", { 
-    "mouseover.dead", 
-    "mouseover.range <= 40",
-  }, "mouseover" },
-  
-  { "Rejuvenation", { 
-    "mouseover.health <= 85", 
-    "!mouseover.buff(Rejuvenation)", 
-    "!mouseover.dead", 
-    "mouseover.range <= 40",
-  }, "mouseover" },
-  
+
   -- Survival on Self
-  { "Renewal", "player.health <= 30" },
-  { "Might of Ursoc", "player.health <= 50" },
-  { "Cenarion Ward", "player.health <= 75", "player" },
-  { "Barkskin", "player.health <= 80", "player" },
-  { "Innervate", "player.mana <= 75", "player" },
   { "#Healthstone", "player.health <= 50" },
+  { "Innervate", "@coreHealing.needsHealing(60, 2)" },
+  { "Innervate", "player.mana < 75 " },
+
+  -- moving
+  { "70691", {
+    "player.moving",
+    "lowest.buff(70691).duration < 2",
+    "lowest.health < 88",
+  }, "lowest" },
 
   -- On tank
   {{
-    { "Rejuvenation", { 
-      "tank.health < 100", 
-      "!tank.buff(Rejuvenation)", 
-      "!tank.dead", 
-      "tank.range <= 40",
+    { "Swiftmend", {
+      "tank.health < 35 ",
+      "tank.buff(Lifebloom)",
     }, "tank" },
-    
-    { "Regrowth", { 
-      "tank.health <= 65", 
-      "!tank.buff(Regrowth)", 
-      "!modifier.last(Regrowth)", 
-      "!tank.dead", 
-      "tank.range <= 40",
+
+    { "Swiftmend", {
+      "tank.health < 45 ",
+      "tank.buff(70691).duration > 2",
+      "tank.buff(Regrowth).duration > 2",
+      "tank.buff(Lifebloom)",
     }, "tank" },
-    
-    { "Ironbark", { 
-      "tank.health <= 75", 
-      "!tank.dead", 
-      "tank.range <= 40",
+
+    { "Ironbark", {
+      "tank.health <= 50",
+      "modifier.cooldowns",
     }, "tank" },
-    
-    { "Lifebloom", { 
-      "tank.buff(Lifebloom).count < 3", 
-      "!tank.dead", 
-      "tank.range <= 40",
+
+    { "Swiftmend", {
+      "tank.health < 65 ",
+      "tank.buff(70691).duration > 2",
+      "tank.buff(Regrowth).duration > 2",
+      "tank.buff(Lifebloom)",
+      "player.spell(Swiftmend).charges > 1 "
     }, "tank" },
-    
-    { "Lifebloom", { 
-      "tank.buff(Lifebloom).duration < 3", 
-      "!tank.dead", 
-      "tank.range <= 40",
+
+    { "Healing Touch", {
+      "tank.health < 38 ",
+      "tank.range <= 45",
+      "tank.buff(70691)",
+      "tank.buff(Lifebloom)",
+      "player.spell(Swiftmend).charges < 1 "
     }, "tank" },
-    
-  -- Nature's Swiftness / Sage Mender Healing
-    { "Nature's Swiftness", { 
-      "tank.health <= 40", 
-      "player.buff(Sage Mender).count < 5",
-    }},
-    
-    { "Healing Touch", { 
-      "player.buff(Nature's Swiftness)", 
-      "!tank.dead", 
-      "tank.range <= 40",
-    }, "tank" },
-    
-    { "Healing Touch", { 
-      "player.buff(Sage Mender).count = 5", 
-      "!tank.dead", 
-      "tank.range <= 40",
-    }, "tank" },
-  },{ 
+
+  },{
     "tank.exists",
   }},
-  
-  --Target healing
-  {{
-  
-  { "Rejuvenation", { 
-    "target.health <= 90", 
-    "!target.buff(Rejuvenation)", 
-  }, "target" },  
-  
-  { "Regrowth", { 
-    "target.health <= 65", 
-    "!target.buff(Regrowth)", 
-    "!modifier.last(Regrowth)", 
-  }, "target" },  
-  
-  { "Healing Touch", { 
-    "target.health <= 65" 
-  }, "target" },
-  
-  { "Nourish", { 
-    "target.health <= 85", 
-    "player.buff(Glyph of Rejuvenation)" 
-  }, "target" }}, 
 
-    "target.friend", 
-    "target.exists", 
-    "!target.enemy" 
-  },
-  
-  
-  -- Regular Healing
-  { "Wild Growth", { 
-    "modifier.last(Swiftmend)", 
-    "player.spell(Soul of the Forest).exists" 
+  -- On raid
+  { "Healing Touch", {
+    "lowest.health <= 25",
+    "lowest.buff(70691)",
+    "lowest.buff(Regrowth)",
+    "player.spell(Swiftmend).charges < 1 "
   }, "lowest" },
-  
-  { "Rejuvenation", { 
-    "lowest.health <= 85", 
-    "!lowest.buff(Rejuvenation)", 
-    "lowest.range <= 40" 
+
+  { "Swiftmend", {
+    "player.health <= 30",
+    "player.buff(70691)",
+  }, "player" },
+
+  { "Swiftmend", {
+    "lowest.health <= 35",
+    "lowest.buff(70691)",
+    "lowest.range <= 45"
   }, "lowest" },
-  
-  { "Regrowth", { 
-    "lowest.health <= 65", 
-    "lowest.range <= 40", 
-    "!lowest.buff(Regrowth)", 
-    "!modifier.last(Regrowth)" 
+
+  { "Healing Touch", {
+    "lowest.health <= 35",
+    "lowest.buff(70691)",
+    "lowest.buff(Regrowth)",
   }, "lowest" },
-  
-  { "Healing Touch", { 
-    "lowest.health <= 65", 
-    "lowest.range <= 40" 
-  }, "lowest" },
-  
-  { "Wild Growth", { 
-    "@coreHealing.needsHealing(75, 5)", 
-    "lowest.range <= 40" 
-  }, "lowest" },
-  
-  { "Swiftmend", { 
-    "lowest.health <= 80", 
-    "lowest.buff(Rejuvenation)",
-    "lowest.range <= 40" 
-  }, "lowest" },
-  
-  { "Swiftmend", { 
-    "lowest.health <= 80", 
-    "lowest.buff(Regrowth)", 
-    "lowest.range <= 40" 
-  }, "lowest" },
-  
-  { "Nourish", { 
-    "lowest.health <= 85", 
-    "player.buff(Glyph of Rejuvenation)" 
-  }, "lowest" },
-  
-  -- Treants, you persistent fucks.
-  { "102693", { 
-    "@coreHealing.needsHealing(80, 2)", 
-    "!modifier.last(106737)", 
-    "lowest.range <= 40" 
-  }, "lowest" },
-  
-  -- Basic Buffing
-  { "Treant Form", { 
-    "player.form = 0", 
-    "!modifier.last(Treant Form)",
-  }},
-  
-  -- Oh Shit Healing Start
-  { "Incarnation: Tree of Life", { 
-    "@coreHealing.needsHealing(60,4)", 
-    "!player.buff(Incarnation: Tree of Life)", 
+
+  { "Barkskin", {
+    "player.health <= 40",
     "modifier.cooldowns",
+  }, "player" },
+
+  { "Flourish", {
+    "@coreHealing.needsHealing(70, 3)",
   }},
-  
-  -- Incarnation: Turret of Healing
-  { "Wild Growth", { 
-    "player.buff(Incarnation: Tree of Life)", 
-    "lowest.range <= 40" }, 
-  "lowest" },
-  
-  { "Regrowth", { 
-    "player.buff(Incarnation: Tree of Life)", 
-    "@coreHealing.needsHealing(60, 4)", 
-    "lowest.health <= 60", 
-    "!lowest.buff(Regrowth)", 
-    "lowest.range <= 40" 
+
+  { "Wild Growth", {
+    "@coreHealing.needsHealing(80, 3)",
+    "lowest.buff(Wild Growth).duration < 2",
+    "player.mana > 30 ",
   }, "lowest" },
-  
-  { "Tranquility", { 
-    "player.buff(Incarnation: Tree of Life)", 
-    "@coreHealing.needsHealing(55, 4)", 
-    "lowest.range <= 40", 
-  }},
-  
-  -- Because Fuck Wild Mushrooms
-  {{
-  { "Wild Mushroom", { 
-    "!player.totem(Wild Mushroom)", 
-    "!tank.dead", 
-    "tank.range <= 40",
-  }, "tank" },
-  
-  { "Wild Mushroom: Bloom", { 
-    "player.totem(Wild Mushroom)", 
-    "tank.health < 80",
-  }},
-  }, { "!player.glyph(Glyph of Efflorescence)" }},
-  
-  {{
-  { "Wild Mushroom", { 
-    "!player.totem(Wild Mushroom)", 
-    "lowest.range <= 40" 
+
+  { "Healing Touch", {
+    "player.health < 50",
+    "player.buff(Regrowth).duration > 2",
+    "player.buff(70691).duration > 2",
+  }, "player" },
+
+  { "Healing Touch", {
+    "lowest.health <= 45",
+    "lowest.range <= 45",
+    "lowest.buff(Regrowth).duration > 2",
+    "lowest.buff(70691).duration > 2",
   }, "lowest" },
-  
-  { "Wild Mushroom: Bloom", { 
-    "player.totem(Wild Mushroom)", 
-    "player.moving", 
-    "lowest.health < 80",
+
+  { "Regrowth", {
+    "player.health <= 70",
+    "player.buff(Regrowth).duration < 2",
+  }, "player" },
+
+  { "Nature's Cure", "@coreHealing.canDispell(Nature's Cure)" },
+
+-- On Tank again
+  {{
+    { "Regrowth", {
+      "tank.health <= 75",
+      "tank.buff(Regrowth).duration < 2",
+      "!lastcast(Regrowth)",
+      "tank.range <= 45",
+    }, "tank" },
+
+    { "70691", {
+      "tank.health < 93",
+      "tank.buff(70691).duration < 2",
+      "tank.range <= 45",
+    }, "tank" },
+
+    { "Lifebloom", {
+      "!tank.buff(Lifebloom)",
+      "tank.range <= 45",
+    }, "tank" },
+
+  },{
+    "tank.exists",
   }},
-  }, { "player.glyph(Glyph of Efflorescence)" }},
-  
-  -- Because Healing is not enough?
-  { "Genesis", { 
-    "lowest.health <= 70", 
-    "!player.spell(Genesis).casted = 1", 
-    "lowest.buff(Rejuvenation).duration > 10", 
-    "lowest.range <= 40",
-  }},
-  
+
+ -- On raid
+
+  { "Regrowth", {
+    "player.health <= 70",
+    "player.buff(Regrowth).duration < 2",
+  }, "player" },
+
+  { "Regrowth", {
+    "lowest.health <= 70",
+    "lowest.range <= 45",
+    "lowest.buff(Regrowth).duration < 2",
+  }, "lowest" },
+
+  { "Regrowth", {
+    "player.buff(Clearcasting).duration < 5",
+    "lowest.health <= 83",
+  }, "lowest" },
+
+  { "70691", {
+    "player.health <= 90",
+    "player.buff(70691).duration < 2"
+  }, "player" },
+
+  { "70691", {
+    "lowest.health <= 90",
+    "lowest.buff(70691).duration < 2",
+  }, "lowest" },
+
+  { "Regrowth", {
+    "player.buff(Clearcasting).duration < 3",
+    "lowest.buff(Regrowth).duration < 5",
+  }, "lowest" },
+
   ------------------
   -- End Rotation --
   ------------------
-  
-  },{
-  
+
+},{
+
   ---------------
   -- OOC Begin --
   ---------------
-  
-  --Get rid of Mushroom to fix range problems
-  { "Wild Mushroom: Bloom", { "player.totem(Wild Mushroom)" }},
-  
-  -- Keybinds
-  {{
-  { "Travel Form", "modifier.control" },
-  
-  { "Genesis", { 
-    "modifier.shift", 
-    "!modifier.last(Genesis)",
-  }},
-  
-  { "Stampeding Roar", "modifier.alt" },
+  -- Confirm we are not in a form
+  {
 
   -- On tank
   {{
-  { "Lifebloom", { 
-    "tank.buff(Lifebloom).count < 3", 
-    "!tank.dead", 
-    "tank.range <= 40",
+  { "Lifebloom", {
+    "!tank.buff(Lifebloom)",
+    "!tank.dead",
+    "tank.range <= 45",
   }, "tank" },
-  
-  { "Lifebloom", { 
-    "tank.buff(Lifebloom).duration < 3", 
-    "!tank.dead", 
-    "tank.range <= 40",
+  { "70691", {
+    "tank.health <= 85",
+    "!tank.buff(70691)",
+    "!tank.dead",
+    "tank.range <= 45",
   }, "tank" },
-  
-  { "Rejuvenation", { 
-    "tank.health <= 85", 
-    "!tank.buff(Rejuvenation)", 
-    "!tank.dead", 
-    "tank.range <= 40",
+  { "Regrowth", {
+    "tank.health <= 65",
+    "tank.buff(Regrowth).duration < 2",
+    "!lastcast(Regrowth)",
+    "!tank.dead",
+    "tank.range <= 45",
   }, "tank" },
-  
-  { "Regrowth", { 
-    "tank.health <= 65", 
-    "!tank.buff(Regrowth)", 
-    "!modifier.last(Regrowth)", 
-    "!tank.dead", 
-    "tank.range <= 40",
-  }, "tank" },
-  
+
   },{ "tank.exists" }},
-  
-  --Target healing
-  {{
-  { "Rejuvenation", { 
-    "target.health <= 90" ,
-    "!target.buff(Rejuvenation)", 
-  }, "target" },  
-  
-  { "Regrowth", { 
-    "target.health <= 65", 
-    "!target.buff(Regrowth)", 
-    "!modifier.last(Regrowth)", 
-  }, "target" },  
-  
-  { "Healing Touch", "target.health <= 65", "target" },
-  { "Nourish", { 
-    "target.health <= 85", 
-    "player.buff(Glyph of Rejuvenation)",
-  }, "target" },
-  
-  }, "target.friend", "target.exists", "!target.enemy" },
-  
-  -- Basic Buffing
-  { "Mark of the Wild", { 
-    "!lowest.buff(Mark of the Wild).any", 
-    "!lowest.buff(Blessing of Kings).any", 
-    "!lowest.buff(Legacy of the Emperor).any", 
-    "lowest.range <= 30",
-  }, "lowest" },
-  
-  { "Treant Form", { 
-    "player.form = 0", 
-    "!modifier.last(Treant Form)", 
-  }},
-   
-  -- Regular Healing
-  { "Rejuvenation", { 
-    "lowest.health <= 85", 
-    "!lowest.buff(Rejuvenation)", 
-    "lowest.range <= 40",
-  }, "lowest" },
-  
-  { "Regrowth", { 
-    "lowest.health <= 65", 
-    "!lowest.buff(Regrowth)", 
-    "!modifier.last(Regrowth)", 
-    "lowest.range <= 40",
-  }, "lowest" },
-  
-  { "Healing Touch", { 
-    "lowest.health <= 65", 
-    "lowest.range <= 40",
-  }, "lowest" },
-  
-  { "Wild Growth", { 
-    "@coreHealing.needsHealing(75, 5)", 
-    "lowest.range <= 40",
-  }, "lowest" },
-  
-  { "Swiftmend", { 
-    "lowest.health <= 80", 
-    "lowest.buff(Rejuvenation)", 
-    "lowest.range <= 40",
-  }, "lowest" },
-  
-  { "Swiftmend", { 
-    "lowest.health <= 80", 
-    "lowest.buff(Regrowth)", 
-    "lowest.range <= 40",
-  }, "lowest" },
-  }, 
-  { 
-    "!player.buff(Bear Form)", 
-    "!player.buff(Cat Form)", 
-    "!player.buff(Flight Form)", 
-    "!player.buff(Swift Flight Form)", 
-    "!player.buff(Travel Form)", 
+
+  },{
+    "!player.buff(Bear Form)",
+    "!player.buff(Cat Form)",
+    "!player.buff(Flight Form)",
+    "!player.buff(Swift Flight Form)",
+    "!player.buff(Travel Form)",
     "!player.buff(Aquatic Form)",
-  }}
-  
-  -------------
+  }
+
+  ---------------
   -- OOC End --
-  -------------
-  
+  ---------------
+
 })
