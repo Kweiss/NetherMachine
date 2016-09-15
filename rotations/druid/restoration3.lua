@@ -7,35 +7,20 @@
 -- CONTROLS: Pause - Left Control
 -- TODO: Actually use talents, mouseover rez/rebirth, OOC rotation.
 
-NetherMachine.rotation.register_custom(105, "Druid Restoration - 5man", {
+NetherMachine.rotation.register_custom(105, "bbDruid Restoration - Raid", {
 -- COMBAT ROTATION
   -- PAUSE
+  { "pause", "modifier.lcontrol" },
   { "pause", "@bbLib.pauses" },
   { "pause", "player.buff(Prowl)" },
 
-  -- Keybinding
-  { "Efflorescence", "modifier.lshift", "ground" },
-  { "Stampeding Roar", "modifier.lalt" },
 
   { "/stopcasting", { "boss2.exists", "player.casting", "boss2.casting(Interrupting Shout)" } }, -- boss2 Pol  Interrupting Shout
-  -- { "#trinket2", "player.mana < 90" }, -- Everburning Candle 10k mana
-  -- { "#trinket1", "player.mana < 80" }, -- Shards of Nothing haste
+  { "#trinket2", "player.mana < 90" }, -- Everburning Candle 10k mana
+  { "#trinket1", "player.mana < 80" }, -- Shards of Nothing haste
 
   -- BATTLE REZ
   { "Rebirth", { "target.exists", "target.friend", "target.dead", "target.player", "!player.moving" }, "target" },
-
-  -- Survival on Self
-  { "#Healthstone", "player.health <= 50" },
-  { "Innervate", "player.mana < 75 " },
-
-  -- moving
-  { {
-    { "Rejuvenation", { "party1.health < 88", "party1.buff(774).remains <= 3" }, "party1" },
-    { "Rejuvenation", { "party2.health < 88", "party2.buff(774).remains <= 3" }, "party2" },
-    { "Rejuvenation", { "party3.health < 88", "party3.buff(774).remains <= 3" }, "party3" },
-    { "Rejuvenation", { "party4.health < 88", "party4.buff(774).remains <= 3" }, "party4" },
-  }, "player.moving" },
-
 
   -- DISPELLS
   { "Nature's Cure", { "toggle.dispel", "mouseover.exists", "mouseover.friend", "mouseover.dispellable" }, "mouseover" }, -- Proving Grounds
@@ -45,7 +30,34 @@ NetherMachine.rotation.register_custom(105, "Druid Restoration - 5man", {
   -- { "Nature's Cure", { "toggle.dispel", "mouseover.debuff(Corrosive Blood)" }, "mouseover" }, -- Thok
 
   -- HEALING COOLDOWNS
-    { "Tranquility", { "@coreHealing.needsHealing(60, 4)", "!player.moving" } },
+  { "Tranquility", { "modifier.raid", "@coreHealing.needsHealing(60, 10)", "!player.moving" } },
+  { "Tranquility", { "!modifier.raid", "@coreHealing.needsHealing(60, 4)", "!player.moving" } },
+  --{ "Nature's Swiftness", "lowest.health < 30" },
+  { "Nature's Swiftness", { "!player.buff(Nature's Swiftness)", "focus.exists", "focus.friend", "focus.health < 80", "focus.range < 40" }, "focus" },
+  { "Healing Touch", { "player.buff(Nature's Swiftness)", "focus.exists", "focus.friend", "focus.health < 80", "focus.range < 40" }, "focus" },
+  { "Nature's Swiftness", { "!player.buff(Nature's Swiftness)", "tank.exists", "tank.friend", "tank.health < 80", "tank.range < 40" }, "tank" },
+  { "Healing Touch", { "player.buff(Nature's Swiftness)", "tank.exists", "tank.friend", "tank.health < 80", "tank.range < 40" }, "tank" },
+  { {
+    { "Genesis", { "party1.buff(Rejuvenation)", "party2.buff(Rejuvenation)", "party3.buff(Rejuvenation)", "player.spell(Swiftmend).cooldown > 0", "player.area(60).friendly > 3" }, "player" },
+    { "Genesis", { "party1.buff(Rejuvenation)", "party2.buff(Rejuvenation)", "party4.buff(Rejuvenation)", "player.spell(Swiftmend).cooldown > 0", "player.area(60).friendly > 3" }, "player" },
+    { "Genesis", { "party1.buff(Rejuvenation)", "party3.buff(Rejuvenation)", "party4.buff(Rejuvenation)", "player.spell(Swiftmend).cooldown > 0", "player.area(60).friendly > 3" }, "player" },
+    { "Genesis", { "party2.buff(Rejuvenation)", "party3.buff(Rejuvenation)", "party4.buff(Rejuvenation)", "player.spell(Swiftmend).cooldown > 0", "player.area(60).friendly > 3" }, "player" },
+  },{
+    "!modifier.raid", "@coreHealing.needsHealing(70, 3)", "player.buff(Rejuvenation)",
+  } },
+
+
+
+  -- Swiftmend should primarily be used:
+  --    when a single target is in urgent need for a quick (instant cast) heal.
+
+
+  -- Healing Touch should primarily be used:
+  --    on players who are taking a particularly high amount of damage;
+  -- Regrowth should primarily be used:
+  --    on players who are about to die before you can get another, longer cast off, when no instant cast spells are available;
+  --    on the tank, or another raid member who is low on health or who will take damage soon, if you have an Omen of Clarity proc.
+
 
   -- WILD GROWTH
   --    to heal large bursts of damage, but beware of the high mana cost of this spell, and use it sparingly.
@@ -73,6 +85,18 @@ NetherMachine.rotation.register_custom(105, "Druid Restoration - 5man", {
   { "Lifebloom", { "boss1target.exists", "boss1target.alive", "boss1target.friend", "boss1target.distance < 40", "@bbLib.isTank('boss1target')", "boss1target.buff(Lifebloom).remains < 2" }, "boss1target" },
   { "Lifebloom", { "focus.exists", "focus.alive", "focus.friend", "focus.distance < 40", "!boss1target.buff(Lifebloom)", "focus.buff(Lifebloom).remains < 2" }, "focus" },
   { "Lifebloom", { "tank.exists", "tank.alive", "tank.friend", "tank.distance < 40", "!focus.buff(Lifebloom)", "!boss1target.buff(Lifebloom)", "tank.buff(Lifebloom).remains < 2" }, "tank" },
+
+  -- SHROOMS
+  -- Wild Mushroom Icon Wild Mushroom should be used:
+  --    to heal groups of players who are standing together;
+  --    before a burst of damage will hit the raid, to heal players through it, allowing you to cast other spells;
+  --    note that with Glyph of the Sprouting Mushroom Icon Glyph of the Sprouting Mushroom, you can place the Wild Mushroom healing zone at any desired location.
+  { "Wild Mushroom", { "toggle.shrooms", "!player.glyph(146654)", "focus.health < 95", "!focus.moving", (function() return GetTotemInfo(1) == false end), "focus.area(7).friendly > 2" }, "focus" },
+  { "Wild Mushroom", { "toggle.shrooms", "player.glyph(146654)", "focus.health < 95", "!focus.moving", (function() return GetTotemInfo(1) == false end), "focus.area(7).friendly > 2" }, "focus.ground" },
+  { "Wild Mushroom", { "toggle.shrooms", "!player.glyph(146654)", "tank.health < 95", "!tank.moving", (function() return GetTotemInfo(1) == false end), "tank.area(7).friendly > 2" }, "tank" },
+  { "Wild Mushroom", { "toggle.shrooms", "player.glyph(146654)", "tank.health < 95", "!tank.moving", (function() return GetTotemInfo(1) == false end), "tank.area(7).friendly > 2" }, "tank.ground" },
+  { "Wild Mushroom", { "!toggle.shrooms", "!player.glyph(146654)", "player.health < 95", "!player.moving", (function() return GetTotemInfo(1) == false end), "player.area(7).friendly > 2" }, "player" },
+  { "Wild Mushroom", { "!toggle.shrooms", "player.glyph(146654)", "player.health < 95", "!player.moving", (function() return GetTotemInfo(1) == false end), "player.area(7).friendly > 2" }, "player.ground" },
 
   -- REJUVENATION (priority)
   --    to pre-HoT players before a spike of damage;
@@ -127,19 +151,65 @@ NetherMachine.rotation.register_custom(105, "Druid Restoration - 5man", {
 
   -- PARTY HEALING
   { {
-    { "Regrowth", { "party1.health < 81", "party1.buff(Regrowth).remains <= 3" }, "party1" },
-    { "Regrowth", { "party2.health < 81", "party2.buff(Regrowth).remains <= 3" }, "party2" },
-    { "Regrowth", { "party3.health < 81", "party3.buff(Regrowth).remains <= 3" }, "party3" },
-    { "Regrowth", { "party4.health < 81", "party4.buff(Regrowth).remains <= 3" }, "party4" },
+    { {
+      { "Rejuvenation", { "party1.health < 90", "party1.buff(774).remains >= 3", "party1.buff(155777).remains <= 3" }, "party1" },
+      { "Rejuvenation", { "party2.health < 90", "party2.buff(774).remains >= 3", "party2.buff(155777).remains <= 3" }, "party2" },
+      { "Rejuvenation", { "party3.health < 90", "party3.buff(774).remains >= 3", "party3.buff(155777).remains <= 3" }, "party3" },
+      { "Rejuvenation", { "party4.health < 90", "party4.buff(774).remains >= 3", "party4.buff(155777).remains <= 3" }, "party4" },
+    }, "talent(7,2)" }, -- Germination
+    { "Rejuvenation", { "party1.health < 100", "party1.buff(774).remains <= 3" }, "party1" },
+    { "Rejuvenation", { "party2.health < 100", "party2.buff(774).remains <= 3" }, "party2" },
+    { "Rejuvenation", { "party3.health < 100", "party3.buff(774).remains <= 3" }, "party3" },
+    { "Rejuvenation", { "party4.health < 100", "party4.buff(774).remains <= 3" }, "party4" },
   }, "!modifier.raid" },
 
+  -- RAID HEALING
   { {
-    { "Rejuvenation", { "party1.health < 93", "party1.buff(774).remains <= 3" }, "party1" },
-    { "Rejuvenation", { "party2.health < 93", "party2.buff(774).remains <= 3" }, "party2" },
-    { "Rejuvenation", { "party3.health < 93", "party3.buff(774).remains <= 3" }, "party3" },
-    { "Rejuvenation", { "party4.health < 93", "party4.buff(774).remains <= 3" }, "party4" },
-  }, "!modifier.raid" },
-
+    { {
+      { "Rejuvenation", { "raid1.health <= 80", "raid1.buff(774).remains >= 2", "raid1.buff(155777).remains <= 2" }, "raid1" },
+      { "Rejuvenation", { "raid2.health <= 80", "raid2.buff(774).remains >= 2", "raid2.buff(155777).remains <= 2" }, "raid2" },
+      { "Rejuvenation", { "raid3.health <= 80", "raid3.buff(774).remains >= 2", "raid3.buff(155777).remains <= 2" }, "raid3" },
+      { "Rejuvenation", { "raid4.health <= 80", "raid4.buff(774).remains >= 2", "raid4.buff(155777).remains <= 2" }, "raid4" },
+      { "Rejuvenation", { "raid5.health <= 80", "raid5.buff(774).remains >= 2", "raid5.buff(155777).remains <= 2" }, "raid5" },
+      { "Rejuvenation", { "raid6.health <= 80", "raid6.buff(774).remains >= 2", "raid6.buff(155777).remains <= 2" }, "raid6" },
+      { "Rejuvenation", { "raid7.health <= 80", "raid7.buff(774).remains >= 2", "raid7.buff(155777).remains <= 2" }, "raid7" },
+      { "Rejuvenation", { "raid8.health <= 80", "raid8.buff(774).remains >= 2", "raid8.buff(155777).remains <= 2" }, "raid8" },
+      { "Rejuvenation", { "raid9.health <= 80", "raid9.buff(774).remains >= 2", "raid9.buff(155777).remains <= 2" }, "raid9" },
+      { "Rejuvenation", { "raid10.health <= 80", "raid10.buff(774).remains >= 2", "raid10.buff(155777).remains <= 2" }, "raid10" },
+      { "Rejuvenation", { "raid11.health <= 80", "raid11.buff(774).remains >= 2", "raid11.buff(155777).remains <= 2" }, "raid11" },
+      { "Rejuvenation", { "raid12.health <= 80", "raid12.buff(774).remains >= 2", "raid12.buff(155777).remains <= 2" }, "raid12" },
+      { "Rejuvenation", { "raid13.health <= 80", "raid13.buff(774).remains >= 2", "raid13.buff(155777).remains <= 2" }, "raid13" },
+      { "Rejuvenation", { "raid14.health <= 80", "raid14.buff(774).remains >= 2", "raid14.buff(155777).remains <= 2" }, "raid14" },
+      { "Rejuvenation", { "raid15.health <= 80", "raid15.buff(774).remains >= 2", "raid15.buff(155777).remains <= 2" }, "raid15" },
+      { "Rejuvenation", { "raid16.health <= 80", "raid16.buff(774).remains >= 2", "raid16.buff(155777).remains <= 2" }, "raid16" },
+      { "Rejuvenation", { "raid17.health <= 80", "raid17.buff(774).remains >= 2", "raid17.buff(155777).remains <= 2" }, "raid17" },
+      { "Rejuvenation", { "raid18.health <= 80", "raid18.buff(774).remains >= 2", "raid18.buff(155777).remains <= 2" }, "raid18" },
+      { "Rejuvenation", { "raid19.health <= 80", "raid19.buff(774).remains >= 2", "raid19.buff(155777).remains <= 2" }, "raid19" },
+      { "Rejuvenation", { "raid20.health <= 80", "raid20.buff(774).remains >= 2", "raid20.buff(155777).remains <= 2" }, "raid20" },
+    }, "talent(7,2)" }, -- Germination
+    { "Rejuvenation", { "raid1.health <= 90", "raid1.buff(774).remains <= 2" }, "raid1" },
+    { "Rejuvenation", { "raid2.health <= 90", "raid2.buff(774).remains <= 2" }, "raid2" },
+    { "Rejuvenation", { "raid3.health <= 90", "raid3.buff(774).remains <= 2" }, "raid3" },
+    { "Rejuvenation", { "raid4.health <= 90", "raid4.buff(774).remains <= 2" }, "raid4" },
+    { "Rejuvenation", { "raid5.health <= 90", "raid5.buff(774).remains <= 2" }, "raid5" },
+    { "Rejuvenation", { "raid6.health <= 90", "raid6.buff(774).remains <= 2" }, "raid6" },
+    { "Rejuvenation", { "raid7.health <= 90", "raid7.buff(774).remains <= 2" }, "raid7" },
+    { "Rejuvenation", { "raid8.health <= 90", "raid8.buff(774).remains <= 2" }, "raid8" },
+    { "Rejuvenation", { "raid9.health <= 90", "raid9.buff(774).remains <= 2" }, "raid9" },
+    { "Rejuvenation", { "raid10.health <= 90", "raid10.buff(774).remains <= 2" }, "raid10" },
+    { "Rejuvenation", { "raid11.health <= 90", "raid11.buff(774).remains <= 2" }, "raid11" },
+    { "Rejuvenation", { "raid12.health <= 90", "raid12.buff(774).remains <= 2" }, "raid12" },
+    { "Rejuvenation", { "raid13.health <= 90", "raid13.buff(774).remains <= 2" }, "raid13" },
+    { "Rejuvenation", { "raid14.health <= 90", "raid14.buff(774).remains <= 2" }, "raid14" },
+    { "Rejuvenation", { "raid15.health <= 90", "raid15.buff(774).remains <= 2" }, "raid15" },
+    { "Rejuvenation", { "raid16.health <= 90", "raid16.buff(774).remains <= 2" }, "raid16" },
+    { "Rejuvenation", { "raid17.health <= 90", "raid17.buff(774).remains <= 2" }, "raid17" },
+    { "Rejuvenation", { "raid18.health <= 90", "raid18.buff(774).remains <= 2" }, "raid18" },
+    { "Rejuvenation", { "raid19.health <= 90", "raid19.buff(774).remains <= 2" }, "raid19" },
+    { "Rejuvenation", { "raid20.health <= 90", "raid20.buff(774).remains <= 2" }, "raid20" },
+  },{
+    "modifier.raid" --, "player.mana > 50"
+  } },
 
   -- FILLER
   { "Healing Touch", { "lowest.health < 80", "!player.moving" }, "lowest" },
@@ -202,7 +272,7 @@ end)
 
 
 
-NetherMachine.rotation.register_custom(105, "bbDruid Restoration (Experimental 5-man)", {
+NetherMachine.rotation.register_custom(105, "bbDruid Restoration (Experimental)", {
   ---------------------------
   --    MODIFIERS/MISC     --
   ---------------------------
