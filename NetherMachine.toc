@@ -1,12 +1,11 @@
 ## Interface: 60100
 ## X-Min-Interface: 60000
-## Title: |cffffe00a<--> |r|cff8A2BE2Nether|r|cffFF0074Machine |r|cffffe00a<-->|r
-## Notes: NetherMachine
-## Author: Nether Man
+## Title: |cffffe00a<--> |r|cff8A2BE2It's|r|cffFF0074 Me |r|cffffe00a<-->|r
+## Notes: Hello
+## Author: Adelle
 ## SavedVariablesPerCharacter: NetherMachine_ConfigData, ScriptSettings
 ## SavedVariables: NetherMachine_RotationData, ScriptSettingsPerCharacter
 ## LoadOnDemand: 0
 ## DefaultState: enabled
-## X-Website: https://www.NetherMachine.com
 
 NetherMachine.xml

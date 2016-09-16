@@ -1,150 +1,114 @@
 -- SPEC ID 103
+--Talents are 3323323
 NetherMachine.rotation.register(103, {
 
-  --------------------
-  -- Start Rotation --
-  --------------------
-  
-  -- Anti-Bear Form
-  { "/cancelaura Bear Form", "player.buff(Bear Form)" },
-  
-  -- Survival
-  { "Renewal", "player.health <= 30" },
-  { "Cenarion Ward", "player.health <75" },
-  { "Survival Instincts", "player.health <75" },
-  { "Cenarion Ward", "player.health <75" },
-  { "Might of Ursoc", "player.health <= 45" },
-  
-  -- Cat
-  { "Cat Form", "!player.buff(Cat Form)" },
+  ------------------------------------------
+  -- Survival Stuff --
+  ------------------------------------------
 
-  --Cooldowns
-  { "106737", { 
-    "player.spell(106737).charges > 2", 
-    "!modifier.last(106737)", 
-    "player.spell(106737).exists" 
-  }}, --Force of Nature
-  
-  { "Beserk", "modifier.cooldowns" },
-  { "Nature's Vigil", "modifier.cooldowns" },
-  
-  { "Incarnation", { 
-    "modifier.cooldowns", 
-    "player.buff(Beserk)",
+  { "Survival Instincts", {
+  "player.health <= 40",
+  "!player.buff(Survival Instincts)",
   }},
 
-  --Keybinds
-  { "Ursol's Vortex", "modifier.shift", "ground" },
-  { "Disorienting Roar", "modifier.shift" },
-  { "Mighty Bash", "modifier.shift" },
-  { "Typhoon", "modifier.alt" },
-  { "Mass Entanglement", "modifier.shift" },
+  ------------------------------------------
+  -- Interrupts --
+  ------------------------------------------
 
-  --Interrupts
-  { "Skull Bash", { 
-    "target.casting", 
-    "modifier.interrupt" 
+  { "Skull Bash", {
+    "target.interruptAt(75)",
+    "!last.cast(War Stomp)",
+    "modifier.interrupt"
   }},
-  
-  { "Disorienting Roar", "modifier.interrupt" },
-  { "Mighty Bash", "modifier.interrupt" },
 
-  -- Self Heals
+  { "War Stomp", {
+    "target.interruptAt(50)",
+    "!last.cast(Skull Bash)",
+    "modifier.interrupt"
+  }},
+
+  ------------------------------------------
+  -- Cooldowns --
+  ------------------------------------------
+
+  {"Berserk", "modifier.cooldowns"},
+  {"Incarnation: King of the Jungle", "modifier.cooldowns"},
+  {"Ashamane's Frenzy", {
+    "player.combopoints < 3 "
+  }},
+  { "#trinket2", "modifier.cooldowns" },
+
+  ------------------------------------------
+  -- Start Killing Things --
+  ------------------------------------------
+
+  {"Tiger's Fury", {
+  "!player.buff(Clearcasting)",
+  "player.energy < 23",
+  }},
+
+  {"Ferocious Bite", {
+  "target.debuff(Rip).duration < 3",
+  "target.health < 25"
+  }},
+
+  ------------------------------------------
+  -- Self Healing --
+  ------------------------------------------
+
   { "Healing Touch", {
-    "player.buff(Predatory Swiftness)", 
-    "player.health <= 70",
+    "player.buff(Predatory Swiftness)",
+    "player.health <= 80",
   }},
-  
-  { "Regrowth", {
-    "player.buff(Predatory Swiftness)", 
-    "player.health <= 90",
-  }},
-
-  -- AoE
-  { "Swipe", "modifier.multitarget" },
-  
-  { "106830", {
-    "modifier.multitarget", 
-    "target.debuff(Thrash).duration <= 1.5"
-  }},
-  
-  { "Faerie Swarm", { 
-    "!target.debuff(Faerie Swarm)",
-    "player.spell(106707).exists",
+  { "Healing Touch", {
+    "lowest.health <= 75",
+    "player.buff(Predatory Swiftness)",
+    "player.buff(Predatory Swiftness).duration < 4"
+  }, "lowest"},
+  { "Healing Touch", {
+    "player.buff(Predatory Swiftness)",
+    "player.buff(Predatory Swiftness).duration < 1.5"
   }},
 
-  -- Buffs
-  { "Savage Roar", { 
-    "!player.buff(Savage Roar)", 
-    "player.combopoints = 0", 
-    "!player.combat", 
-    "target.enemy",
-  }},
-  
-  { "Savage Roar", { 
-    "player.buff(Savage Roar).duration < 5", 
-    "player.combopoints = 5",
-  }},
-  
-  { "Savage Roar", { 
-    "player.buff(Savage Roar).duration < 3", 
-    "player.combopoints >= 2",
+
+  ------------------------------------------
+  -- Back to Killing Things --
+  ------------------------------------------
+
+  {"Savage Roar", "!player.buff(Savage Roar)" },
+
+  ------------------------------------------
+  -- Multi Target --
+  ------------------------------------------
+  {"Thrash", {
+  "modifier.multitarget",
+  "target.debuff(Thrash) < 2"
   }},
 
-  -- Free Thrash
-  { "Thrash", "player.buff(Omen of Clarity)" },
-
-  -- Spend Combo
-  -- Tiger's Fury
-  { "Tiger's Fury", "player.energy <= 35"},
-
-  -- Rake
-  { "Rake", "target.debuff(Rake).duration <= 4" },
-
-  -- Rip
-  { "Rip", { 
-    "!target.debuff(Rip)", 
-    "player.combopoints = 5",
+  ------------------------------------------
+  -- Back to Killing Things --
+  ------------------------------------------
+  {"Rip", {
+  "player.combopoints > 4",
+  "target.debuff(Rip).duration < 2",
   }},
-  
-  { "Rip", { 
-    "target.health > 25", 
-    "target.debuff(Rip).duration < 5", 
-    "player.combopoints = 5",
+  {"Savage Roar", {
+  "player.buff(Savage Roar).duration < 3",
+  "player.combopoints > 4",
   }},
-
-  -- Ferocious Bite
-  -- Target Health is less then 25%
-  { "Ferocious Bite", { 
-    "target.debuff(Rip)", 
-    "target.health < 30", 
-    "player.combopoints = 5",
+  {"Ferocious Bite", {
+  "player.combopoints > 4",
+  "player.energy > 125",
   }},
-
-  -- Max Combo and Rip or Savage do not need refreshed
-  { "Ferocious Bite", { 
-    "player.combopoints = 5", 
-    "target.debuff(Rip).duration > 5", 
-    "player.buff(Savage Roar).duration > 5",
+  {"Rake", {
+  "target.debuff(Rake).duration < 3",
   }},
+  {"Moonfire", {
+  "target.debuff(Moonfire).duration < 4",
+  }},
+  {"Swipe", "modifier.multitarget"},
+  {"Shred" },
 
-  -- Combo Point Building Rotation
-  -- Shred
-  
-  {{
-  { "Shred", "player.buff(Clearcasting)" },
-  { "Shred", "player.buff(Berserk)" },
-  { "Shred", "player.combopoints < 5" },
-  }, "player.behind" },
-
-  -- Mangle
-  
-  {{
-  { "Mangle", "player.buff(Clearcasting)" },
-  { "Mangle", "player.buff(Berserk)" },
-  { "Mangle", "player.combopoints < 5" },
-  }, "!player.behind" },
-  
   ------------------
   -- End Rotation --
   ------------------
@@ -154,37 +118,22 @@ NetherMachine.rotation.register(103, {
   ---------------
   -- OOC Begin --
   ---------------
-  
-  { "Mark of the Wild", { 
-    "!player.buff(Mark of the Wild)", 
-    "!player.buff(Cat Form)",
-  }},
-  
-  { "Savage Roar", { 
-    "!player.buff(Savage Roar)", 
-    "target.range < 10", 
-    "player.buff(Prowl)", 
-    "target.exists", 
+
+  { "Savage Roar", {
+    "!player.buff(Savage Roar)",
+    "target.range < 10",
+    "player.buff(Prowl)",
+    "target.exists",
     "target.enemy",
-  }},
-  
-  { "Prowl", { 
-    "player.buff(Cat Form)", 
-    "target.enemy",
-  }},
-  
-  { "Cat Form", { 
-    "player.buff(Mark of the Wild).any", 
-    "!player.buff(Cat Form)",
-  }},
-  
-  { "/cancelaura Cat Form", { 
-    "player.buff(Cat Form)", 
-    "!player.buff(Mark of the Wild)",
   }},
 
+  { "Prowl", {
+    "player.buff(Cat Form)",
+    "target.enemy",
+    "!target.dead",
+  }},
   -------------
   -- OOC End --
   -------------
-  
+
 })
