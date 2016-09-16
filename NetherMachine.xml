@@ -111,7 +111,7 @@
   <Script file="system\listeners\player_regen_disabled.lua" />
   <Script file="system\listeners\ui_error_message.lua" />
   <Script file="system\listeners\lfg_proposal_show.lua" />
-  
+
 	<!-- Includes -->
 	<Script file="rotations\shared\Reel\API.lua" />
 	<Script file="rotations\shared\Reel\Reel.lua" />
@@ -142,6 +142,7 @@
   <Script file="rotations\druid\feral.lua" />
   <Script file="rotations\druid\feral2.lua" />
   <Script file="rotations\druid\feral3.lua" />
+  <Script file="rotations\druid\feral4.lua" />
   <Script file="rotations\druid\guardian.lua" />
   <Script file="rotations\druid\guardian2.lua" />
   <Script file="rotations\druid\guardian3.lua" />
@@ -194,10 +195,10 @@
   <Script file="rotations\warlock\affliction.lua" />
   <Script file="rotations\warlock\affliction-leveling.lua" />
   <Script file="rotations\warlock\affliction2.lua" />
-  <Script file="rotations\warlock\demonology.lua" />
+<!--  <Script file="rotations\warlock\demonology.lua" />
   <Script file="rotations\warlock\demonology2.lua" />
   <Script file="rotations\warlock\destruction.lua" />
-  <Script file="rotations\warlock\destruction2.lua" />
+  <Script file="rotations\warlock\destruction2.lua" /> -->
   <Script file="rotations\warrior\basic_warrior.lua" />
   <Script file="rotations\warrior\arms.lua" />
   <Script file="rotations\warrior\fury.lua" />

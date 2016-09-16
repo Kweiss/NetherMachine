@@ -655,7 +655,7 @@ NetherMachine.rotation.register_custom(105, "bbDruid Restoration (Experimental)"
         { "Rejuvenation", {"lowest.range <= 40", "lowest.health <= 80","!lowest.buff(155777)"}, "lowest" }, --germ.
         { "Rejuvenation", {"focus.range <= 40",  "focus.health <= 90","!focus.buff(155777)"}, "focus" }, -- germ
         { "Rejuvenation", {"tank.range <= 40",  "tank.health <= 90","!tank.buff(155777)"}, "tank" }, -- germ
-      }, "talent(7,2)"},
+      }, "talent(6,3)"},
       { "Rejuvenation", {"lowest.range <= 40", "!lowest.buff(774)", "lowest.health <= 90"}, "lowest" }, -- Rejuv.
       { "Rejuvenation", {"focus.range <= 40", "!focus.buff(774)", "focus.health <= 95"}, "focus" }, -- Rejuv.
       { "Rejuvenation", {"tank.range <= 40","!tank.buff(774)", "tank.health <= 95"}, "tank" }, -- Rejuv.
