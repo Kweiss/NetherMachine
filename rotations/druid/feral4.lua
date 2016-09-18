@@ -6,7 +6,7 @@
 -- REQUIRED ARTIFACT: Ashamane's Frenzy Ashamane's Bite Scent of Blood Protection of Ashamane Razor Fangs (Rank 6) Powerful Bite (Rank 3)Ashamane's Energy (Rank 3) Attuned to Nature (Rank 3)Tear the Flesh (Rank 3)Shredder Fangs
 -- CONTROLS:
 
-NetherMachine.rotation.register_customer(103, "Legion Druid Feral T19N", {
+NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Druid |cFFFF9999(SimC T19N)", {
 
 	-- 8	4.56	rake,if=buff.prowl.up|buff.shadowmeld.up
 	{ "Rake", { "player.buff(Prowl)" } },
@@ -57,16 +57,16 @@ NetherMachine.rotation.register_customer(103, "Legion Druid Feral T19N", {
 	-- actions.finisher
 	{ {
 	-- J	8.29	savage_roar,if=!buff.savage_roar.up&(combo_points=5)
-	{ "Savage Roar", { "!player.buff(Savage Roar) } },
+	{ "Savage Roar", { "!player.buff(Savage Roar)" } },
 
 	-- 0.00	pool_resource,for_next=1
 	-- K	22.89	rip,cycle_targets=1,if=(!ticking|(remains<8&target.health.pct>25&!talent.sabertooth.enabled)|persistent_multiplier>dot.rip.pmultiplier)
 	--																		&target.time_to_die-remains>tick_time*4
 	--																		&combo_points=5
 	--                               			&(energy.time_to_max<1|buff.berserk.up|cooldown.tigers_fury.remains<3|buff.clearcasting.react)
-	{ "Rip", "!target.debuff(Rip) },
+	{ "Rip", "!target.debuff(Rip)" },
 	{ "Rip", { "target.debuff(Rip).remains < 8", "target.health > 25", "!talent.sabertooth.enabled" } },
-	{ "Rip", { "target.debuff(Rip).remains < 3", (function() return NetherMachine.condition["deathin"]('target') - NetherMachine.condition["debuff.remains"]('target', "Rip") > (target.debuff(Rip).remains * 4) end) } },
+	{ "Rip", { "target.debuff(Rip).remains < 3", "target.health > 5 " } },
 
 
 	-- L	10.27	savage_roar,if=(buff.savage_roar.remains<=10.5|(buff.savage_roar.remains<=7.2&!talent.jagged_wounds.enabled))&combo_points=5&
@@ -88,7 +88,7 @@ NetherMachine.rotation.register_customer(103, "Legion Druid Feral T19N", {
 	-- #	count	action,conditions
 	-- 0.00	brutal_slash,if=spell_targets.brutal_slash>desired_targets&combo_points<5
 	-- N	6.10	ashamanes_frenzy,if=combo_points<=2&buff.elunes_guidance.down&(buff.bloodtalons.up|!talent.bloodtalons.enabled)&(buff.savage_roar.up|!talent.savage_roar.enabled)
-	{ "Ashamane's Frenzy", { "player.combopoints <= 2 ", "player.buff(Bloodtalons)", "plyer.buff(savage roar)" }},
+	{ "Ashamane's Frenzy", { "player.combopoints < 3 ", "player.buff(Savage Roar)", "player.buff(Bloodtalons)" }},
 
 	-- 0.00	pool_resource,if=talent.elunes_guidance.enabled&combo_points=0&energy<action.ferocious_bite.cost+25-energy.regen*cooldown.elunes_guidance.remains
 	-- 0.00	elunes_guidance,if=talent.elunes_guidance.enabled&combo_points=0&energy>=action.ferocious_bite.cost+25
@@ -105,7 +105,7 @@ NetherMachine.rotation.register_customer(103, "Legion Druid Feral T19N", {
 	{ {
 	{ "Rake", { "target.debuff(Rake).duration < 3" }},
 	{ "Rake", { "player.buff(Bloodtalons)", "target.debuff(Rake).duration <= 5 " }},
-	}, "player.combopoints < 5 ", (function() return NetherMachine.condition["deathin"]('target') - NetherMachine.condition["debuff.remains"]('target', "Rake") > 8 ) end) },
+	}, "player.combopoints < 5 " },
 
 	-- Q	31.63	moonfire_cat,cycle_targets=1,if=combo_points<5&remains<=4.2&target.time_to_die-remains>tick_time*2
 	{ "Moonfire", { "player.combopoints < 5", "target.debuff(Moonfire).duration < 4.2", "target.ttd > 8" }},
