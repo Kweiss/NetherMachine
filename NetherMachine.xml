@@ -148,6 +148,7 @@
   <Script file="rotations\druid\guardian3.lua" />
   <Script file="rotations\druid\restoration.lua" />
   <Script file="rotations\druid\restoration2.lua" />
+  <Script file="rotations\druid\restoration3.lua" />
   <Script file="rotations\hunter\basic_hunter.lua" />
   <Script file="rotations\hunter\beastmastery.lua" />
   <Script file="rotations\hunter\beastmastery2.lua" />

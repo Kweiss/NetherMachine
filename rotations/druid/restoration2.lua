@@ -4,7 +4,7 @@
 
 -- PLAYER CONTROLLED:
 
--- Talents: (1,2) Cenarion Ward, (2,2) Displacer Beast, (3,2) Feral Affinity, (4,1) Mighty Bash, (5,3) Cultivation (6,3) Germination, (7,3) Stonebark
+-- Talents: (1,2) Cenarion Ward, (2,2) Displacer Beast, (3,2) Feral Affinity, (4,1) Mighty Bash, (5,3) Cultivation (6,3) Germination, (7,2) Stonebark
 -- m+ is CW, germ, cultivation and stonebark
 -- m+ Rake > shred to 5 combo > rip > sunfire/moon fire > wrath till rake is falling off
 -- CONTROLS: Pause - Left Control
@@ -107,7 +107,7 @@ NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Dr
     { "Ironbark", "boss1target.health < 70", "boss1target" },
     { "Swiftmend", { "boss1target.health < 50", "boss1target.buff(Rejuvenation)" }, "boss1target" },
     { "Swiftmend", { "boss1target.health < 50", "boss1target.buff(Regrowth)" }, "boss1target" },
-    { "Regrowth", { "boss1target.health < 65", "!boss1target.buff(Regrowth)", "!player.moving" }, "boss1target" },
+    { "Regrowth", { "boss1target.health < 55", "!boss1target.buff(Regrowth)", "!player.moving" }, "boss1target" },
   },{
     "boss1target.exists", "boss1target.alive", "boss1target.friend", "boss1target.distance < 40", "@bbLib.isTank('boss1target')",
   } },
@@ -117,7 +117,7 @@ NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Dr
     { "Ironbark", "focus.health < 70", "focus" },
     { "Swiftmend", { "focus.health < 50", "focus.buff(Rejuvenation)" }, "focus" },
     { "Swiftmend", { "focus.health < 50", "focus.buff(Regrowth)" }, "focus" },
-    { "Regrowth", { "focus.health < 65", "!focus.buff(Regrowth)", "!player.moving" }, "focus" },
+    { "Regrowth", { "focus.health < 55", "!focus.buff(Regrowth)", "!player.moving" }, "focus" },
   },{
     "focus.exists", "focus.alive", "focus.friend", "focus.distance < 40",
   } },
@@ -127,7 +127,7 @@ NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Dr
     { "Ironbark", "tank.health < 70", "tank" },
     { "Swiftmend", { "tank.health < 50", "focus.buff(Rejuvenation)" }, "tank" },
     { "Swiftmend", { "tank.health < 50", "focus.buff(Regrowth)" }, "tank" },
-    { "Regrowth", { "tank.health < 65", "!tank.buff(Regrowth)", "!player.moving" }, "tank" },
+    { "Regrowth", { "tank.health < 55", "!tank.buff(Regrowth)", "!player.moving" }, "tank" },
   },{
     "tank.exists", "tank.alive", "tank.friend", "tank.distance < 40",
   } },
@@ -142,25 +142,28 @@ NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Dr
 
   -- PARTY HEALING
   { {
-    { "Regrowth", { "party1.health < 72", "party1.buff(Regrowth).remains <= 3" }, "party1" },
-    { "Regrowth", { "party2.health < 72", "party2.buff(Regrowth).remains <= 3" }, "party2" },
-    { "Regrowth", { "party3.health < 72", "party3.buff(Regrowth).remains <= 3" }, "party3" },
-    { "Regrowth", { "party4.health < 72", "party4.buff(Regrowth).remains <= 3" }, "party4" },
+    { "Regrowth", { "party1.health < 62", "party1.buff(Regrowth).remains <= 3", "party1.buff(774)" }, "party1" },
+    { "Regrowth", { "party2.health < 62", "party2.buff(Regrowth).remains <= 3", "party2.buff(774)" }, "party2" },
+    { "Regrowth", { "party3.health < 62", "party3.buff(Regrowth).remains <= 3", "party3.buff(774)" }, "party3" },
+    { "Regrowth", { "party4.health < 62", "party4.buff(Regrowth).remains <= 3", "party4.buff(774)" }, "party4" },
+    { "Regrowth", { "lowest.health < 62", "lowest.buff(Regrowth).remains <= 3", "lowest.buff(774)" }, "lowest" },
 
     { "Rejuvenation", { "party1.health < 93", "party1.buff(774).remains <= 3" }, "party1" },
     { "Rejuvenation", { "party2.health < 93", "party2.buff(774).remains <= 3" }, "party2" },
     { "Rejuvenation", { "party3.health < 93", "party3.buff(774).remains <= 3" }, "party3" },
     { "Rejuvenation", { "party4.health < 93", "party4.buff(774).remains <= 3" }, "party4" },
+    { "Rejuvenation", { "lowest.health < 93", "lowest.buff(774).remains <= 3" }, "lowest" },
 
-    { "Rejuvenation", { "party1.health < 82", "talent(6, 3)", "party1.buff(155777).remains <= 3" }, "party1" },
-    { "Rejuvenation", { "party2.health < 82", "talent(6, 3)", "party2.buff(155777).remains <= 3" }, "party2" },
-    { "Rejuvenation", { "party3.health < 82", "talent(6, 3)", "party3.buff(155777).remains <= 3" }, "party3" },
-    { "Rejuvenation", { "party4.health < 82", "talent(6, 3)", "party4.buff(155777).remains <= 3" }, "party4" },
+    { "Rejuvenation", { "party1.health < 80", "talent(6, 3)", "party1.buff(155777).remains <= 3" }, "party1" },
+    { "Rejuvenation", { "party2.health < 80", "talent(6, 3)", "party2.buff(155777).remains <= 3" }, "party2" },
+    { "Rejuvenation", { "party3.health < 80", "talent(6, 3)", "party3.buff(155777).remains <= 3" }, "party3" },
+    { "Rejuvenation", { "party4.health < 80", "talent(6, 3)", "party4.buff(155777).remains <= 3" }, "party4" },
+    { "Rejuvenation", { "lowest.health < 80", "talent(6, 3)", "lowest.buff(155777).remains <= 3" }, "lowest" },
   }, "!modifier.raid" },
 
 
   -- FILLER
-  { "Healing Touch", { "lowest.health < 50", "!player.moving" }, "lowest" },
+  { "Healing Touch", { "lowest.health < 40", "!player.moving", "lowest.buf(774)", "lowest.buff(155777)" }, "lowest" },
 
 }, {
 -- OUT OF COMBAT ROTATION
