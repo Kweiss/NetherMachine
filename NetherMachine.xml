@@ -136,6 +136,9 @@
   <Script file="rotations\deathknight\frost2.lua" />
   <Script file="rotations\deathknight\unholy.lua" />
   <Script file="rotations\deathknight\unholy2.lua" />
+  <Script file="rotations\demonhunter\demonsquad.lua" />
+  <Script file="rotations\demonhunter\vengeance.lua" />
+  <Script file="rotations\demonhunter\havoc.lua" />
   <Script file="rotations\druid\basic_druid.lua" />
   <Script file="rotations\druid\balance.lua" />
   <Script file="rotations\druid\balance2.lua" />

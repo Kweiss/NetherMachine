@@ -9,7 +9,7 @@
 -- TODO: Actually use talents, mouseover rez/rebirth, OOC rotation.
 
 -- SPEC ID 256 (Disc)
-ProbablyEngine.rotation.register(256, {
+NetherMachine.rotation.register(256, {
 
   --------------------
   -- Start Rotation --

@@ -50,6 +50,8 @@ NetherMachine.rotation.specId[267] = L('destruction_warlock')
 NetherMachine.rotation.specId[268] = L('brewmaster_monk')
 NetherMachine.rotation.specId[269] = L('windwalker_monk')
 NetherMachine.rotation.specId[270] = L('mistweaver_monk')
+NetherMachine.rotation.specId[577] = L('demon_hunter_havoc')
+NetherMachine.rotation.specId[581] = L('demon_hunter_vengeance')
 
 NetherMachine.rotation.classSpecId[62] = 8
 NetherMachine.rotation.classSpecId[63] = 8
@@ -85,6 +87,8 @@ NetherMachine.rotation.classSpecId[267] = 9
 NetherMachine.rotation.classSpecId[268] = 10
 NetherMachine.rotation.classSpecId[269] = 10
 NetherMachine.rotation.classSpecId[270] = 10
+NetherMachine.rotation.classSpecId[577] = 12
+NetherMachine.rotation.classSpecId[581] = 12
 
 NetherMachine.rotation.register = function(specId, spellTable, arg1, arg2)
   local name = NetherMachine.rotation.specId[specId] or GetClassInfoByID(specId)

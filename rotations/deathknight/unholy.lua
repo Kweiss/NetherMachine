@@ -1,3 +1,79 @@
+-- SPEC ID 252
+NetherMachine.rotation.register_custom(252, '|cff69ACC8Unholy Legion Rotation|r',{
+
+  { "Raise Dead", "!pet.exists" },
+  { "Mind Freeze", "modifier.interrupts" },
+  { "Strangualte", {
+  "modifier.interrupts",
+  "!modifier.last(Mind Freeze)"
+  }},
+  { "Chains of Ice", "modifier.control" },
+  { "Icebound Fortitude", "player.health <= 45" },
+  { "Anti-Magic Shell", "player.health <= 45" },
+  { "Death Pact", "player.health <= 45" },
+
+
+  --Cooldowns
+  { "Outbreak", "!target.debuff(Virulent Plague)" },
+  { "Dark Transformation", "modifier.cooldowns" },
+  { "Blighted Rune Weapon", "modifier.cooldowns" },
+  { "Summon Gargoyle", "modifier.cooldowns" },
+  { "#trinket2", "modifier.cooldowns" },
+
+  -- Here we go
+  { "Death Coil", "player.runicpower > 80" },
+  { "Death Coil", "player.buff(Sudden Doom)" },
+  { "Death Strike", "player.buff(Dark Succor)" },
+  { "Soul Reaper", "target.debuff(Festering Wound).count > 2" },
+  { "Festering Strike", {
+  "target.debuff(Sould Reaper)",
+  "!target.debuff(Festering Wound)",
+  }},
+  { "Scourge Strike", {
+  "target.debuff(Sould Reaper)",
+  "target.debuff(Festering Wound)",
+  }},
+  { "Clawing Shadows", {
+  "target.debuff(Sould Reaper)",
+  "target.debuff(Festering Wound)",
+  }},
+  { "Defile" },
+
+  --Need AoE still
+
+
+  --Single Target
+  { "Festering Strike", "target.debuff(Festering Wound).count < 5" },
+--  { "Scourge Strike", "player.buff(Necrosis)" },
+  { "Clawing Shadows", "player.buff(Necrosis)" },
+--  { "Scourge Strike", "player.buff(Unholy Strength)" },
+  { "Clawing Shadows", "player.buff(Unholy Strength)" },
+--  { "Scourge Strike", "player.runes > 2"},
+  { "Clawing Shadows", "player.runes > 2" },
+
+},{
+
+  ---------------
+  -- OOC Begin --
+  ---------------
+
+  -- Keybinds
+  { "Death Grip", "modifier.control" },
+
+  -- Pet
+  { "Raise Dead", "!pet.exists" },
+
+  -------------
+  -- OOC End --
+  -------------
+  }
+)
+
+
+
+
+
+
 local singleTarget = {
   -- actions.single_target+=/plague_leech,if=!talent.necrotic_plague.enabled&(dot.blood_plague.remains<1&dot.frost_fever.remains<1)
   { "Plague Leech", { "spell(Outbreak).cooldown < 1", "target.debuff(Necrotic Plague)" } },

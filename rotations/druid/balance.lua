@@ -1,5 +1,5 @@
 --   SPEC ID 102 (Balance)
-ProbablyEngine.rotation.register(102, {
+NetherMachine.rotation.register(102, {
 
   --------------------
   -- Start Rotation --
@@ -54,7 +54,7 @@ ProbablyEngine.rotation.register(102, {
 
 }, function()
 	-- "toggle.custom_toggle_name"
-	ProbablyEngine.toggle.create('toggle', 'Interface\\ICONS\\inv_shield_04', 'CDs w Trinkets', 'Your CDs Will Only Be Used When your Trinkets Proc')
+	NetherMachine.toggle.create('toggle', 'Interface\\ICONS\\inv_shield_04', 'CDs w Trinkets', 'Your CDs Will Only Be Used When your Trinkets Proc')
 end)
 
 
