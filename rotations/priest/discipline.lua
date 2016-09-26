@@ -1,19 +1,110 @@
 -- NetherMachine Rotation
--- Discipline Priest - WoD 6.0.3
--- Updated on Dec 12th 2014
+-- Discipline Priest - Legion 7.0.3
+-- Updated on Sept 15th 2016
 
--- PLAYER CONTROLLED (TODO): Leap of Faith, Levitate, Shackle Undead, Mass Dispel, Dispel Magic, Purify, Fear Ward, Holy Nova, Prayer of Healing, Pain Suppression, Power Word: Barrier
--- TALENTS: Desperate Prayer, Body and Soul, Surge of Light, Psychic Scream, Power Infusion, Cascade, Clarity of Will
--- GLYPHS: Glyph of Penance, Glyph of Weakened Soul, Glyph of Holy Fire
+-- PLAYER CONTROLLED (TODO):
+-- TALENTS:
 -- CONTROLS: Pause - Left Control
 
 -- TODO: Actually use talents, mouseover rez/rebirth, OOC rotation.
 
-NetherMachine.library.register('coreHealing', {
-  needsHealing = function(percent, count)
-    return NetherMachine.raid.needsHealing(tonumber(percent)) >= count
-  end,
+-- SPEC ID 256 (Disc)
+ProbablyEngine.rotation.register(256, {
+
+  --------------------
+  -- Start Rotation --
+  --------------------
+  -- On tank
+  {{
+  { "Shadowmend", {
+    "tank.health < 40",
+    "!tank.dead",
+    "tank.range <= 40",
+  }, "tank" },
+
+  { "Plea", {
+    "tank.health < 60",
+    "!tank.dead",
+    "tank.range <= 40",
+    "!last.cast(Plea)",
+  }, "tank" },
+
+  { "Power Word: Shield", {
+    "tank.health < 95",
+    "!tank.buff(Power Word: Shield)",
+    "!tank.dead",
+    "tank.range <= 40",
+  }, "tank" },
+  },{
+  "tank.exists",
+  }},
+
+  --Big Stuff
+  { "Divine Star", "modifier.cooldowns" },
+  { "Mindbender", "modifier.cooldowns"},
+
+
+  ------------------------------------------
+  -- Atonement Checks and Regular Healing --
+  ------------------------------------------
+  { "Pain Suppression", {
+    "lowest.health <= 25",
+    "lowest.range <= 40",
+    "lowest.buff(Atonement).duration > 1"
+  }, "lowest" },
+
+  { "Rapture", {
+    "@coreHealing.needsHealing(60, 3)",
+    "lowest.range <= 40"
+  }, "player" },
+
+  { "Power Word: Shield", {
+    "lowest.health <= 60",
+    "lowest.range <= 40",
+    "!lowest.buff(Power Word: Shield)",
+    "player.buff(Rapture)",
+  }, "lowest" },
+
+  { "Power Word: Radiance", {
+    "@coreHealing.needsHealing(78, 3)",
+    "lowest.range <= 40"
+  }, "lowest" },
+
+  { "Shadow Mend", {
+    "lowest.health <= 50",
+    "lowest.range <= 40",
+    "lowest.buff(Atonement).duration < 4"
+  }, "lowest" },
+
+  { "Power Word: Shield", {
+    "lowest.health <= 80",
+    "lowest.range <= 40",
+    "!lowest.buff(Power Word: Shield)",
+  }, "lowest" },
+
+  { "Plea", {
+    "lowest.health <= 85",
+    "!lowest.buff(Atonement)",
+    "lowest.range <= 40"
+  }, "lowest" },
+
+  --Direct Damage
+
+  { "Shadow Word: Pain", "target.debuff(Shadow Word: Pain).duration < 2" },
+  { "Purge the Wicked", "target.debuff(Purge the Wicked).duration < 2" },
+  { "Schism" },
+  { "Penance" },
+  { "Smite" },
+
+
+  ------------------
+  -- End Rotation --
+  ------------------
+
 })
+
+-- PtW (purge the wicked) Level 100 talent >    Rapture>PWSx6-8>PWR x 1-2>MB>Penance
+
 
 NetherMachine.rotation.register_custom(256, "bbPriest Discipline", {
 -- COMBAT ROTATION

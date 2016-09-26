@@ -299,6 +299,14 @@ NetherMachine.condition.register("seal", function(target, spell)
     return GetShapeshiftForm()
 end)
 
+NetherMachine.condition.register("mael", function(target, spell)
+    return UnitPower(target, SPELL_POWER_MAELSTROM)
+end)
+
+NetherMachine.condition.register("insane", function(target, spell)
+    return UnitPower(target, SPELL_POWER_INSANITY)
+end)
+
 NetherMachine.condition.register("focus", function(target, spell)
     return UnitPower(target, SPELL_POWER_FOCUS)
 end)
@@ -597,186 +605,12 @@ NetherMachine.condition.register("aggro", function(unit, otherunit)
   return NetherMachine.condition["agro"](unit, otherunit)
 end)
 
-NetherMachine.condition.register("balance.sun", function(target)
-    local direction = GetEclipseDirection()
-    if direction and direction == "sun" then return true end
-    return false
+NetherMachine.condition.register("astral", function(target, spell)
+    return UnitPower(target, SPELL_POWER_ASTRAL_POWER)
 end)
 
-NetherMachine.condition.register("balance.moon", function(target)
-    local direction = GetEclipseDirection()
-    if direction and direction == "moon" then return true end
-    return false
-end)
-
-NetherMachine.condition.register("balance.eclipse", function(target)
-    local eclipse = UnitPower("player", 8)
-    return eclipse
-end)
-
-NetherMachine.condition.register("balance.lunarmax", function(target)
-    local eclipsepersecond = 10
-    local group = GetActiveSpecGroup()
-    local _, _, _, selected, active = GetTalentInfo(7, 1, group)
-    if selected and active then
-      eclipsepersecond = 20
-    end
-    if UnitBuff("player", "Lunar Peak") then
-      if selected and active then
-        return 20
-      else
-        return 40
-      end
-    end
-    local direction = GetEclipseDirection()
-    local eclipse = UnitPower("player", 8)
-    if not direction or not eclipse or direction == "none" then return 99 end
-    if direction == "moon" and eclipse < 0 then
-      return (100 - abs(eclipse)) / eclipsepersecond
-    elseif direction == "moon" and eclipse >= 0 then
-      return (100 + eclipse) / eclipsepersecond
-    elseif direction == "sun" and eclipse < 0 then
-      return (300 + abs(eclipse)) / eclipsepersecond
-    elseif direction == "sun" and eclipse >= 0 then
-      return (200 + (100 - eclipse)) / eclipsepersecond
-    end
-    return 99
-end)
-
-NetherMachine.condition.register("balance.solarmax", function(target)
-    local eclipsepersecond = 10
-    local group = GetActiveSpecGroup()
-    local _, _, _, selected, active = GetTalentInfo(7, 1, group)
-    if selected and active then
-      eclipsepersecond = 20
-    end
-    if UnitBuff("player", "Solar Peak") then
-      if selected and active then
-        return 20
-      else
-        return 40
-      end
-    end
-    local direction = GetEclipseDirection()
-    local eclipse = UnitPower("player", 8)
-    if not direction or not eclipse or direction == "none" then return 99 end
-    if direction == "sun" and eclipse < 0 then
-      return (100 + abs(eclipse)) / eclipsepersecond
-    elseif direction == "sun" and eclipse >= 0 then
-      return (100 - eclipse) / eclipsepersecond
-    elseif direction == "moon" and eclipse < 0 then
-      return (200 + (100 - abs(eclipse))) / eclipsepersecond
-    elseif direction == "moon" and eclipse >= 0 then
-      return (300 + eclipse) / eclipsepersecond
-    end
-    return 99
-end)
-
-NetherMachine.condition.register("eclipse.change", function(target, spell)
-  local timetozero = 40.0 / 4
-  local eclipse = UnitPower("player", 8)
-  local direction = GetEclipseDirection()
-  local _, _, _, selected, active = GetTalentInfo(7, 1, GetActiveSpecGroup())
-  if selected and active then
-    timetozero = timetozero / 2
-  end
-  if (direction == "sun" and eclipse < 0) or (direction == "moon" and eclipse >= 0) then
-    timetozero = timetozero * ( abs(eclipse) / 100 )
-  elseif (direction == "sun" and eclipse >= 0) or (direction == "moon" and eclipse < 0) then
-    timetozero = timetozero * ( (200 - abs(eclipse)) / 100 )
-  end
-  return timetozero
-end)
-
-NetherMachine.condition.register("balance.neweclipsechange", function(target, spell)
-    local timetozero = 40.0 / 4
-    local eclipse = UnitPower("player", 8)
-    local direction = GetEclipseDirection()
-    local _, _, _, selected, active = GetTalentInfo(7, 1, GetActiveSpecGroup())
-    if selected and active then
-      timetozero = timetozero / 2
-    end
-
-    if (direction == "sun" and eclipse < 0)
-     or (direction == "moon" and eclipse >= 0) then
-      timetozero = timetozero * ( (100 - abs(eclipse)) / 100 )
-    elseif (direction == "sun" and eclipse >= 0)
-     or (direction == "moon" and eclipse < 0) then
-      timetozero = timetozero * ( (200 - abs(eclipse)) / 100 )
-    end
-
-    if spell then
-      local name, _, _, castingTime = GetSpellInfo(spell)
-      if name and castingTime then
-        castingTime = castingTime / 1000
-        if (spell == "Wrath" and eclipse > 0 and timetozero > castingTime)
-         or (spell == "Starfire" and eclipse < 0 and timetozero > castingTime) then
-           return true
-        end
-      end
-    end
-    return timetozero > 2
-end)
-
-NetherMachine.condition.register("balance.eclipsechange", function(target, spell)
-  local eclipsepersecond = 10
-  local group = GetActiveSpecGroup()
-  local _, _, _, selected, active = GetTalentInfo(7, 1, group)
-  if selected and active then
-    eclipsepersecond = 20
-  end
-  local timetozero = 20
-  local eclipse = UnitPower("player", 8)
-  if UnitBuff("player", "Solar Peak") or UnitBuff("player", "Lunar Peak") then
-    if selected and active then
-      timetozero = 10
-    end
-  else
-    local direction = GetEclipseDirection()
-    if not direction or not eclipse or direction == "none" then return false end
-    if direction == "sun" and eclipse < 0 then
-      timetozero = abs(eclipse) / eclipsepersecond
-      elseif direction == "sun" and eclipse >= 0 then
-        timetozero = (200 - eclipse) / eclipsepersecond
-        elseif direction == "moon" and eclipse < 0 then
-          timetozero = (200 - abs(eclipse)) / eclipsepersecond
-          elseif direction == "moon" and eclipse >= 0 then
-            timetozero = eclipse / eclipsepersecond
-          end
-        end
-        if spell then
-          local casttime = 1.5
-          local name, _, _, castingTime = GetSpellInfo(spell)
-          if name and castingTime then
-            casttime = castingTime / 1000
-          end
-          if spell == "Wrath" then
-            if (eclipse > 0 and timetozero > casttime) then
-              return true
-            end
-            elseif spell == "Starfire" then
-              if (eclipse < 0 and timetozero > casttime) then
-                return true
-              end
-            end
-          end
-          return false
-end)
-
-NetherMachine.condition.register("solar", function(target, spell)
-  return GetEclipseDirection() == 'sun'
-end)
-
-NetherMachine.condition.register("lunar", function(target, spell)
-  return GetEclipseDirection() == 'moon'
-end)
-
-NetherMachine.condition.register("eclipse", function(target, spell)
-  return UnitPower(target, SPELL_POWER_ECLIPSE)
-end)
-
-NetherMachine.condition.register("eclipseRaw", function(target, spell)
-  return UnitPower(target, SPELL_POWER_ECLIPSE)
+NetherMachine.condition.register("pain", function(target, spell)
+    return UnitPower(target, SPELL_POWER_PAIN)
 end)
 
 NetherMachine.condition.register("moving", function(target)
@@ -855,10 +689,6 @@ NetherMachine.condition.register("runicpower", function(target, spell)
     return UnitPower(target, SPELL_POWER_RUNIC_POWER)
 end)
 
-NetherMachine.condition.register("runicpower.deficit", function(target, spell)
-  return UnitPowerMax(target, SPELL_POWER_RUNIC_POWER) - UnitPower(target, SPELL_POWER_RUNIC_POWER)
-end)
-
 NetherMachine.condition.register("runes", function(target)
   local runeCount = 0
   for i=1, 6 do
@@ -871,152 +701,6 @@ NetherMachine.condition.register("runes", function(target)
   return runeCount
 end)
 
-NetherMachine.condition.register("runes.frac", function(target, rune)
-  -- 12 b, 34 f, 56 u
-  runes_t[1], runes_t[2], runes_t[3], runes_t[4], runes_c[1], runes_c[2], runes_c[3], runes_c[4] = 0,0,0,0,0,0,0,0
-  for i=1, 6 do
-    local r, d, c = GetRuneCooldown(i)
-    local frac = 1-(r/d)
-    local t = GetRuneType(i)
-    runes_t[t] = runes_t[t] + 1
-    if c then
-      runes_c[t] = runes_c[t] + frac
-    end
-  end
-  if rune == 'frost' then
-    return runes_c[3]
-  elseif rune == 'blood' then
-    return runes_c[1]
-  elseif rune == 'unholy' then
-    return runes_c[2]
-  elseif rune == 'death' then
-    return runes_c[4]
-  elseif rune == 'Frost' then
-    return runes_c[3] + runes_c[4]
-  elseif rune == 'Blood' then
-    return runes_c[1] + runes_c[4]
-  elseif rune == 'Unholy' then
-    return runes_c[2] + runes_c[4]
-  end
-  return 0
-end)
-
-NetherMachine.condition.register("runes.cooldown_min", function(target, rune)
-  -- 12 b, 34 f, 56 u
-  runes_t[1], runes_t[2], runes_t[3], runes_t[4], runes_c[1], runes_c[2], runes_c[3], runes_c[4] = 0,0,0,0,0,0,0,0
-  for i=1, 6 do
-    local r, d, c = GetRuneCooldown(i)
-    local cd = (r + d) - GetTime()
-    local t = GetRuneType(i)
-    runes_t[t] = runes_t[t] + 1
-    if cd > 0 and runes_c[t] > cd then
-      runes_c[t] = cd
-    else
-      runes_c[t] = 8675309
-    end
-  end
-  if rune == 'frost' then
-    return runes_c[3]
-  elseif rune == 'blood' then
-    return runes_c[1]
-  elseif rune == 'unholy' then
-    return runes_c[2]
-  elseif rune == 'death' then
-    return runes_c[4]
-  elseif rune == 'Frost' then
-    if runes_c[3] < runes_c[4] then
-      return runes_c[3]
-    end
-    return runes_c[4]
-  elseif rune == 'Blood' then
-    if runes_c[1] < runes_c[4] then
-      return runes_c[1]
-    end
-    return runes_c[4]
-  elseif rune == 'Unholy' then
-    if runes_c[2] < runes_c[4] then
-      return runes_c[2]
-    end
-    return runes_c[4]
-  end
-  return 0
-end)
-
-NetherMachine.condition.register("runes.cooldown_max", function(target, rune)
-  -- 12 b, 34 f, 56 u
-  runes_t[1], runes_t[2], runes_t[3], runes_t[4], runes_c[1], runes_c[2], runes_c[3], runes_c[4] = 0,0,0,0,0,0,0,0
-  for i=1, 6 do
-    local r, d, c = GetRuneCooldown(i)
-    local cd = (r + d) - GetTime()
-    local t = GetRuneType(i)
-    runes_t[t] = runes_t[t] + 1
-    if cd > 0 and runes_c[t] < cd then
-      runes_c[t] = cd
-    end
-  end
-  if rune == 'frost' then
-    return runes_c[3]
-  elseif rune == 'blood' then
-    return runes_c[1]
-  elseif rune == 'unholy' then
-    return runes_c[2]
-  elseif rune == 'death' then
-    return runes_c[4]
-  elseif rune == 'Frost' then
-    if runes_c[3] > runes_c[4] then
-      return runes_c[3]
-    end
-    return runes_c[4]
-  elseif rune == 'Blood' then
-    if runes_c[1] > runes_c[4] then
-      return runes_c[1]
-    end
-    return runes_c[4]
-  elseif rune == 'Unholy' then
-    if runes_c[2] > runes_c[4] then
-      return runes_c[2]
-    end
-    return runes_c[4]
-  end
-  return 0
-end)
-
-
-NetherMachine.condition.register("runes.depleted", function(target, spell)
-  local regeneration_threshold = 1
-  for i=1,6,2 do
-    local start, duration, runeReady = GetRuneCooldown(i)
-    local start2, duration2, runeReady2 = GetRuneCooldown(i+1)
-    if not runeReady and not runeReady2 and duration > 0 and duration2 > 0 and start > 0 and start2 > 0 then
-      if (start-GetTime()+duration)>=regeneration_threshold and (start2-GetTime()+duration2)>=regeneration_threshold then
-        return true
-      end
-    end
-  end
-  return false
-end)
-
-NetherMachine.condition.register("runes.depleted.count", function(target, rune)
-  local depletedCount = 0
-  for i=1,6 do
-    local _, _, runeReady = GetRuneCooldown(i)
-    if not runeReady then
-      depletedCount = depletedCount + 1
-    end
-  end
-  return depletedCount
-end)
-
-NetherMachine.condition.register("runes", function(target, rune)
-    return NetherMachine.condition["runes.count"](target, rune)
-end)
-
-NetherMachine.condition.register("health", function(target)
-    if UnitExists(target) then
-        return math.floor((UnitHealth(target) / UnitHealthMax(target)) * 100)
-    end
-    return 0
-end)
 
 NetherMachine.condition.register("health.actual", function(target)
     return UnitHealth(target)

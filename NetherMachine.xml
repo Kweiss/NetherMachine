@@ -161,6 +161,7 @@
   <Script file="rotations\mage\arcane2.lua" />
   <Script file="rotations\mage\fire.lua" />
   <Script file="rotations\mage\fire2.lua" />
+  <Script file="rotations\mage\fire3.lua" />
   <Script file="rotations\mage\frost.lua" />
   <Script file="rotations\mage\frost2.lua" />
   <Script file="rotations\monk\basic_monk.lua" />
@@ -173,6 +174,7 @@
   <Script file="rotations\paladin\holy.lua" />
   <Script file="rotations\paladin\protection.lua" />
   <Script file="rotations\paladin\protection2.lua" />
+  <Script file="rotations\paladin\prot_stayalive.lua" />
   <Script file="rotations\paladin\retribution.lua" />
   <Script file="rotations\paladin\retribution2.lua" />
   <Script file="rotations\paladin\retribution3.lua" />
@@ -181,6 +183,7 @@
   <Script file="rotations\priest\holy.lua" />
   <Script file="rotations\priest\shadow.lua" />
   <Script file="rotations\priest\shadow2.lua" />
+  <Script file="rotations\priest\shadow3.lua" />
   <Script file="rotations\rogue\basic_rogue.lua" />
   <Script file="rotations\rogue\assassination.lua" />
   <Script file="rotations\rogue\combat.lua" />

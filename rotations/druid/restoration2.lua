@@ -13,6 +13,19 @@
 NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Druid |cFFFF9999(Mythic+)", {
 -- COMBAT ROTATION
 
+
+  { {
+    {"Rip", { "player.combopoints > 4", "target.debuff(Rip).duration < 2", }},
+    {"Ferocious Bite", { "player.combopoints > 4", "player.energy > 95" }},
+    {"Rake", { "target.debuff(Rake).duration < 3" }},
+    -- {"Moonfire", { "target.debuff(Moonfire).duration < 4" }},
+    {"Shred" },
+  },{
+    "player.buff(Cat Form)",
+  } },
+
+
+
   -- Keybinding
   { "Efflorescence", "modifier.lshift", "ground" },
   { "Stampeding Roar", "modifier.lalt" },

@@ -50,7 +50,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 
 	-- 0.00	thrash_cat,cycle_targets=1,if=remains<=duration*0.3&spell_targets.thrash_cat>=5
 	{ "Thrash", { "modifier.multitarget", "target.debuff(Thrash) < 2" }},
-
+	{ "Brutal Slash", { "modifier.multitarget", "target.debuff(Thrash) > 2" }},
 	-- 0.00	swipe_cat,if=spell_targets.swipe_cat>=8
 	{"Swipe", "modifier.multitarget"},
 
@@ -89,6 +89,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	-- 0.00	brutal_slash,if=spell_targets.brutal_slash>desired_targets&combo_points<5
 	-- N	6.10	ashamanes_frenzy,if=combo_points<=2&buff.elunes_guidance.down&(buff.bloodtalons.up|!talent.bloodtalons.enabled)&(buff.savage_roar.up|!talent.savage_roar.enabled)
 	{ "Ashamane's Frenzy", { "player.combopoints < 3 ", "player.buff(Savage Roar)", "player.buff(Bloodtalons)" }},
+	{ "Ashamane's Frenzy", { "player.combopoints < 3 ", "player.buff(Savage Roar)", "!talent(7,2)" }},
 
 	-- 0.00	pool_resource,if=talent.elunes_guidance.enabled&combo_points=0&energy<action.ferocious_bite.cost+25-energy.regen*cooldown.elunes_guidance.remains
 	-- 0.00	elunes_guidance,if=talent.elunes_guidance.enabled&combo_points=0&energy>=action.ferocious_bite.cost+25
@@ -108,7 +109,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	}, "player.combopoints < 5 " },
 
 	-- Q	31.63	moonfire_cat,cycle_targets=1,if=combo_points<5&remains<=4.2&target.time_to_die-remains>tick_time*2
-	{ "Moonfire", { "player.combopoints < 5", "target.debuff(Moonfire).duration < 4.2", "target.ttd > 8" }},
+	{ "Moonfire", { "player.combopoints < 5", "target.debuff(Moonfire).duration < 4.2", "target.ttd > 8", "talent(1,3)" }},
 
 	-- 0.00	pool_resource,for_next=1
 	-- 0.00	thrash_cat,cycle_targets=1,if=remains<=duration*0.3&spell_targets.swipe_cat>=2
