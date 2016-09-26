@@ -701,6 +701,12 @@ NetherMachine.condition.register("runes", function(target)
   return runeCount
 end)
 
+NetherMachine.condition.register("health", function(target)
+    if UnitExists(target) then
+        return math.floor((UnitHealth(target) / UnitHealthMax(target)) * 100)
+    end
+    return 0
+end)
 
 NetherMachine.condition.register("health.actual", function(target)
     return UnitHealth(target)
