@@ -2,7 +2,13 @@
 -- Restoration Druid - WoD 7.0.3 - Dungeons and Mythic+
 -- Updated on Sep 13th 2016
 
--- PLAYER CONTROLLED:
+--[[
+As of 10/2/16
+These rough stat weights are meant as a way to guide you towards the correct pieces. iLvl is generally the correct choice.
+
+Raiding String: ( Pawn: v1: "RdruidRaid":    CritRating=0.70, HasteRating=0.725, MasteryRating=0.60, Versatility=0.65, Stamina=0.01, Intellect=1 )
+Dungeon String: ( Pawn: v1: "RdruidDungeon": CritRating=0.70, HasteRating=0.750, MasteryRating=0.90, Versatility=0.65, Stamina=0.01, Intellect=1 )
+]]--
 
 -- Talents: (1,2) Cenarion Ward, (2,2) Displacer Beast, (3,2) Feral Affinity, (4,1) Mighty Bash, (5,3) Cultivation (6,3) Germination, (7,2) Stonebark
 -- m+ is CW, germ, cultivation and stonebark

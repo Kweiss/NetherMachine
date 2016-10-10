@@ -37,11 +37,18 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	{ "Ferocious Bite", {"target.debuff(Rip).remains < 3", "target.ttd > 3", "target.health <25 " }},
 
 	-- F	49.07	healing_touch,if=buff.predatory_swiftness.up&(combo_points>=5|buff.predatory_swiftness.remains<1.5|(combo_points=2&buff.bloodtalons.down&cooldown.ashamanes_frenzy.remains<gcd))
+	{ {
 	{ "Healing Touch", { "player.buff(Predatory Swiftness)", "player.combopoints >= 5" }},
 	{ "Healing Touch", { "player.buff(Predatory Swiftness)", "player.buff(Predatory Swiftness).duration < 1.5" }},
 	{ "Healing Touch", { "player.buff(Predatory Swiftness)", "!player.buff(Bloodtalons)", "player.combopoints > 1 ", "player.spell(Ashamane's Frenzy).cooldown < 1" }},
 	{ "Healing Touch", { "player.buff(Predatory Swiftness)", "player.health <= 60", "player.combopoints > 1 " }},
 	{ "Healing Touch", { "lowest.health <= 40", "player.buff(Predatory Swiftness)", "player.buff(Predatory Swiftness).duration < 4" }, "lowest"},
+	}, "talent(7,2)" },
+
+	{ {
+	{ "Healing Touch", { "player.buff(Predatory Swiftness)", "player.health <= 90" }},
+	{ "Healing Touch", { "lowest.health <= 80", "player.buff(Predatory Swiftness)", "player.health >= 90" }, "lowest"},
+	}, "!talent(7,2)" },
 
 	-- 0.00	healing_touch,if=equipped.ailuro_pouncers&talent.bloodtalons.enabled&buff.predatory_swiftness.stack>1&buff.bloodtalons.down
 
@@ -64,9 +71,9 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	--																		&target.time_to_die-remains>tick_time*4
 	--																		&combo_points=5
 	--                               			&(energy.time_to_max<1|buff.berserk.up|cooldown.tigers_fury.remains<3|buff.clearcasting.react)
-	{ "Rip", "!target.debuff(Rip)" },
+	{ "Rip", "!target.debuff(Rip)", "target.health > 6 " },
 	{ "Rip", { "target.debuff(Rip).remains < 8", "target.health > 25", "!talent.sabertooth.enabled" } },
-	{ "Rip", { "target.debuff(Rip).remains < 3", "target.health > 5 " } },
+	{ "Rip", { "target.debuff(Rip).remains < 3", "target.health > 25 " } },
 
 
 	-- L	10.27	savage_roar,if=(buff.savage_roar.remains<=10.5|(buff.savage_roar.remains<=7.2&!talent.jagged_wounds.enabled))&combo_points=5&
@@ -77,7 +84,9 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	{ "Savage Roar", { "player.buff(Savage Roar).remains < 10.5", "player.buff(Clearcasting)" } },
 
 	-- 0.00	swipe_cat,if=combo_points=5&(spell_targets.swipe_cat>=6|(spell_targets.swipe_cat>=3&!talent.bloodtalons.enabled))&combo_points=5&(energy.time_to_max<1|buff.berserk.up|buff.incarnation.up|buff.elunes_guidance.up|cooldown.tigers_fury.remains<3|set_bonus.tier18_4pc|(talent.moment_of_clarity.enabled&buff.clearcasting.react))
+
 	-- M	6.40	ferocious_bite,max_energy=1,cycle_targets=1,if=combo_points=5&(energy.time_to_max<1|buff.berserk.up|buff.incarnation.up|buff.elunes_guidance.up|cooldown.tigers_fury.remains<3|set_bonus.tier18_4pc|(talent.moment_of_clarity.enabled&buff.clearcasting.react))
+	{ "Ferocious Bite", { "player.buff(Savage Roar).remains > 10", "target.health < 25", "target.debuff(Rip)" } },
 	{ "Ferocious Bite", { "player.energy > 85", "player.timetomax <= 1" } },
 	{ "Ferocious Bite", { "player.energy > 95", "player.buff(Berserk)" } },
 	{ "Ferocious Bite", { "player.energy > 90", "player.spell(Tiger's Fury).cooldown < 3" } },
@@ -122,6 +131,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 {
 -- OUT OF COMBAT ROTATION
 
+	{ "Prowl", { "player.buff(Cat Form)", "target.enemy", "!target.dead" }},
 	-- AUTO FORMS
 	{ {
 		{ "pause", { "target.exists", "target.istheplayer" } },
