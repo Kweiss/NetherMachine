@@ -107,13 +107,13 @@ NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Dr
     --    to act as a pre-requisite for casting Swiftmend on players;
     --    to heal players who have taken damage.
     { "Rejuvenation", { "player.health < 88", "player.buff(774).remains <= 3" }, "player" },
-    { "Rejuvenation", { "player.health < 77", "talent(6, 3)", "player.buff(774).remains > 3", "!player.buff(155777)" }, "player" },
+    { "Rejuvenation", { "player.health < 67", "talent(6, 3)", "player.buff(774).remains > 3", "!player.buff(155777)" }, "player" },
     { "Rejuvenation", { "boss1target.health < 91", "boss1target.exists", "boss1target.alive", "boss1target.friend", "boss1target.distance < 40", "boss1target.buff(774).remains <= 3" }, "boss1target" },
-    { "Rejuvenation", { "boss1target.health < 84", "boss1target.exists", "boss1target.alive", "boss1target.friend", "boss1target.distance < 40", "talent(6, 3)", "boss1target.buff(774).remains > 3", "!boss1target.buff(155777)" }, "boss1target" },
+    { "Rejuvenation", { "boss1target.health < 74", "boss1target.exists", "boss1target.alive", "boss1target.friend", "boss1target.distance < 40", "talent(6, 3)", "boss1target.buff(774).remains > 3", "!boss1target.buff(155777)" }, "boss1target" },
     { "Rejuvenation", { "focus.health < 91", "focus.exists", "focus.alive", "focus.friend", "focus.distance < 40", "focus.buff(774).remains <= 3" }, "focus" },
-    { "Rejuvenation", { "focus.health < 84", "focus.exists", "focus.alive", "focus.friend", "focus.distance < 40", "talent(6, 3)", "focus.buff(774).remains > 3", "!focus.buff(155777)" }, "focus" },
+    { "Rejuvenation", { "focus.health < 74", "focus.exists", "focus.alive", "focus.friend", "focus.distance < 40", "talent(6, 3)", "focus.buff(774).remains > 3", "!focus.buff(155777)" }, "focus" },
     { "Rejuvenation", { "tank.health < 91", "tank.exists", "tank.alive", "tank.friend", "tank.distance < 40", "tank.buff(774).remains <= 3" }, "tank" },
-    { "Rejuvenation", { "tank.health < 84", "tank.exists", "tank.alive", "tank.friend", "tank.distance < 40", "talent(6, 3)", "tank.buff(774).remains > 3", "!tank.buff(155777)" }, "tank" },
+    { "Rejuvenation", { "tank.health < 74", "tank.exists", "tank.alive", "tank.friend", "tank.distance < 40", "talent(6, 3)", "tank.buff(774).remains > 3", "!tank.buff(155777)" }, "tank" },
 
     -- BOSS1TARGET HEALING
     { {
@@ -138,8 +138,8 @@ NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Dr
     -- TANK HEALING
     { {
       { "Ironbark", "tank.health < 70", "tank" },
-      { "Swiftmend", { "tank.health < 70", "focus.buff(Rejuvenation)" }, "tank" },
-      { "Swiftmend", { "tank.health < 70", "focus.buff(Regrowth)" }, "tank" },
+      { "Swiftmend", { "tank.health < 70", "tank.buff(Rejuvenation)" }, "tank" },
+      { "Swiftmend", { "tank.health < 70", "tank.buff(Regrowth)" }, "tank" },
       { "Regrowth", { "tank.health < 40", "!tank.buff(Regrowth)", "!player.moving" }, "tank" },
     },{
       "tank.exists", "tank.alive", "tank.friend", "tank.distance < 40",
@@ -158,27 +158,27 @@ NetherMachine.rotation.register_custom(105, "|cFF99FF00Legion |cFFFF6600Resto Dr
     -- RAID HEALING
     { {
       { {
-        { "Rejuvenation", { "lowest.health <= 80", "lowest.buff(774).remains >= 2", "lowest.buff(155777).remains <= 2" }, "lowest" },
-        { "Rejuvenation", { "raid1.health <= 80", "raid1.buff(774).remains >= 2", "raid1.buff(155777).remains <= 2" }, "raid1" },
-        { "Rejuvenation", { "raid2.health <= 80", "raid2.buff(774).remains >= 2", "raid2.buff(155777).remains <= 2" }, "raid2" },
-        { "Rejuvenation", { "raid3.health <= 80", "raid3.buff(774).remains >= 2", "raid3.buff(155777).remains <= 2" }, "raid3" },
-        { "Rejuvenation", { "raid4.health <= 80", "raid4.buff(774).remains >= 2", "raid4.buff(155777).remains <= 2" }, "raid4" },
-        { "Rejuvenation", { "raid5.health <= 80", "raid5.buff(774).remains >= 2", "raid5.buff(155777).remains <= 2" }, "raid5" },
-        { "Rejuvenation", { "raid6.health <= 80", "raid6.buff(774).remains >= 2", "raid6.buff(155777).remains <= 2" }, "raid6" },
-        { "Rejuvenation", { "raid7.health <= 80", "raid7.buff(774).remains >= 2", "raid7.buff(155777).remains <= 2" }, "raid7" },
-        { "Rejuvenation", { "raid8.health <= 80", "raid8.buff(774).remains >= 2", "raid8.buff(155777).remains <= 2" }, "raid8" },
-        { "Rejuvenation", { "raid9.health <= 80", "raid9.buff(774).remains >= 2", "raid9.buff(155777).remains <= 2" }, "raid9" },
-        { "Rejuvenation", { "raid10.health <= 80", "raid10.buff(774).remains >= 2", "raid10.buff(155777).remains <= 2" }, "raid10" },
-        { "Rejuvenation", { "raid11.health <= 80", "raid11.buff(774).remains >= 2", "raid11.buff(155777).remains <= 2" }, "raid11" },
-        { "Rejuvenation", { "raid12.health <= 80", "raid12.buff(774).remains >= 2", "raid12.buff(155777).remains <= 2" }, "raid12" },
-        { "Rejuvenation", { "raid13.health <= 80", "raid13.buff(774).remains >= 2", "raid13.buff(155777).remains <= 2" }, "raid13" },
-        { "Rejuvenation", { "raid14.health <= 80", "raid14.buff(774).remains >= 2", "raid14.buff(155777).remains <= 2" }, "raid14" },
-        { "Rejuvenation", { "raid15.health <= 80", "raid15.buff(774).remains >= 2", "raid15.buff(155777).remains <= 2" }, "raid15" },
-        { "Rejuvenation", { "raid16.health <= 80", "raid16.buff(774).remains >= 2", "raid16.buff(155777).remains <= 2" }, "raid16" },
-        { "Rejuvenation", { "raid17.health <= 80", "raid17.buff(774).remains >= 2", "raid17.buff(155777).remains <= 2" }, "raid17" },
-        { "Rejuvenation", { "raid18.health <= 80", "raid18.buff(774).remains >= 2", "raid18.buff(155777).remains <= 2" }, "raid18" },
-        { "Rejuvenation", { "raid19.health <= 80", "raid19.buff(774).remains >= 2", "raid19.buff(155777).remains <= 2" }, "raid19" },
-        { "Rejuvenation", { "raid20.health <= 80", "raid20.buff(774).remains >= 2", "raid20.buff(155777).remains <= 2" }, "raid20" },
+        { "Rejuvenation", { "lowest.health <= 70", "lowest.buff(774).remains >= 2", "lowest.buff(155777).remains <= 2" }, "lowest" },
+        { "Rejuvenation", { "raid1.health <= 70", "raid1.buff(774).remains >= 2", "raid1.buff(155777).remains <= 2" }, "raid1" },
+        { "Rejuvenation", { "raid2.health <= 70", "raid2.buff(774).remains >= 2", "raid2.buff(155777).remains <= 2" }, "raid2" },
+        { "Rejuvenation", { "raid3.health <= 70", "raid3.buff(774).remains >= 2", "raid3.buff(155777).remains <= 2" }, "raid3" },
+        { "Rejuvenation", { "raid4.health <= 70", "raid4.buff(774).remains >= 2", "raid4.buff(155777).remains <= 2" }, "raid4" },
+        { "Rejuvenation", { "raid5.health <= 70", "raid5.buff(774).remains >= 2", "raid5.buff(155777).remains <= 2" }, "raid5" },
+        { "Rejuvenation", { "raid6.health <= 70", "raid6.buff(774).remains >= 2", "raid6.buff(155777).remains <= 2" }, "raid6" },
+        { "Rejuvenation", { "raid7.health <= 70", "raid7.buff(774).remains >= 2", "raid7.buff(155777).remains <= 2" }, "raid7" },
+        { "Rejuvenation", { "raid8.health <= 70", "raid8.buff(774).remains >= 2", "raid8.buff(155777).remains <= 2" }, "raid8" },
+        { "Rejuvenation", { "raid9.health <= 70", "raid9.buff(774).remains >= 2", "raid9.buff(155777).remains <= 2" }, "raid9" },
+        { "Rejuvenation", { "raid10.health <= 70", "raid10.buff(774).remains >= 2", "raid10.buff(155777).remains <= 2" }, "raid10" },
+        { "Rejuvenation", { "raid11.health <= 70", "raid11.buff(774).remains >= 2", "raid11.buff(155777).remains <= 2" }, "raid11" },
+        { "Rejuvenation", { "raid12.health <= 70", "raid12.buff(774).remains >= 2", "raid12.buff(155777).remains <= 2" }, "raid12" },
+        { "Rejuvenation", { "raid13.health <= 70", "raid13.buff(774).remains >= 2", "raid13.buff(155777).remains <= 2" }, "raid13" },
+        { "Rejuvenation", { "raid14.health <= 70", "raid14.buff(774).remains >= 2", "raid14.buff(155777).remains <= 2" }, "raid14" },
+        { "Rejuvenation", { "raid15.health <= 70", "raid15.buff(774).remains >= 2", "raid15.buff(155777).remains <= 2" }, "raid15" },
+        { "Rejuvenation", { "raid16.health <= 70", "raid16.buff(774).remains >= 2", "raid16.buff(155777).remains <= 2" }, "raid16" },
+        { "Rejuvenation", { "raid17.health <= 70", "raid17.buff(774).remains >= 2", "raid17.buff(155777).remains <= 2" }, "raid17" },
+        { "Rejuvenation", { "raid18.health <= 70", "raid18.buff(774).remains >= 2", "raid18.buff(155777).remains <= 2" }, "raid18" },
+        { "Rejuvenation", { "raid19.health <= 70", "raid19.buff(774).remains >= 2", "raid19.buff(155777).remains <= 2" }, "raid19" },
+        { "Rejuvenation", { "raid20.health <= 70", "raid20.buff(774).remains >= 2", "raid20.buff(155777).remains <= 2" }, "raid20" },
       }, "talent(6,3)" }, -- Germination
       { "Rejuvenation", { "lowest.health <= 90", "lowest.buff(774).remains <= 2" }, "lowest" },
       { "Rejuvenation", { "raid1.health <= 90", "raid1.buff(774).remains <= 2" }, "raid1" },

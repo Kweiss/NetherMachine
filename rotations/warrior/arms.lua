@@ -64,6 +64,7 @@ NetherMachine.rotation.register(71, {
 	--Slam if you took that talent, WW if you didn't.
 	{ "Slam", { "target.debuff(Focused Rage).count > 2" }},
 	{ "Slam", "target.debuff(Colossus Smash)" },
+  { "Victory Rush" },
 
 },
 {

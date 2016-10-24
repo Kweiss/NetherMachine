@@ -6,10 +6,7 @@ NetherMachine.rotation.register(104, {
   -- Start Rotation --
   --------------------
 
-  { "#5512", { "player.health < 50" } }, -- Healthstone (5512)
-	{ "Survival Instincts", { "!player.buff(Survival Instincts)", "!modifier.last", "player.health <= 40" } },
-
-	{ "Skull Bash", { "target.interruptAt(75)", "!last.cast(Mighty Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
+  { "Skull Bash", { "target.interruptAt(75)", "!last.cast(Mighty Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
 	{ "Mighty Bash", { "target.interruptAt(75)", "!last.cast(Skull Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
 	{ "War Stomp", { "target.interruptAt(50)", "!last.cast(Skull Bash)", "!last.cast(Mighty Bash)", "modifier.interrupt" }},
 
@@ -20,7 +17,8 @@ NetherMachine.rotation.register(104, {
 
     { "#5512", { "player.health <= 50" }}, --Healthstone
 
-    { "192081", { "player.rage > 90", "!player.buff(Ironfur)" }}, -- Ironfur
+    { "192081", { "player.rage > 90", "!player.buff(Ironfur)", "target.thdreat >= 100" }}, -- Ironfur
+    { "192081", { "player.rage > 95", "target.threat >= 100" }}, -- Ironfur
     { "192081", { "player.health <= 96", "player.rage > 60", "!player.buff(Ironfur)" }}, -- Ironfur
     { "192081", { "player.health <= 70", "player.rage > 50", "player.buff(Ironfur)" }}, -- Ironfur
 
@@ -38,9 +36,9 @@ NetherMachine.rotation.register(104, {
 
   -- Mob Control
   { "200851", { "player.buff(Bloodlust)", "modifier.cooldowns" }}, --Rage of the Sleeper
-  { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)", "!last.cast(Moonfire)" }},
   { "33917" }, --Mangle
   { "77758", { "target.range <= 5" }}, --Thrash
+  { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)", "!last.cast(Moonfire)" }},
   { "213764", { "target.range <= 5", "modifier.multitarget" }}, --Swipe
   { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)" }},
   { "Moonfire", { "target.debuff(Moonfire).duration < 2" }},
