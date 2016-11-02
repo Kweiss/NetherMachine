@@ -3,11 +3,12 @@
 -- Updated on Sep 13th 2016
 
 --[[
-As of 10/2/16
+As of 10/25/16
 These rough stat weights are meant as a way to guide you towards the correct pieces. iLvl is generally the correct choice.
 
-Raiding String: ( Pawn: v1: "RdruidRaid":    CritRating=0.70, HasteRating=0.725, MasteryRating=0.60, Versatility=0.65, Stamina=0.01, Intellect=1 )
-Dungeon String: ( Pawn: v1: "RdruidDungeon": CritRating=0.70, HasteRating=0.750, MasteryRating=0.90, Versatility=0.65, Stamina=0.01, Intellect=1 )
+( Pawn: v1: "Resto [RAID]": Intellect=1, Versatility=0.8, HasteRating=0.8, MasteryRating=0.6, CritRating=0.8, Stamina=0.01 )
+( Pawn: v1: "Resto [DUNGEONS]": Intellect=1, Versatility=0.7, HasteRating=0.8, MasteryRating=0.9, CritRating=0.7, Stamina=0.01 )
+
 ]]--
 
 -- Talents: (1,2) Cenarion Ward, (2,2) Displacer Beast, (3,2) Feral Affinity, (4,1) Mighty Bash, (5,3) Cultivation (6,3) Germination, (7,2) Stonebark

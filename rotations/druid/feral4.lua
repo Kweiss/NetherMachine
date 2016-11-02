@@ -1,6 +1,6 @@
 -- NetherMachine Rotation
 -- Custom Feral Druid Rotation
--- Created on Sept 16th, 2015 for Legion 7.03 - pre raid gear (840 ilvl)
+-- Legion 7.1 - early raid gear (850 ilvl)
 
 -- REQUIRED TALENTS: 15: Lunar Inspiration (Feral Druid) 30: Wild Charge 45: Guardian Affinity (Feral Druid) 60: Typhoon 75: Savage Roar (Feral Druid) 90: Jagged Wounds (Feral Druid) 100: Bloodtalons (Feral Druid)
 -- REQUIRED ARTIFACT: Ashamane's Frenzy Ashamane's Bite Scent of Blood Protection of Ashamane Razor Fangs (Rank 6) Powerful Bite (Rank 3)Ashamane's Energy (Rank 3) Attuned to Nature (Rank 3)Tear the Flesh (Rank 3)Shredder Fangs
@@ -29,6 +29,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 
 	-- A	2.94	berserk,if=buff.tigers_fury.up
 	{ "Berserk", {"modifier.cooldowns", "player.buff(Tiger's Fury)"}},
+	{ "#trinket2", {"modifier.cooldowns", "player.buff(Tiger's Fury)"}},
 
 	-- D	15.21	tigers_fury,if=(!buff.clearcasting.react&energy.deficit>=60)|energy.deficit>=80|(t18_class_trinket&buff.berserk.up&buff.tigers_fury.down)
 	{ "Tiger's Fury", {	"!player.buff(Clearcasting)", "player.energy < 20" }},
@@ -38,17 +39,21 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 
 	-- F	49.07	healing_touch,if=buff.predatory_swiftness.up&(combo_points>=5|buff.predatory_swiftness.remains<1.5|(combo_points=2&buff.bloodtalons.down&cooldown.ashamanes_frenzy.remains<gcd))
 	{ {
-	{ "Healing Touch", { "player.combopoints >= 5" }},
-	{ "Healing Touch", { "player.buff(Predatory Swiftness).duration < 1.5" }},
-	{ "Healing Touch", { "!player.buff(Bloodtalons)", "player.combopoints > 1 ", "player.spell(Ashamane's Frenzy).cooldown < 1" }},
-	{ "Healing Touch", { "player.health <= 60", "player.combopoints > 1 " }},
-	{ "Healing Touch", { "lowest.health <= 40", "player.buff(Predatory Swiftness).duration < 4" }, "lowest"},
-	}, "talent(7,2)", "player.buff(Predatory Swiftness)" },
+	{ "Regrowth", { "player.combopoints >= 5" }},
+	{ "Regrowth", { "player.buff(Predatory Swiftness).duration < 1.5" }},
+	{ "Regrowth", { "!player.buff(Bloodtalons)", "player.combopoints > 1 ", "player.spell(Ashamane's Frenzy).cooldown < 1" }},
+	{ "Regrowth", { "player.health <= 60", "player.combopoints > 1 " }},
+	{ "Regrowth", { "lowest.health <= 40", "player.buff(Predatory Swiftness).duration < 4" }, "lowest"},
+	}, {
+		"talent(7,2)", "player.buff(Predatory Swiftness)"
+	} },
 
 	{ {
-	{ "Healing Touch", { "player.health <= 85" }},
---	{ "Healing Touch", { "lowest.health <= 80", "player.health >= 90" }, "lowest"},
-	}, "!talent(7,2)", "player.buff(Predatory Swiftness)" },
+	{ "Regrowth", { "player.health <= 85" }},
+	{ "Regrowth", { "lowest.health <= 80", "player.health >= 90" }, "lowest"},
+	}, {
+		"!talent(7,2)", "player.buff(Predatory Swiftness)"
+	} },
 
 	-- 0.00	healing_touch,if=equipped.ailuro_pouncers&talent.bloodtalons.enabled&buff.predatory_swiftness.stack>1&buff.bloodtalons.down
 
@@ -97,7 +102,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 
 	}, "player.combopoints == 5" },
 
-	{ "Ferocious Bite", { "player.buff(Savage Roar).remains > 10", "target.health < 25", "target.debuff(Rip).remains < 1" } },
+	{ "Ferocious Bite", { "player.buff(Savage Roar).remains > 5", "target.health < 25", "target.debuff(Rip).remains < 1.5" } },
 
 	-- actions.generator
 	-- #	count	action,conditions
@@ -128,7 +133,9 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 
 	-- 0.00	pool_resource,for_next=1
 	-- 0.00	thrash_cat,cycle_targets=1,if=remains<=duration*0.3&spell_targets.swipe_cat>=2
-	-- 0.00	brutal_slash,if=combo_points<5&((raid_event.adds.exists&raid_event.adds.in>(1+max_charges-charges_fractional)*15)|(!raid_event.adds.exists&(charges_fractional>2.66&time>10)))
+	-- 0.00	brutal_slash,if=combo_points<5&((raid_event.adds.exists&raid_event.adds.in>(1+max_charges-charges_fractional)*15)
+																				-- |(!raid_event.adds.exists&(charges_fractional>2.66&time>10)))
+	{ "Brutal Slash", { "player.combopoints < 5" }},
 	-- 0.00	swipe_cat,if=combo_points<5&spell_targets.swipe_cat>=3
 	-- R	109.58	shred,if=combo_points<5&(spell_targets.swipe_cat<3|talent.brutal_slash.enabled)
 	{ "Shred", { "player.combopoints < 5" }},

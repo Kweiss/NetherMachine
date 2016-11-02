@@ -6,7 +6,7 @@
 -- Version 1.0.2
 -- Status: Functional - Beta Stage [ Estimated Completion: ~10% ]
 --[[	Notes:	Profile developed to match SimCraft T17-Heroic Action Rotation Lists & tuned for Gear ilvl = 680-690 (with Tier 17 4 set bonus)
-# Gear Summary:	neck enchant=gift_of_mastery, back enchant=gift_of_mastery, finger1 enchant=gift_of_mastery, 
+# Gear Summary:	neck enchant=gift_of_mastery, back enchant=gift_of_mastery, finger1 enchant=gift_of_mastery,
 				finger2 enchant=gift_of_mastery, trinket1=tablet_of_turnbuckle_teamwork id=113905,
 				trinket2=blast_furnace_door id=113893, main_hand=kromogs_brutal_fist id=113927 enchant=mark_of_blackrock,
 				off_hand=kromogs_protecting_palm id=113926	]]
@@ -20,7 +20,7 @@
 			2. )   Need to rework the GCD detection Function
 ]]
 
-NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine |cffC79C6EWarrior Protection |cffff9999(SimC T17N/H) |cff336600Ver: |cff3333cc1.0.2", {
+NetherMachine.rotation.register_custom(73, "Old stuff", {
 ---- *** COMBAT ROUTINE SECTION ***
 	-- ** Pauses **
 	{ "pause", "modifier.lcontrol" },
@@ -31,7 +31,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 
 	-- Stance
 	{ "Defensive Stance", { "!player.buff(Defensive Stance)", "!modifier.last" } },
-	
+
 	-- ** Consumables **
 	{ "#5512", { "toggle.consume", "player.health < 40" } }, -- Healthstone (5512)
 	{ "#109223", { "toggle.consume", "player.health < 15", "target.boss" } }, -- WoD Healing Tonic (109223)
@@ -75,7 +75,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 	-- actions=charge
 	-- actions+=/auto_attack
 	-- actions+=/call_action_list,name=prot
-	
+
 	-- ** Cooldowns **
 	{	{
 		-- actions.prot+=/potion,name=draenic_armor,if=incoming_damage_2500ms>health.max*0.1&!(debuff.demoralizing_shout.up|buff.ravager_protection.up|buff.shield_wall.up|buff.last_stand.up|buff.enraged_regeneration.up|buff.shield_block.up|buff.potion.up)|target.time_to_die<=25
@@ -185,9 +185,9 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 		-- actions.prot+=/devastate
 		{ "Devastate" },
 	},	{ "!modifier.multitarget", "!toggle.smartaoe" } },
-		
+
 	-- actions.prot+=/call_action_list,name=prot_aoe,if=active_enemies>3
-		
+
 	-- "Non-Smart" Cleave AoE Rotation >= 4
 	{	{
 		-- actions.prot_aoe=bloodbath
@@ -311,7 +311,7 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Nether|r|cffFF0074Machine 
 		-- actions.prot_aoe+=/devastate
 		{ "Devastate" },
 		},	{ "toggle.smartaoe", "player.area(8)enemies >= 4" } },
-		
+
 },	{
 ---- *** OUT OF COMBAT ROUTINE SECTION ***
 	-- Pauses

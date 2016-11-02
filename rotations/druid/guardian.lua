@@ -1,5 +1,14 @@
 -- SPEC ID 104
 -- talents=3331321
+
+--[[
+
+( Pawn: v1: "Survival": Agility=1.33, Stamina=4.91, CritRating=1.99, HasteRating=1.67, MasteryRating=2.60, Versatility=2.70, Armor=40.74 ) @845
+( Pawn: v1: "Survival": Agility=1.03, Stamina=5.12, CritRating=1.7, HasteRating=1.4, MasteryRating=2.21, Versatility=2.30, Armor=35.74 ) @870
+
+]]--
+
+
 NetherMachine.rotation.register(104, {
 
   --------------------
@@ -17,16 +26,18 @@ NetherMachine.rotation.register(104, {
 
     { "#5512", { "player.health <= 50" }}, --Healthstone
 
-    { "192081", { "player.rage > 90", "!player.buff(Ironfur)", "target.thdreat >= 100" }}, -- Ironfur
+    { "192081", { "player.rage > 90", "!player.buff(Ironfur)", "target.threat >= 100" }}, -- Ironfur
     { "192081", { "player.rage > 95", "target.threat >= 100" }}, -- Ironfur
     { "192081", { "player.health <= 96", "player.rage > 60", "!player.buff(Ironfur)" }}, -- Ironfur
-    { "192081", { "player.health <= 70", "player.rage > 50", "player.buff(Ironfur)" }}, -- Ironfur
+    { "192081", { "player.health <= 70", "player.rage > 50", "!player.buff(Ironfur)" }}, -- Ironfur
 
     { "192083", { "player.health <= 90", "player.rage > 60", "toggle.Magic" }}, -- Mark of Ursol
 
     { "22842", { "player.health <= 80", "!modifier.last(22842)", "player.spell(22842).charges > 1" }}, --Frenzied Regeneration
 
     { "200851", { "player.health <= 70", "modifier.cooldowns" }}, --Rage of the Sleeper
+
+    { "#trinket2", { "player.buff(Rage of the Sleeper)" }}, --Vers Trinket
 
     { "22812", { "player.health <= 80" }}, --Barkskin
 
@@ -37,12 +48,12 @@ NetherMachine.rotation.register(104, {
   -- Mob Control
   { "200851", { "player.buff(Bloodlust)", "modifier.cooldowns" }}, --Rage of the Sleeper
   { "33917" }, --Mangle
-  { "77758", { "target.range <= 5" }}, --Thrash
+  { "77758", { "target.range <= 9" }}, --Thrash
   { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)", "!last.cast(Moonfire)" }},
-  { "213764", { "target.range <= 5", "modifier.multitarget" }}, --Swipe
+  { "213764", { "target.range <= 9", "modifier.multitarget" }}, --Swipe
   { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)" }},
   { "Moonfire", { "target.debuff(Moonfire).duration < 2" }},
-  { "213764", { "target.range <= 5" }}, --Swipe
+  { "213764", { "target.range <= 9" }}, --Swipe
 
   -- { "6807", { "player.rage >= 80", "player.health > 90 ", "!modifier.last(6807)" }}, --Maul
 
