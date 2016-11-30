@@ -30,12 +30,12 @@ NetherMachine.rotation.register_custom(73, "|cff8A2BE2Legion |cffC79C6EWarrior P
 
 		{ "#5512", { "player.health <= 50" }}, --Healthstone
 
-		{ "2565", { "player.rage > 90", "!player.buff(2565)", "target.threat >= 100" }}, -- Shield Block
-		{ "2565", { "player.rage > 95", "target.threat >= 100" }}, -- Shield Block
-		{ "2565", { "player.health <= 96", "player.rage > 60", "!player.buff(2565)" }}, -- Shield Block
-		{ "2565", { "player.health <= 70", "player.rage > 50", "!player.buff(2565)" }}, -- Shield Block
+		{ "2565", { "player.health <= 99", "player.rage > 90", "!player.buff(2565)", "target.threat >= 100" }}, -- Shield Block
+		{ "2565", { "player.health <= 99", "player.rage > 95", "target.threat >= 100" }}, -- Shield Block
+		{ "2565", { "player.health <= 96", "player.rage > 70", "!player.buff(2565)" }}, -- Shield Block
+		{ "2565", { "player.health <= 70", "player.rage > 40", "!player.buff(2565)" }}, -- Shield Block
 
-		{ "190456", { "player.health <= 90", "player.rage > 60", "toggle.Magic" }}, -- Ignore Pain
+		{ "190456", { "player.health <= 85", "player.rage > 85" }}, -- Ignore Pain
 
 		{ "200851", { "player.health <= 70", "modifier.cooldowns" }}, --Rage of the Sleeper
 

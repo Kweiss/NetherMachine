@@ -13,6 +13,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	{ "Rake", { "player.buff(Shadowmeld)" } },
 
 	{ "#5512", { "player.health < 50" } }, -- Healthstone (5512)
+	{ "#140352", { "player.health < 25" } }, -- Dream Berries
 	{ "Survival Instincts", { "!player.buff(Survival Instincts)", "!modifier.last", "player.health <= 40" } },
 
 	-- 0.00	skull_bash
@@ -35,7 +36,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	{ "Tiger's Fury", {	"!player.buff(Clearcasting)", "player.energy < 20" }},
 
 	-- E	4.04	ferocious_bite,cycle_targets=1,if=dot.rip.ticking&dot.rip.remains<3&target.time_to_die>3&(target.health.pct<25|talent.sabertooth.enabled)
-	{ "Ferocious Bite", {"target.debuff(Rip).remains < 3", "target.ttd > 3", "target.health <25 " }},
+	{ "Ferocious Bite", {"target.debuff(Rip).remains < 3", "target.debuff(Rip)", "target.ttd > 3", "target.health <25 " }},
 
 	-- F	49.07	healing_touch,if=buff.predatory_swiftness.up&(combo_points>=5|buff.predatory_swiftness.remains<1.5|(combo_points=2&buff.bloodtalons.down&cooldown.ashamanes_frenzy.remains<gcd))
 	{ {
@@ -102,7 +103,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 
 	}, "player.combopoints == 5" },
 
-	{ "Ferocious Bite", { "player.buff(Savage Roar).remains > 5", "target.health < 25", "target.debuff(Rip).remains < 1.5" } },
+	{ "Ferocious Bite", { "player.buff(Savage Roar).remains > 5", "target.health < 25", "target.debuff(Rip).remains < 2", "target.debuff(Rip)" } },
 
 	-- actions.generator
 	-- #	count	action,conditions
@@ -129,13 +130,13 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	}, "player.combopoints < 5 " },
 
 	-- Q	31.63	moonfire_cat,cycle_targets=1,if=combo_points<5&remains<=4.2&target.time_to_die-remains>tick_time*2
-	{ "Moonfire", { "player.combopoints < 5", "target.debuff(Moonfire).duration < 4.2", "target.ttd > 8", "talent(1,3)" }},
+	{ "Moonfire", { "player.combopoints < 5", "target.debuff(Moonfire).duration < 4.2", "target.ttd > 8", "talent(1,3)", "!player.buff(Travel Form)" }},
 
 	-- 0.00	pool_resource,for_next=1
 	-- 0.00	thrash_cat,cycle_targets=1,if=remains<=duration*0.3&spell_targets.swipe_cat>=2
 	-- 0.00	brutal_slash,if=combo_points<5&((raid_event.adds.exists&raid_event.adds.in>(1+max_charges-charges_fractional)*15)
 																				-- |(!raid_event.adds.exists&(charges_fractional>2.66&time>10)))
-	{ "Brutal Slash", { "player.combopoints < 5" }},
+--	{ "Brutal Slash", { "player.combopoints < 5" }},
 	-- 0.00	swipe_cat,if=combo_points<5&spell_targets.swipe_cat>=3
 	-- R	109.58	shred,if=combo_points<5&(spell_targets.swipe_cat<3|talent.brutal_slash.enabled)
 	{ "Shred", { "player.combopoints < 5" }},
