@@ -51,7 +51,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	} },
 
 	{ "Regrowth", { "player.health <= 82", "!talent(7,2)", "player.buff(Predatory Swiftness)" } },
-	{ "Regrowth", { "lowest.health <= 80", "player.health >= 90", "player.buff(Predatory Swiftness)", "!talent(7,2)" }, "lowest"},
+	--{ "Regrowth", { "lowest.health <= 80", "player.health >= 90", "player.buff(Predatory Swiftness)", "!talent(7,2)" }, "lowest"},
 
 	-- 0.00	healing_touch,if=equipped.ailuro_pouncers&talent.bloodtalons.enabled&buff.predatory_swiftness.stack>1&buff.bloodtalons.down
 
@@ -75,7 +75,7 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 
 	{ {
 		{ "Rip", { "!target.debuff(Rip)" } },
-		{ "Rip", { "target.debuff(Rip).remains < 7", "target.health > 25", "!talent(6,1)" } },
+		{ "Rip", { "target.debuff(Rip).remains < 8", "target.health > 25", "!talent(6,1)" } },
 		}, {
 			"target.ttd > 6", "player.combopoints == 5"
 	} },

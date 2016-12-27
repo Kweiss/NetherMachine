@@ -1,5 +1,5 @@
 -- SPEC ID 105 (Restoration)
--- Restoration Druid - WoD 7.0.3 - Raid
+-- Restoration Druid - Legion 7.0.3 - Raid
 -- Updated on Sep 23rd 2016
 
 --[[
