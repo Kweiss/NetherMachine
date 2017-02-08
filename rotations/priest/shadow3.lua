@@ -6,12 +6,16 @@ NetherMachine.rotation.register_custom(258, "|cFF99FF00Legion |cFFFF6600Shadow P
   --Some Shadow DPS
 
   -- Interrupts
-  { "Arcane Torrent", {"target.interruptAt(75)", "modifier.interrupt", "target.range <= 8", "!last.cast(Silence)" }},
-  { "Silence", {"target.interruptAt(75)", "modifier.interrupt", "!last.cast(Arcane Torrent)" }},
+  { "Arcane Torrent", {"target.interruptAt(75)", "modifier.interrupt", "target.range <= 8", "!modifier.last(Silence)" }},
+  { "Silence", {"target.interruptAt(75)", "modifier.interrupt", "!modifier.last(Arcane Torrent)" }},
 
   -- Stay Alive
   { "Power Word: Shield", "player.health < 90"},
   { "Shadow Mend", {"player.health < 50"}},
+
+  -- Make sure DoTs are in a good spot before Voidform
+  --{ "Shadow Word: Pain", {"!player.buff(Voidform)", "target.debuff(Shadow Word: Pain).duration < 8", "player.insane >=70 "}},
+  --{ "Vampiric Touch", {"!player.buff(Voidform)", "target.debuff(Vampiric Touch).duration < 8", "player.insane >=70 " }},
 
   -- Activate Voidform and new rotation
   { "Void Eruption", {"modifier.cooldowns", "!player.buff(Voidform)", "player.buff(Lingering Insanity).count < 20",  } },
@@ -26,21 +30,20 @@ NetherMachine.rotation.register_custom(258, "|cFF99FF00Legion |cFFFF6600Shadow P
     { "Mind Sear", {"!player.buff(Voidform)", "modifier.multitarget" }},
   },{ "!player.buff(Void Form)" } },
 
-  -- in Void Form
-
-  --{ "205448", {"player.buff(Voidform)" } }, --Void Bolt
-  { "/run CastSpellByID(228260);", {"player.buff(Voidform)", "player.spell(228260).cooldown < 1", "player.spell(205065).cooldown > 1", "player.spell(205065).cooldown < 55" } }, --Checking for Void Torrent CD (the artifact)....
-  { "Shadowfiend", {"player.buff(Voidform)",  "modifier.cooldowns" }},
-  { "Mindbender", {"player.buff(Voidform)",  "modifier.cooldowns" }},
+  -- VOID FORM
+  { "/run CastSpellByID(228260);", {"player.buff(Voidform)", "player.spell(228260).cooldown < .7", "player.spell(205065).cooldown > 1", "player.spell(205065).cooldown < 55" } }, --Checking for Void Torrent CD (the artifact)....
+  { "#trinket2", {"modifier.cooldowns", "player.buff(Voidform)"}},
+  { "Shadowfiend", {"player.buff(Voidform)", "modifier.cooldowns" }},
+  { "Mindbender", {"player.buff(Voidform)", "modifier.cooldowns" }},
   { "Shadow Word: Death",  {"player.buff(Voidform)", "player.spell(228260).cooldown > 1" }},
   { "Mind Blast", {"player.buff(Voidform)", "player.spell(205448).cooldown > 1" }},
 
   { "Void Torrent", {"player.buff(Voidform)" }},
-  { "Power Infusion", {"player.buff(Voidform)",  "modifier.cooldowns" }},
-  { "Shadow Word: Death",  {"player.buff(Voidform)", "player.spell(Shadow Word: Death).charges > 1" }},
+  { "Power Infusion", {"player.buff(Voidform)", "modifier.cooldowns" }},
+  { "Shadow Word: Death", {"player.buff(Voidform)", "player.spell(Shadow Word: Death).charges > 1" }},
 
   { "Shadow Word: Pain", {"player.buff(Voidform)", "!target.debuff(Shadow Word: Pain)"}},
-  { "Vampiric Touch",    {"player.buff(Voidform)", "!target.debuff(Vampiric Touch)" }},
+  { "Vampiric Touch", {"player.buff(Voidform)", "!target.debuff(Vampiric Touch)" }},
   { "Mind Flay", {"player.buff(Voidform)", "!modifier.multitarget" }},
   { "Mind Sear", {"player.buff(Voidform)", "modifier.multitarget" }},
 

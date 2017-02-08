@@ -15,9 +15,9 @@ NetherMachine.rotation.register(104, {
   -- Start Rotation --
   --------------------
 
-  { "Skull Bash", { "target.interruptAt(75)", "!last.cast(Mighty Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
-	{ "Mighty Bash", { "target.interruptAt(75)", "!last.cast(Skull Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
-	{ "War Stomp", { "target.interruptAt(50)", "!last.cast(Skull Bash)", "!last.cast(Mighty Bash)", "modifier.interrupt", "target.range <= 10" }},
+  { "Skull Bash", { "target.interruptAt(75)", "!modifier.last(Mighty Bash)", "!modifier.last(War Stomp)", "modifier.interrupt" }},
+	{ "Mighty Bash", { "target.interruptAt(75)", "!modifier.last(Skull Bash)", "!modifier.last(War Stomp)", "modifier.interrupt" }},
+	{ "War Stomp", { "target.interruptAt(50)", "!modifier.last(Skull Bash)", "!modifier.last(Mighty Bash)", "modifier.interrupt", "target.range <= 10" }},
 
   -- Catweaving
   { {
@@ -63,12 +63,14 @@ NetherMachine.rotation.register(104, {
     -- { "#trinket2", { "player.buff(Rage of the Sleeper)" }}, --Vers Trinket
 
     -- Kill stuff
-    { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian).duration < 2", "player.buff(Galactic Guardian)" }},
+    { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian).duration < 3", "player.buff(Galactic Guardian)" }},
     { "33917" }, --Mangle
     { "77758", { "target.range <= 9" }}, --Thrash
-    { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)", "!last.cast(Moonfire)", "player.spell(33917).cooldown > 1", "player.spell(77758).cooldown > 1" }},
+    { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)", "!modifier.last(Moonfire)", "player.spell(33917).cooldown > 1", "player.spell(77758).cooldown > 1" }},
 
-    { "213764", { "target.range <= 9", "modifier.multitarget" }}, --Swipe
+    { "77758", { "target.range <= 9" }}, --Thrash
+
+    { "Pulverize", { "target.debuff(Thrash).count > 2" }}, --Pulverize
 
     { "Moonfire", { "talent(5,3)", "player.buff(Galactic Guardian)" }},
     { "Moonfire", { "target.debuff(Moonfire).duration < 2", "player.spell(33917).cooldown > 1", "player.spell(77758).cooldown > 1" }},

@@ -17,13 +17,13 @@ NetherMachine.rotation.register(103, {
 
   { "Skull Bash", {
     "target.interruptAt(75)",
-    "!last.cast(War Stomp)",
+    "!modifier.last(War Stomp)",
     "modifier.interrupt"
   }},
 
   { "War Stomp", {
     "target.interruptAt(50)",
-    "!last.cast(Skull Bash)",
+    "!modifier.last(Skull Bash)",
     "modifier.interrupt"
   }},
 

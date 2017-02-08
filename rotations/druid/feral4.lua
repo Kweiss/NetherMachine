@@ -17,9 +17,9 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	{ "Survival Instincts", { "!player.buff(Survival Instincts)", "!modifier.last", "player.health <= 40" } },
 
 	-- 0.00	skull_bash
-	{ "Skull Bash", { "target.interruptAt(75)", "!last.cast(Mighty Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
-	{ "Mighty Bash", { "target.interruptAt(75)", "!last.cast(Skull Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
-	{ "War Stomp", { "target.interruptAt(50)", "!last.cast(Skull Bash)", "!last.cast(Mighty Bash)", "modifier.interrupt" }},
+	{ "Skull Bash", { "target.interruptAt(75)", "!modifier.last(Mighty Bash)", "!modifier.last(War Stomp)", "modifier.interrupt" }},
+	{ "Mighty Bash", { "target.interruptAt(75)", "!modifier.last(Skull Bash)", "!modifier.last(War Stomp)", "modifier.interrupt" }},
+	{ "War Stomp", { "target.interruptAt(50)", "!modifier.last(Skull Bash)", "!modifier.last(Mighty Bash)", "modifier.interrupt" }},
 
 	{ {
 		{ "#127844", { "player.hashero" } },
@@ -125,12 +125,13 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	-- 0.00	pool_resource,for_next=1
 	-- P	42.65	rake,cycle_targets=1,if=combo_points<5&(!ticking|(talent.bloodtalons.enabled&buff.bloodtalons.up&(!talent.soul_of_the_forest.enabled&remains<=7|remains<=5)&persistent_multiplier>dot.rake.pmultiplier*0.80))&target.time_to_die-remains>tick_time
 	{ {
-	{ "Rake", { "target.debuff(Rake).duration < 3" }},
+	{ "Rake", { "target.debuff(Rake).duration < 4" }},
 	{ "Rake", { "player.buff(Bloodtalons)", "target.debuff(Rake).duration <= 5 " }},
 	}, "player.combopoints < 5 " },
 
 	-- Q	31.63	moonfire_cat,cycle_targets=1,if=combo_points<5&remains<=4.2&target.time_to_die-remains>tick_time*2
-	{ "Moonfire", { "player.combopoints < 5", "target.debuff(Moonfire).duration < 4.2", "target.ttd > 8", "talent(1,3)", "!player.buff(Travel Form)" }},
+	-- { "Moonfire", { "!target.debuff(Moonfire)", "talent(1,3)", "!player.buff(Travel Form)" }},
+	{ "Moonfire", { "player.combopoints < 5", "target.debuff(Moonfire).duration < 4.2", "talent(1,3)", "!player.buff(Travel Form)" }},
 
 	-- 0.00	pool_resource,for_next=1
 	-- 0.00	thrash_cat,cycle_targets=1,if=remains<=duration*0.3&spell_targets.swipe_cat>=2

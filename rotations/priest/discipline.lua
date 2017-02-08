@@ -47,7 +47,7 @@ NetherMachine.rotation.register_custom(256, "|cFF99FF00Legion |Disc Priest |cFFF
   { "Power Word: Shield", { "tank.exists", "tank.alive", "tank.friend", "tank.distance < 40", "!focus.buff(Lifebloom)", "!boss1target.buff(Lifebloom)" }, "tank" },
 
   -- POWER WORD: RADIANCE
-  { "Power Word: Radiance", { "focus.exists", "focus.friend", "focus.health <= 90", "!player.moving", "@coreHealing.needsHealing(75, 3)", "!lowest.buff(Atonement)" "focus.area(30).friendly > 3" }, "focus" }, -- Up to 5 within 30yd
+  { "Power Word: Radiance", { "focus.exists", "focus.friend", "focus.health <= 90", "!player.moving", "@coreHealing.needsHealing(75, 3)", "!lowest.buff(Atonement)", "focus.area(30).friendly > 3" }, "focus" }, -- Up to 5 within 30yd
   { "Power Word: Radiance", { "tank.health <= 90", "!player.moving", "@coreHealing.needsHealing(75, 3)", "tank.area(30).friendly > 3", "!lowest.buff(Atonement)" }, "tank" },
   { "Power Word: Radiance", { "player.health <= 90", "!player.moving", "@coreHealing.needsHealing(75, 3)", "player.area(30).friendly > 3", "!lowest.buff(Atonement)" }, "player" },
 
@@ -97,27 +97,27 @@ NetherMachine.rotation.register_custom(256, "|cFF99FF00Legion |Disc Priest |cFFF
   -- Atonement Checks and Regular Healing --
   ------------------------------------------
   { {
-    { "Shadow Mend", { "party1.health <= 40", "!player.moving", "party1.buff(Atonement).duration < 4", "lowest.buff(Atonement)" }, "party1" },
-    { "Shadow Mend", { "party2.health <= 40", "!player.moving", "party2.buff(Atonement).duration < 4", "lowest.buff(Atonement)" }, "party2" },
-    { "Shadow Mend", { "party3.health <= 40", "!player.moving", "party3.buff(Atonement).duration < 4", "lowest.buff(Atonement)" }, "party3" },
-    { "Shadow Mend", { "party4.health <= 40", "!player.moving", "party4.buff(Atonement).duration < 4", "lowest.buff(Atonement)" }, "party4" },
-    { "Shadow Mend", { "lowest.health <= 40", "!player.moving", "lowest.range <= 40", "lowest.buff(Atonement).duration < 4", "lowest.buff(Atonement)" }, "lowest" },
+    { "Shadow Mend", { "party1.health <= 24", "!player.moving", "party1.buff(Atonement).duration < 4", "party1.buff(Atonement)" }, "party1" },
+    { "Shadow Mend", { "party2.health <= 24", "!player.moving", "party2.buff(Atonement).duration < 4", "party2.buff(Atonement)" }, "party2" },
+    { "Shadow Mend", { "party3.health <= 24", "!player.moving", "party3.buff(Atonement).duration < 4", "party3.buff(Atonement)" }, "party3" },
+    { "Shadow Mend", { "party4.health <= 24", "!player.moving", "party4.buff(Atonement).duration < 4", "party4.buff(Atonement)" }, "party4" },
+    { "Shadow Mend", { "lowest.health <= 24", "!player.moving", "lowest.buff(Atonement).duration < 4", "lowest.buff(Atonement)" }, "lowest" },
 
     { "Power Word: Shield", { "party1.health <= 72", "!party1.buff(Power Word: Shield)" }, "party1" },
     { "Power Word: Shield", { "party2.health <= 72", "!party2.buff(Power Word: Shield)" }, "party2" },
     { "Power Word: Shield", { "party3.health <= 72", "!party3.buff(Power Word: Shield)" }, "party3" },
     { "Power Word: Shield", { "party4.health <= 72", "!party4.buff(Power Word: Shield)" }, "party4" },
-    { "Power Word: Shield", { "lowest.health <= 72", "lowest.range <= 40", "!lowest.buff(Power Word: Shield)" }, "lowest" },
+    { "Power Word: Shield", { "lowest.health <= 72", "!lowest.buff(Power Word: Shield)" }, "lowest" },
 
-    { "Plea", { "party1.health <= 96", "!party1.buff(Atonement)", "party1.range <= 40" }, "party1" },
-    { "Plea", { "party2.health <= 96", "!party2.buff(Atonement)", "party2.range <= 40" }, "party2" },
-    { "Plea", { "party3.health <= 96", "!party3.buff(Atonement)", "party3.range <= 40" }, "party3" },
-    { "Plea", { "party4.health <= 96", "!party4.buff(Atonement)", "party4.range <= 40" }, "party4" },
-    { "Plea", { "lowest.health <= 96", "!lowest.buff(Atonement)", "lowest.range <= 40" }, "lowest" },
+    { "Plea", { "party1.health <= 93", "!party1.buff(Atonement)", "party1.range <= 40" }, "party1" },
+    { "Plea", { "party2.health <= 93", "!party2.buff(Atonement)", "party2.range <= 40" }, "party2" },
+    { "Plea", { "party3.health <= 93", "!party3.buff(Atonement)", "party3.range <= 40" }, "party3" },
+    { "Plea", { "party4.health <= 93", "!party4.buff(Atonement)", "party4.range <= 40" }, "party4" },
+    { "Plea", { "lowest.health <= 93", "!lowest.buff(Atonement)", "lowest.range <= 40" }, "lowest" },
   }, "!modifier.raid" },
 
 
-  --Direct Damage to tank target first and then my target
+  --Direct Damage to my target first and then the tank target if mine isnt friendly
   {{
     { "Mindbender", "modifier.cooldowns" },
     { "Shadowfiend", "modifier.cooldowns" },

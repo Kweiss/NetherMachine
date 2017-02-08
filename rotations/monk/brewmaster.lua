@@ -6,8 +6,8 @@ NetherMachine.rotation.register(268, {
   --------------------
 
   --Interrupts
-  { "Spear Hand Strike", { "target.interruptAt(75)", "!last.cast(Leg Sweep)", "modifier.interrupt" }},
-	{ "Leg Sweep", { "target.interruptAt(75)", "!last.cast(Spear Hand Strike", "modifier.interrupt", "target.range <= 10" }},
+  { "Spear Hand Strike", { "target.interruptAt(75)", "!modifier.last(Leg Sweep)", "modifier.interrupt" }},
+	{ "Leg Sweep", { "target.interruptAt(75)", "!modifier.last(Spear Hand Strike", "modifier.interrupt", "target.range <= 10" }},
 
   { "Summon Black Ox Statue", "modifier.lshift", "ground" },
 

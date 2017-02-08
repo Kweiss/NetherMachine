@@ -19,9 +19,9 @@ NetherMachine.rotation.register_custom(103, "|cFF99FF00Legion |cFFFF6600Feral Dr
 	{ "Survival Instincts", { "!player.buff(Survival Instincts)", "!modifier.last", "player.health <= 40", "player.spell(61336).charges > 1" } },
 
 	-- 0.00	skull_bash
-	{ "Skull Bash", { "target.interruptAt(75)", "!last.cast(Mighty Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
-	{ "Mighty Bash", { "target.interruptAt(75)", "!last.cast(Skull Bash)", "!last.cast(War Stomp)", "modifier.interrupt" }},
-	{ "War Stomp", { "target.interruptAt(50)", "!last.cast(Skull Bash)", "!last.cast(Mighty Bash)", "modifier.interrupt", "target.range <= 10" }},
+	{ "Skull Bash", { "target.interruptAt(75)", "!modifier.last(Mighty Bash)", "!modifier.last(War Stomp)", "modifier.interrupt" }},
+	{ "Mighty Bash", { "target.interruptAt(75)", "!modifier.last(Skull Bash)", "!modifier.last(War Stomp)", "modifier.interrupt" }},
+	{ "War Stomp", { "target.interruptAt(50)", "!modifier.last(Skull Bash)", "!modifier.last(Mighty Bash)", "modifier.interrupt", "target.range <= 10" }},
 
 	{ {
 		{ "#127844", { "player.hashero" } },

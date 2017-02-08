@@ -10,8 +10,8 @@ NetherMachine.rotation.register(269, {
   { "Touch of Death", "player.buff(Death Note)" },
 
   -- Interrupts
-  { "Spear Hand Strike", {"target.interruptAt(75)", "!last.cast(Leg Sweep)" }},
-  { "Leg Sweep", {"target.interruptAt(75)", "!last.cast(Spear Hand Strike)", "target.range <= 5" }},
+  { "Spear Hand Strike", {"target.interruptAt(75)", "!modifier.last(Leg Sweep)" }},
+  { "Leg Sweep", {"target.interruptAt(75)", "!modifier.last(Spear Hand Strike)", "target.range <= 5" }},
 
   -- Survival
   { "Touch of Karma", "player.health < 75" },
@@ -33,17 +33,17 @@ NetherMachine.rotation.register(269, {
   { "Tiger's Lust", "target.range >= 15" },
 
   -- Multi-Target
-  { "Spinning Crane Kick", {"modifier.multitarget", "!last.cast(Spinning Crane Kick)" }},
+  { "Spinning Crane Kick", {"modifier.multitarget", "!modifier.last(Spinning Crane Kick)" }},
 
   -- Rotation
-  { "Tiger Palm", { "player.chi < 4", "!last.cast(Tiger Palm)", "player.energy > 93" }},
+  { "Tiger Palm", { "player.chi < 4", "!modifier.last(Tiger Palm)", "player.energy > 93" }},
   { "Rising Sun Kick" },
-  { "Rushing Jade Wind", {"!last.cast(Rushing Jade Wind)", "player.chi > 1 " }},
+  { "Rushing Jade Wind", {"!modifier.last(Rushing Jade Wind)", "player.chi > 1 " }},
   { "Chi Wave", "player.energy < 75 " },
   { "Chi Burst", "player.energy < 75 " },
-  { "100784", {"player.chi > 1", "!last.cast(100784)" }}, --Blackout Kick
-  { "100784", {"player.buff(Blackout Kick!)", "!last.cast(100784)" }},
-  { "Tiger Palm", { "player.chi < 4", "!last.cast(Tiger Palm)" }},
+  { "100784", {"player.chi > 1", "!modifier.last(100784)" }}, --Blackout Kick
+  { "100784", {"player.buff(Blackout Kick!)", "!modifier.last(100784)" }},
+  { "Tiger Palm", { "player.chi < 4", "!modifier.last(Tiger Palm)" }},
 
   ------------------
   -- End Rotation --
