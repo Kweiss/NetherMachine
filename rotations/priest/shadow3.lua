@@ -1,10 +1,15 @@
 -- SPEC ID 62
 NetherMachine.rotation.register_custom(258, '|cff69ACC8Magiheals|r',{
 
-  -- Cooldowns
-  -- Build Phase
-   { "Shadowfiend", "player.buff(Voidform).count > 9"},
+
+-- Healing   
+  { "Power Word: Shield", { "player.health < 90", "modifier.heals"										}},
+  { "Shadow Mend", { "!player.debuff(Shadow Mend)", "player.health < 50", "modifier.heals"				}},
+
+  { "Shadowfiend", "player.buff(Voidform).count > 9"},
    
+   -- Cooldowns
+  -- Build Phase  
   { "Void Bolt"	, "player.buff(Voidform)"																},
   { "Void Eruption" 																					},
   { "Mind Blast", "!player.buff(Voidform)"																},
@@ -29,8 +34,7 @@ NetherMachine.rotation.register_custom(258, '|cff69ACC8Magiheals|r',{
   { "Mind Flay", "player.buff(Voidform)"																},
   
   
-  { "Power Word: Shield", "player.health < 90"},
-  { "Shadow Mend", { "!player.debuff(Shadow Mend)", "player.health < 50"}},
+
  -- { "Void Eruption" }, --, "player.insane = 100" },
   
   
