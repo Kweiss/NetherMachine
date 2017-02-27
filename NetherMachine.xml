@@ -143,12 +143,12 @@
   <Script file="rotations\druid\balance.lua" />
   <Script file="rotations\druid\balance2.lua" />
   <Script file="rotations\druid\feral.lua" />
-  <Script file="rotations\druid\feral2.lua" />
-  <Script file="rotations\druid\feral3.lua" />
+  <!-- <Script file="rotations\druid\feral2.lua" />
+  <Script file="rotations\druid\feral3.lua" /> -->
   <Script file="rotations\druid\feral4.lua" />
   <Script file="rotations\druid\guardian.lua" />
-  <Script file="rotations\druid\guardian2.lua" />
-  <Script file="rotations\druid\guardian3.lua" />
+  <!--<Script file="rotations\druid\guardian2.lua" />
+  <Script file="rotations\druid\guardian3.lua" /> -->
   <Script file="rotations\druid\restoration.lua" />
   <Script file="rotations\druid\restoration2.lua" />
   <Script file="rotations\druid\restoration3.lua" />
@@ -185,7 +185,7 @@
   <Script file="rotations\priest\discipline.lua" />
   <Script file="rotations\priest\holy.lua" />
   <Script file="rotations\priest\shadow.lua" />
-  <Script file="rotations\priest\shadow2.lua" />
+  <!-- <Script file="rotations\priest\shadow2.lua" /> -->
   <Script file="rotations\priest\shadow3.lua" />
   <Script file="rotations\rogue\basic_rogue.lua" />
   <Script file="rotations\rogue\assassination.lua" />

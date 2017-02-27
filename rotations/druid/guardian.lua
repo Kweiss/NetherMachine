@@ -33,17 +33,19 @@ NetherMachine.rotation.register(104, {
 
     { "#5512", { "player.health <= 50" }}, --Healthstone
 
-    { "192081", { "player.rage > 90", "!player.buff(Ironfur)", "target.threat >= 100" }}, -- Ironfur
-    { "192081", { "player.rage > 95", "target.threat >= 100" }}, -- Ironfur
-    { "192081", { "player.rage > 70", "player.buff(Guardian of Elune).duration < 3", "player.buff(Guardian of Elune)" }}, -- Ironfur
+    {{
+      { "192081", { "player.rage > 80", "!player.buff(Ironfur)", "target.threat >= 100" }}, -- Ironfur
+      { "192081", { "player.rage > 90", "target.threat >= 100" }}, -- Ironfur
+      { "192081", { "player.rage > 70", "player.buff(Guardian of Elune).duration < 3", "player.buff(Guardian of Elune)" }}, -- Ironfur
 
-    { "192081", { "player.health <= 93", "player.rage > 60", "!player.buff(Ironfur)" }}, -- Ironfur
-    { "192081", { "player.health <= 70", "player.rage > 50", "!player.buff(Ironfur)" }}, -- Ironfur
+      { "192081", { "player.health <= 93", "player.rage > 60", "!player.buff(Ironfur)" }}, -- Ironfur
+      { "192081", { "player.health <= 70", "player.rage > 50", "!player.buff(Ironfur)" }}, -- Ironfur
 
-    { "192081", { "player.health <= 75", "player.rage > 75", "target.threat >= 100"  }}, -- Ironfur
-    { "192081", { "player.health <= 55", "player.rage > 55", "target.threat >= 100"  }}, -- Ironfur
+      { "192081", { "player.health <= 75", "player.rage > 75", "target.threat >= 100"  }}, -- Ironfur
+      { "192081", { "player.health <= 55", "player.rage > 55", "target.threat >= 100"  }}, -- Ironfur
+    }, "!toggle.Magic" },
 
-    { "192083", { "player.health <= 90", "player.rage > 60", "toggle.Magic" }}, -- Mark of Ursol
+    { "192083", { "player.health <= 93", "player.rage > 60", "toggle.Magic" }}, -- Mark of Ursol
 
     { "22842", { "player.health <= 76", "!modifier.last(22842)", "player.spell(22842).charges > 1" }}, --Frenzied Regeneration
     { "22842", { "player.health <= 76", "!modifier.last(22842)", "player.spell(22842).charges > 1" }}, --Frenzied Regeneration
@@ -80,7 +82,7 @@ NetherMachine.rotation.register(104, {
     { "6807", { "player.rage >= 85", "player.health > 95 ", "!modifier.last(6807)" }}, --Maul
 
     { "6807", { "player.rage >= 85", "target.enemy", "player.health > 70 ", "!targettarget.istheplayer", "!modifier.last(6807)" }}, --Maul
-  },{ "player.buff(Bear Form)" } },
+  },{ "target.enemy", "player.buff(Bear Form)" } },
   ------------------
   -- End Rotation --
   ------------------
