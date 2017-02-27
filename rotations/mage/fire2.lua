@@ -5,15 +5,15 @@ NetherMachine.rotation.register_custom(63, "TuTFireMage", {
 -- CONTROLS: Pause - Left Control
 
 -- COMBAT
-	-- "!modifier.last(Regrowth)", 
+	-- "!modifier.last(Regrowth)",
 --{ "Shimmer", "target.range <= 10"},
 --
 --[[{ "Blink", "player.casting"},
 { "Fireball"},
 
-  { "Skull Bash", { 
-    "target.casting", 
-    "modifier.interrupt" 
+  { "Skull Bash", {
+    "target.casting",
+    "modifier.interrupt"
   }},--]]
 --{ "Blink", "player.casting"},
 --{ "Fireball"},
@@ -40,9 +40,9 @@ NetherMachine.rotation.register_custom(63, "TuTFireMage", {
 --{ --"/cast Pyroblast",  { "player.buff(48108)", "player.casting"}},
 
 
--- Working ok from here 
---{ "/cast Pyroblast", { "player.buff(48108)", function() local s,_=UnitChannelInfo("player"); return s and s == 'Fireball' end } }, 
---{ "/cast Fire Blast", { "player.buff(48107)", function() local s,_=UnitChannelInfo("player"); return s and s == 'Fireball' end } }, 
+-- Working ok from here
+--{ "/cast Pyroblast", { "player.buff(48108)", function() local s,_=UnitChannelInfo("player"); return s and s == 'Fireball' end } },
+--{ "/cast Fire Blast", { "player.buff(48107)", function() local s,_=UnitChannelInfo("player"); return s and s == 'Fireball' end } },
 
 { "Rune of Power", {"!player.buff(Rune of Power)", "modifier.cooldowns"}},
 
@@ -59,7 +59,7 @@ NetherMachine.rotation.register_custom(63, "TuTFireMage", {
 { "Cinderstorm", {"target.debuff(Ignite)", "toggle.cinderstorm"}},
 { "Fireball"},
 
-{ "Ice Barrier", "player.health < 30"}, 
+{ "Ice Barrier", "player.health < 30"},
 --{ "/run RunMacro('sdf');", {"player.casting.percent <= 100", "player.buff(48107)", "player.spell(Fire Blast).charges > 0"  }},
 --{ "Fire Blast" , "player.spell(Fire Blast).charges > 1" },
 
@@ -79,7 +79,7 @@ NetherMachine.rotation.register_custom(63, "TuTFireMage", {
 
 	{ "Fire Blast", {"player.buff(Heating up)", "!lastcast"}},
 	{ "Blast Wave", {"lastcast(Fireball)", "!player.buff(Heating Up)"}},
-	
+
 	{ "Fireball", "!player.buff(Heating Up)"},
 --]]
 -- ability_mage_moltenarmor
@@ -88,7 +88,8 @@ NetherMachine.rotation.register_custom(63, "TuTFireMage", {
   ------------------
 },{
 	-- OUT OF COMBAT
-{"Blazing Barrier", {"!player.buff(Blazing Barrier)",  , "player.moving", "toggle.bubble"}},
+{
+	"Blazing Barrier", {"!player.buff(Blazing Barrier)", "player.moving", "toggle.bubble"} },
 },
 function()
   NetherMachine.toggle.create('burn', 'Interface\\ICONS\\spell_fire_sealoffire', 'burn', 'Combustion will be used')
@@ -96,11 +97,3 @@ function()
   NetherMachine.toggle.create('flames', 'Interface\\ICONS\\artifactability_firemage_phoenixbolt', 'Use Flames!', 'Phoenix Flames Will be Used')
   NetherMachine.toggle.create('cinderstorm', 'Interface\\ICONS\\spell_fire_flare', 'Use Cinderstorm!', 'Turn off if your pulling to many adds')
 end)
-
-
-
-
-
-
-
-

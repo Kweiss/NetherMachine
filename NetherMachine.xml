@@ -185,8 +185,9 @@
   <Script file="rotations\priest\discipline.lua" />
   <Script file="rotations\priest\holy.lua" />
   <Script file="rotations\priest\shadow.lua" />
-  <!-- <Script file="rotations\priest\shadow2.lua" /> -->
+  <Script file="rotations\priest\shadow2.lua" />
   <Script file="rotations\priest\shadow3.lua" />
+  <Script file="rotations\priest\shadow4.lua" />
   <Script file="rotations\rogue\basic_rogue.lua" />
   <Script file="rotations\rogue\assassination.lua" />
   <Script file="rotations\rogue\combat.lua" />

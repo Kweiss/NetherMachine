@@ -1,7 +1,7 @@
 -- TALENTS:   15: Twist of Fate (Shadow Priest)  60: Lingering Insanity (Shadow Priest)  75: San'layn (Shadow Priest)  90: Power Infusion (Shadow Priest)  100: Legacy of the Void (Shadow Priest)
 
 -- SPEC ID 62
-NetherMachine.rotation.register_custom(258, "|cFF99FF00Legion |cFFFF6600Shadow Priest |cFFFF9999(Basic)", {
+NetherMachine.rotation.register_custom(258, "|cFF99FF00Legion |cFFFF6600Shadow Priest |cFFFF9999(Needs Updated)", {
 
   -- Interrupts
   { "Arcane Torrent", {"target.interruptAt(75)", "modifier.interrupt", "target.range <= 8", "!modifier.last(Silence)" }},
