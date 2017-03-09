@@ -7,9 +7,9 @@ NetherMachine.buttons = {
   frame = CreateFrame("Frame", "NM_Buttons", UIParent),
   buttonFrame = CreateFrame("Frame", "NM_Buttons_Container", UIParent),
   buttons = { },
-  size = 36,
+  size = 28,
   scale = 1,
-  padding = 6,
+  padding = 2,
   count = 0,
 }
 
