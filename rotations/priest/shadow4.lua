@@ -10,8 +10,8 @@ NetherMachine.rotation.register_custom(258, "|cFF99FF00Legion |cFFFF6600Shadow P
   { "Silence", {"target.interruptAt(75)", "modifier.interrupt", "!modifier.last(Arcane Torrent)" }},
 
   -- Stay Alive
-  { "Power Word: Shield", "player.health < 90"},
-  { "Shadow Mend", {"player.health < 50"}},
+  { "Power Word: Shield", {"player.health < 90", "modifier.heals" }},
+  { "Shadow Mend", {"player.health < 40", "modifier.heals" }},
 
   -- Make sure DoTs are in a good spot before Voidform
   --{ "Shadow Word: Pain", {"!player.buff(Voidform)", "target.debuff(Shadow Word: Pain).duration < 8", "player.insane >=70 "}},

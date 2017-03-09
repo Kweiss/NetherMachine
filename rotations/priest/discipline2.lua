@@ -6,7 +6,7 @@
 -- STATS: Haste > Critical Strike > Mastery > Versatility >
 
 -- SPEC ID 256 (Disc)
-NetherMachine.rotation.register_custom(256, "|cFF99FF00Legion |Disc Priest |cFFFF9999(Party)", {
+NetherMachine.rotation.register_custom(256, "|cFF99FF00Legion |Disc Priest |cFFFF9999(Raid)", {
 
   --------------------
   -- Start Rotation --
@@ -20,10 +20,7 @@ NetherMachine.rotation.register_custom(256, "|cFF99FF00Legion |Disc Priest |cFFF
 
   -- MOVING
   { {
-    { "Plea", { "party1.health < 92", "party1.buff(Atonement).remains <= 2" }, "party1" },
-    { "Plea", { "party2.health < 92", "party2.buff(Atonement).remains <= 2" }, "party2" },
-    { "Plea", { "party3.health < 92", "party3.buff(Atonement).remains <= 2" }, "party3" },
-    { "Plea", { "party4.health < 92", "party4.buff(Atonement).remains <= 2" }, "party4" },
+    { "Plea", { "lowest.health < 92", "lowest.buff(Atonement).remains <= 2" }, "lowest" },
   }, "player.moving" },
 
   -- DISPELLS
@@ -114,7 +111,7 @@ NetherMachine.rotation.register_custom(256, "|cFF99FF00Legion |Disc Priest |cFFF
     { "Plea", { "party3.health <= 93", "!party3.buff(Atonement)", "party3.range <= 40" }, "party3" },
     { "Plea", { "party4.health <= 93", "!party4.buff(Atonement)", "party4.range <= 40" }, "party4" },
     { "Plea", { "lowest.health <= 93", "!lowest.buff(Atonement)", "lowest.range <= 40" }, "lowest" },
-  },  },
+  }, "!modifier.raid" },
 
 
   --Direct Damage to my target first and then the tank target if mine isnt friendly

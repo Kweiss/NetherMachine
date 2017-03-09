@@ -35,7 +35,7 @@ NetherMachine.rotation.register(104, {
 
     {{
       { "192081", { "player.rage > 80", "!player.buff(Ironfur)", "target.threat >= 100" }}, -- Ironfur
-      { "192081", { "player.rage > 90", "target.threat >= 100" }}, -- Ironfur
+      { "192081", { "player.rage > 85", "target.threat >= 100" }}, -- Ironfur
       { "192081", { "player.rage > 70", "player.buff(Guardian of Elune).duration < 3", "player.buff(Guardian of Elune)" }}, -- Ironfur
 
       { "192081", { "player.health <= 93", "player.rage > 60", "!player.buff(Ironfur)" }}, -- Ironfur
@@ -81,7 +81,7 @@ NetherMachine.rotation.register(104, {
 
     { "6807", { "player.rage >= 85", "player.health > 95 ", "!modifier.last(6807)" }}, --Maul
 
-    { "6807", { "player.rage >= 85", "target.enemy", "player.health > 70 ", "!targettarget.istheplayer", "!modifier.last(6807)" }}, --Maul
+    --{ "6807", { "player.rage >= 85", "target.enemy", "player.health > 70 ", "!targettarget.istheplayer", "!modifier.last(6807)" }}, --Maul
   },{ "target.enemy", "player.buff(Bear Form)" } },
   ------------------
   -- End Rotation --
