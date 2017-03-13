@@ -28,6 +28,7 @@ NetherMachine.rotation.register(269, {
   { "Strike of the Windlord", "modifier.cooldowns" },
   { "Whirling Dragon Punch", "modifier.cooldowns" },
   { "Fists of Fury", "modifier.cooldowns" },
+  { "#trinket2", {"modifier.cooldowns" }},
 
   -- Talents
   { "Tiger's Lust", "target.range >= 15" },

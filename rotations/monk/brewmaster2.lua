@@ -7,7 +7,7 @@
 -- glyphs=fortifying_brew,expel_harm,fortuitous_spheres
 -- CONTROLS: Pause - Left Control;  Black Ox Statue - Left Alt;  Dizzying Haze - Left Shift;  Healing Sphere - Right Alt
 
-NetherMachine.rotation.register_custom(268, "|cFF00FF96Monk Brewmaster (SimC T17N)", {
+NetherMachine.rotation.register_custom(268, "|cFF00FF96Monk Brewmaster (Legion)", {
 -- COMBAT ROTATION
 	-- PAUSES
 	{ "pause", "modifier.lcontrol" },
@@ -286,7 +286,7 @@ NetherMachine.rotation.register_custom(268, "|cFF00FF96Monk Brewmaster (SimC T17
 
 	-- Buffs
 	{ "Legacy of the White Tiger", { "player.ooctime > 3", "!player.buffs.stats" } },
-	
+
 	-- OOC Healing
 	{ "#118935", { "player.health < 80", "!player.ininstance(raid)" } }, -- Ever-Blooming Frond 15% health/mana every 1 sec for 6 sec. 5 min CD
 	{ "Surging Mist", { "player.health <= 90",  "!player.moving", "player.energy >= 70" } },

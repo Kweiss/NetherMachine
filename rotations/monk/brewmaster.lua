@@ -20,10 +20,10 @@ NetherMachine.rotation.register(268, {
 
     --Iron Skin Logic (Must Have Aggro)
     {{
-      { "115308", { "player.health < 85", "!player.buff(Iron Skin)", "player.spell(115308).charges > 2" }}, -- Ironskin
-      { "115308", { "player.health < 60", "player.buff(Iron Skin).count < 2", "player.spell(115308).charges > 1" }}, -- Ironskin
-      { "115308", { "player.health < 40", "player.buff(Iron Skin).count < 2", "player.buff(Iron Skin).duration < 2" }}, -- Ironskin
-      { "115308", { "player.health < 27", "player.buff(Iron Skin).count < 2" } }, -- Ironskin
+      { "115308", { "player.health < 85", "!player.buff(Ironskin Brew)", "player.spell(115308).charges > 2" }}, -- Ironskin
+      { "115308", { "player.health < 60", "player.buff(Ironskin Brew).count < 2", "player.spell(115308).charges > 1" }}, -- Ironskin
+      { "115308", { "player.health < 40", "player.buff(Ironskin Brew).count < 2", "player.buff(Ironskin Brew).duration < 2" }}, -- Ironskin
+      { "115308", { "player.health < 27", "player.buff(Ironskin Brew).count < 2" } }, -- Ironskin
     }, { "target.threat >= 100" } },
 
     { "119582", { "player.health <= 73", "player.debuf(Moderate Stagger)", "player.spell(119582).charges > 1" }}, -- Purifying Brew
