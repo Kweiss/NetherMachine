@@ -20,14 +20,15 @@ NetherMachine.rotation.register(268, {
 
     --Iron Skin Logic (Must Have Aggro)
     {{
-      { "115308", { "player.health < 85", "!player.buff(Ironskin Brew)", "player.spell(115308).charges > 2" }}, -- Ironskin
-      { "115308", { "player.health < 60", "player.buff(Ironskin Brew).count < 2", "player.spell(115308).charges > 1" }}, -- Ironskin
-      { "115308", { "player.health < 40", "player.buff(Ironskin Brew).count < 2", "player.buff(Ironskin Brew).duration < 2" }}, -- Ironskin
-      { "115308", { "player.health < 27", "player.buff(Ironskin Brew).count < 2" } }, -- Ironskin
+      { "115308", { "player.health < 95", "!player.buff(Ironskin Brew)", "player.spell(115308).charges > 2" }}, -- Ironskin
+      { "115308", { "player.health < 92", "player.buff(Ironskin Brew).duration < 2", "player.spell(115308).charges > 1" }}, -- Ironskin
+      { "115308", { "player.health < 76", "player.buff(Ironskin Brew).duration < 2" }}, -- Ironskin
     }, { "target.threat >= 100" } },
 
-    { "119582", { "player.health <= 73", "player.debuf(Moderate Stagger)", "player.spell(119582).charges > 1" }}, -- Purifying Brew
-    { "119582", { "player.health <= 85", "player.debuf(Heavy Stagger)", "player.spell(119582).charges > 1" }}, -- Purifying Brew
+    { "115308", { "player.health < 66", "player.buff(Ironskin Brew).duration < 2" }}, -- Ironskin
+
+    { "119582", { "player.debuf(Moderate Stagger)", "player.spell(119582).charges > 1" }}, -- Purifying Brew
+    { "119582", { "player.debuf(Heavy Stagger)", "player.spell(119582).charges > 1" }}, -- Purifying Brew
 
     { "Chi Wave", "player.health < 78" },
     { "214326", { "modifier.cooldowns", "modifier.lcontrol" }, "ground" }, --Exploding Keg
@@ -37,18 +38,23 @@ NetherMachine.rotation.register(268, {
   } },
 
   --Damage
-  { "Blackout Strike",  "talent(7,2)" },
+  { "Blackout Strike", "talent(7,2)"},
 
   { "Keg Smash", "!talent(7,2)" },
   { "Keg Smash", "player.buff(Blackout Combo)" },
   { "Keg Smash", "player.spell(Blackout Strike).cooldown > .5" },
-  { "Tiger Palm", "player.energy > 65" },
+
+  { "Blackout Strike",  "!talent(7,2)" },
+
+  { "Breath of Fire", { "player.buff(Blackout Combo)", "target.range <= 10"} },
+  { "Breath of Fire", { "!talent(7,2)", "target.range <= 10"} },
+
+  { "Tiger Palm", {"!player.buff(Blackout combo)", "player.energy > 65", "player.spell(Blackout Strike).cooldown > .5"} },
 
   { "115072", { "player.health <= 70", "!modifier.last(115072)",  }}, --Expel Harm
 
   { "Blackout Strike",  "!talent(7,2)" },
   { "Rushing Jade Wind", },
-  { "Breath of Fire", { "target.debuff(Dizzying Haze)", } },
 
   },{
 
