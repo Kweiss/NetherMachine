@@ -881,7 +881,7 @@ end)
 
 NetherMachine.condition.register("stagger", function(target)
   return NetherMachine.parser.stagger == UnitStagger(target)
-  print(stagger)
+  --print(stagger)
 end)
 
 local function checkChanneling(target)
