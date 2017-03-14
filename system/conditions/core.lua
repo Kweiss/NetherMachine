@@ -831,6 +831,7 @@ end)
 
 NetherMachine.condition.register("modifier.last", function(target, spell)
   return NetherMachine.parser.lastCast == GetSpellName(spell)
+  print(lastcast)
 end)
 
 NetherMachine.condition.register("lastcast", function(unit, spell)
@@ -876,6 +877,11 @@ NetherMachine.condition.register("mushrooms", function ()
         count = count + 1 end
     end
     return count
+end)
+
+NetherMachine.condition.register("stagger", function(target)
+  return NetherMachine.parser.stagger == UnitStagger(target)
+  print(stagger)
 end)
 
 local function checkChanneling(target)
