@@ -53,7 +53,6 @@ NetherMachine.rotation.register(268, {
 
   { "115072", { "player.health <= 70", "!modifier.last(115072)",  }}, --Expel Harm
 
-  { "Blackout Strike",  "!talent(7,2)" },
   { "Rushing Jade Wind", },
 
   },{
