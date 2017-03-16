@@ -831,7 +831,6 @@ end)
 
 NetherMachine.condition.register("modifier.last", function(target, spell)
   return NetherMachine.parser.lastCast == GetSpellName(spell)
-  print(lastcast)
 end)
 
 NetherMachine.condition.register("lastcast", function(unit, spell)
