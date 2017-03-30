@@ -1,88 +1,107 @@
 -- SPEC ID 64
-_ugly_buffs_table = {
-  "Arcane Brilliance",
-  "Frost Armor"
-}
-NetherMachine.library.register('magicBuff', {
-  spells = function()
-    for _, spell in ipairs(_ugly_buffs_table) do
-      if NetherMachine.dsl.get('buff')('player', spell) then
-        print(NetherMachine.dsl.get('buff')('player', spell))
-        return spell
-      end
-    end
-    return false
-  end
-})
+NetherMachine.rotation.register_custom(64, '|cff69ACC8Frost Squad|r',{
+	
+{ "Spellsteal", "target.stealable", "target" 						},
+{ "Blizzard", { "modifier.shift", "!player.moving" }, "target.ground"},
+{ "Glacial Spike", {"modifier.multitarget", "!player.buff(Brain Freeze)"}},
+{ "/run RunMacro('sdf');", {"player.casting.percent <= 100", "player.buff(Brain Freeze)"  }},
+{ "Ice Floes", {"player.moving", "!player.buff(Ice Floes)"}},
+{ "Counterspell", "modifier.interrupt" },
+{ "Mirror Image", "modifier.cooldowns"},
+{ "Icy Veins", { "!player.buff(Icy Veins)", "modifier.cooldowns"}},
+{ "Ebonbolt", {"modifier.cooldowns", "!player.buff(Brain Freeze)"}},
+{ "Ice Lance", "player.buff(Fingers of Frost).count > 2"},
+{ "Flurry", "player.buff(Brain Freeze)"},
+{ "Frost Bomb", { "target.debuff.remains < 1.5", "!player.lastcast(Frost Bomb)"}},
+{ "Ice Lance", "player.lastcast(Flurry)"},
+{ "Water Jet", "player.buff(Fingers of Frost).count < 1"},
+{ "Ice Lance", "player.buff(Fingers of Frost).count >= 1"},
+{ "Frozen Orb", "modifier.multitarget"},
+{ "Frostbolt"},
+--[[
+{ "Living Bomb", "!target.buff(Living Bomb)"},
 
-NetherMachine.rotation.register(64, {
+{ "Combustion", "toggle.burn"},
+{ "Combustion", "player.buff(Rune of Power)"},
 
-  --------------------
-  -- Start Rotation --
-  --------------------
-  
-  -- Cooldowns
-  { "12472", "modifier.cooldowns" }, -- Icy Veins
-  
-  { "45438", {
-    "modifier.cooldowns", 
-    "player.health <= 30",
-  }},-- Ice Block
-  
-  { "11958", {
-    "modifier.cooldowns", 
-    "player.health <= 25", 
-    "player.spell(45438).cooldown",
-  }},-- Cold Snap
-  
-  { "55342", "modifier.cooldowns" }, -- Mirror Image
-  { "108978", "modifier.cooldowns" }, -- Alter Time
-  { "12043", "modifier.cooldowns" }, -- Presence of Mind
-  
-  { "115610", { 
-    "modifier.cooldowns", 
-    "player.health <= 80",
-  }},-- Temporal Shield
-  
-  -- Interrupts
-  { "2139", "modifier.interrupts" }, -- Counterspell
-  { "102051", "modifier.interrupts" }, -- Frostjaw
 
-  -- AoE
-  { "10", "modifier.control", "ground" }, -- Blizzard
-  { "113724", "modifier.alt", "ground" }, -- Ring of Frost
-  
-  -- Mage Bombs
-  {"114923", "!target.debuff(114923)", "target"}, -- Nether Tempest
-  {"114923", "target.debuff(114923).duration <= 2", "target"}, -- Nether Tempest
-  {"44457", "!target.debuff(44457)", "target"}, -- Living Bomb
-  {"112948", "player.spell(112948).cooldown = 0", "target"}, -- Frost Bomb
-  
-  -- Survivability
-  { "122", "target.range <= 9" }, -- Frost Nova
-  { "1953", "target.range <= 3" }, -- Blink
-  { "116011", "modifier.shift", "ground" }, -- Rune of Power
-  { "11426", "player.health <= 80" }, -- Ice Barrier
-  
-  -- Rotation
-  { "84714", "player.buff(112965).count < 2" }, -- Frozen Orb
-  { "30455", "player.buff(112965)" }, -- Ice Lance
-  { "44614", "player.buff(44549)" }, -- Frostfire Bolt
-  { "30455", "player.moving" }, -- Ice Lance
-  { "116" } -- Frostbolt
+{ "Pyroblast",   { "player.buff(48108)", "!player.lastcast(Pyroblast)"}},
+{ "Flame On", {"player.spell(Fire Blast).charges < 1",  "player.spell(Phoenix's Flames).charges < 1"}},
+{ "Fire Blast",  { "player.buff(48107)", "!player.lastcast(Fire Blast)", "!player.lastcast(Phoenix's Flames)"}},
+{ "Phoenix's Flames", {"player.buff(48107)", "player.spell(Fire Blast).charges < 1", "!player.lastcast(Phoenix's Flames)"}},
+{ "/run CastSpellByName('Fire Blast');", {"player.casting.percent <= 100", "player.buff(48107)", "player.spell(Fire Blast).charges > 0"  }},
+{ "/run RunMacro('sdf');", {"player.casting.percent <= 100", "player.buff(48108)"  }},
+{ "/run RunMacro('sdf');", {"player.casting.percent <= 100", "player.buff(48107)", "player.spell(Fire Blast).charges > 0", "player.spell(Phoenix's Flames).charges > 0"   }},
 
+
+{ "Scorch", {"player.moving","!player.buff(Ice Floes)" }},
+
+--{-- "/cast Pyroblast", {"player.casting.percent <= 100", "player.buff(48107)", "!player.lastcast(Pyroblast)", "target" }},
+--{ --"/cast Fire Blast", { "player.buff(48107)", "player.casting"}},
+--{ --"/cast Pyroblast",  { "player.buff(48108)", "player.casting"}},
+
+
+-- Working ok from here 
+--{ "/cast Pyroblast", { "player.buff(48108)", function() local s,_=UnitChannelInfo("player"); return s and s == 'Fireball' end } }, 
+--{ "/cast Fire Blast", { "player.buff(48107)", function() local s,_=UnitChannelInfo("player"); return s and s == 'Fireball' end } }, 
+
+{ "Rune of Power", {"!player.buff(Rune of Power)", "modifier.cooldowns"}},
+
+{ "Blazing Barrier", "player.health < 50"},
+
+--{ "/run CastSpellByName('Pyroblast');", { "player.buff(Hot Streak!)", "player.casting" } },
+--{ "Pyroblast", { "player.buff(Hot Streak!)", "player.casting"}},
+--{ "/run CastSpellByName('Fire Blast');", { "player.buff(48107)", "player.casting" } },
+--{ "Fire Blast", { "player.buff(48107)", "player.casting"}},
+--{ "Phoenix's Flames", {"player.buff(Rune of Power)", "player.spell(Fire Blast).charges < 1"}},
+--{ "Pyroblast", {"player.buff(Hot Streak!)", "!lastcast(Pyroblast)"}},
+--{ "Fire Blast", "player.buff(48107)"}, -- Heating Up
+{ "Dragon's Breath", { "!player.buff(48108)", "target.range <= 15"}},
+{ "Cinderstorm", "target.debuff(Ignite)"},
+{ "Fireball"},
+
+{ "Ice Barrier", "player.health < 30"}, 
+--{ "/run RunMacro('sdf');", {"player.casting.percent <= 100", "player.buff(48107)", "player.spell(Fire Blast).charges > 0"  }},
+--{ "Fire Blast" , "player.spell(Fire Blast).charges > 1" },
+--]]
+--[[
+	{ "Pyroblast", {"player.buff(Hot Streak!)", "player.casting"}},
+	{ "Pyroblast", "player.buff(Hot Streak!)"},
+
+	{ "/run CastSpellByName('Fire Blast');", { "player.buff(Heating Up)", "player.casting" } },
+	{ "/run CastSpellByName('Fire Blast');", "player.buff(Heating Up)" },
+	{ "Pyroblast", "lastcast(Fire Blast)"},
+	{ "108853", "player.buff(Heating Up)",  "player.casting"}, -- "!lastcast",
+	{ "Fire Blast", {"player.buff(Heating Up)",  "!lastcast"}},
+
+	{ "Fire Blast", {"modifier.interrupts", "player",  },
+
+	{ "Flame On", "player.spell(Fire Blast).charges < 1"},
+
+	{ "Fire Blast", {"player.buff(Heating up)", "!lastcast"}},
+	{ "Blast Wave", {"lastcast(Fireball)", "!player.buff(Heating Up)"}},
+	
+	{ "Fireball", "!player.buff(Heating Up)"},
+--]]
+-- ability_mage_moltenarmor
   ------------------
-  -- End Rotation --
+  -- End Rotation -- 
   ------------------
+  
+
   },{
-  
+
   ---------------
   -- OOC Begin --
   ---------------
-  { "@magicBuff.spells", true }
-  
+
+{"Blazing Barrier", {"!player.buff(Blazing Barrier)", "toggle.bubble"}},
+
   -------------
   -- OOC End --
   -------------
-  
-  })
+
+}, function()
+  NetherMachine.toggle.create('burn', 'Interface\\ICONS\\spell_fire_sealoffire', 'burn', 'Comustion will be used')
+  NetherMachine.toggle.create('bubble', 'Interface\\ICONS\\ability_mage_moltenarmor', 'bubble', 'Blazing Barrier will now be used')
+end)
