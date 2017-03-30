@@ -173,6 +173,7 @@
   <Script file="rotations\monk\mistweaver.lua" />
   <Script file="rotations\monk\windwalker.lua" />
   <Script file="rotations\monk\windwalker2.lua" />
+  <Script file="rotations\monk\windwalker3.lua" />
   <Script file="rotations\paladin\basic_paladin.lua" />
   <Script file="rotations\paladin\holy.lua" />
   <Script file="rotations\paladin\protection.lua" />

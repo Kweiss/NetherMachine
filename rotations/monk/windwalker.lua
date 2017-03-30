@@ -17,18 +17,16 @@ NetherMachine.rotation.register(269, {
   { "Touch of Karma", "player.health < 75" },
   { "Healing Elixir", "player.health < 84" },
 
-  -- Keybinds
-  { "Paralysis", "modifier.alt", "mouseover" },
-  { "Crackling Jade Lightning", "modifier.shift", "target" },
-
   -- Cooldowns
+  { "Energizing Elixir", {"modifier.cooldowns", "target.range <= 8", "player.energy < 35", "player.chi < 1" }},
+
   { "Invoke Xuen, The White Tiger", "modifier.cooldowns" },
 
-  { "Storm, Earth, and Fire", {"modifier.cooldowns", "player.spell(Strike of the Windlord).cooldown < 14", "player.spell(Fists of Fury).cooldown <= 9", "player.spell(Rising Sun Kick).cooldown <= 5" }},
-  { "Strike of the Windlord", "modifier.cooldowns" },
-  { "Whirling Dragon Punch", "modifier.cooldowns" },
-  { "Fists of Fury", "modifier.cooldowns" },
-  { "#trinket2", {"modifier.cooldowns" }},
+  { "Storm, Earth, and Fire", {"modifier.cooldowns", "player.spell(Strike of the Windlord).cooldown < 14", "player.spell(Fists of Fury).cooldown <= 9", "player.spell(Rising Sun Kick).cooldown <= 5", "target.range <= 8" }},
+  { "Strike of the Windlord", {"modifier.cooldowns", "target.range <= 8" } },
+  { "Whirling Dragon Punch", {"modifier.cooldowns", "target.range <= 8" } },
+  { "Fists of Fury", {"target.range <= 8" } },
+  { "#trinket2", {"modifier.cooldowns", "target.range <= 8" }},
 
   -- Talents
   { "Tiger's Lust", "target.range >= 15" },
@@ -38,7 +36,7 @@ NetherMachine.rotation.register(269, {
 
   -- Rotation
   { "Tiger Palm", { "player.chi < 4", "!modifier.last(Tiger Palm)", "player.energy > 93" }},
-  { "Rising Sun Kick" },
+  { "Rising Sun Kick", },
   { "Rushing Jade Wind", {"!modifier.last(Rushing Jade Wind)", "player.chi > 1 " }},
   { "Chi Wave", "player.energy < 75 " },
   { "Chi Burst", "player.energy < 75 " },
