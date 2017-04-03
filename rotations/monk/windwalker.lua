@@ -43,6 +43,7 @@ NetherMachine.rotation.register(269, {
   { "100784", {"player.chi > 1", "!modifier.last(100784)" }}, --Blackout Kick
   { "100784", {"player.buff(Blackout Kick!)", "!modifier.last(100784)" }},
   { "Tiger Palm", { "player.chi < 4", "!modifier.last(Tiger Palm)" }},
+  { "Tiger Palm", { "player.chi < 4", "target.health > 96" }},
 
   ------------------
   -- End Rotation --
