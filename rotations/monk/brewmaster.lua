@@ -27,11 +27,13 @@ NetherMachine.rotation.register(268, {
 
     { "115308", { "player.health < 66", "player.buff(Ironskin Brew).duration < 2" }}, -- Ironskin
 
+    { "115308", { "player.spell(115308).charges > 2" }}, -- Ironskin
+
     -- { "119582", { "player.debuf(Moderate Stagger)", "player.spell(119582).charges > 1" }}, -- Purifying Brew
     { "119582", { "player.debuf(Heavy Stagger)", "player.spell(119582).charges > 1" }}, -- Purifying Brew
 
-    { "Chi Wave", "player.health < 78" },
-    { "Chi Burst", "player.health < 73" },
+    { "Chi Wave", {"player.health < 78", "!player.moving"} },
+    { "Chi Burst", {"player.health < 73", "!player.moving"} },
     { "214326", { "modifier.cooldowns", "modifier.lcontrol" }, "ground" }, --Exploding Keg
 
     },{

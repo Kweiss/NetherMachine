@@ -171,6 +171,7 @@
   <Script file="rotations\monk\brewmaster.lua" />
   <Script file="rotations\monk\brewmaster2.lua" />
   <Script file="rotations\monk\mistweaver.lua" />
+  <Script file="rotations\monk\mistweaver2.lua" />
   <Script file="rotations\monk\windwalker.lua" />
   <Script file="rotations\monk\windwalker2.lua" />
   <Script file="rotations\monk\windwalker3.lua" />
