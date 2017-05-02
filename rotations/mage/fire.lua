@@ -1,5 +1,5 @@
 -- SPEC ID 63
-NetherMachine.rotation.register_custom(63, '|cff69ACC8Legion 7.2 Fire Mage|r', {
+NetherMachine.rotation.register_custom(63, '|cff69ACC8Fire Mage 7.2|r', {
 -- PLAYER CONTROLLED: Temporal Shield, Blizzard, Blink, Frost Bomb
 -- SUGGESTED TALENTS:
 -- CONTROLS: Pause - Left Control
@@ -15,7 +15,7 @@ NetherMachine.rotation.register_custom(63, '|cff69ACC8Legion 7.2 Fire Mage|r', {
 { "Meteor", { "modifier.shift", "!player.moving" }, "target.ground"},
 { "Flamestrike", { "modifier.shift", "player.buff(48108)" }, "target.ground"},
 { "Pyroblast",    "player.buff(48108)"},
-
+{"Blazing Barrier", {"!player.buff(Blazing Barrier)", "!player.casting", "player.falling"}},
 { "#trinket1", "toggle.trinkets" },
 { "#trinket2", "toggle.trinkets" },
 { "Counterspell", "modifier.interrupts" },
@@ -96,21 +96,23 @@ NetherMachine.rotation.register_custom(63, '|cff69ACC8Legion 7.2 Fire Mage|r', {
   ------------------
 },{
 	-- OUT OF COMBAT
-{ "Blazing Barrier", {"!player.buff(Blazing Barrier)", "player.moving", "toggle.bubble"}},
-{ "Slow Fall", {"!player.buff(Slow Fall)", "toggle.slowfall", "player.falling"}},
+{ "Blazing Barrier", {"!player.buff(Blazing Barrier)", "player.moving"}}, -- , "toggle.bubble"
+{ "Slow Fall", {"!player.buff(Slow Fall)",  "player.falling"}}, -- "toggle.slowfall",
 {  "/cast Combustion", { "player.casting", "!player.buff(48107)", "!player.buff(48108)", "player.casting.percent <= 10", "modifier.cooldowns", "toggle.raiding" }},
 },
 function()
   NetherMachine.toggle.create('burn', 'Interface\\ICONS\\spell_fire_sealoffire', 'burn', 'Combustion will be used')
-  
-  NetherMachine.toggle.create('flames', 'Interface\\ICONS\\artifactability_firemage_phoenixbolt', 'Use Flames!', 'Phoenix Flames Will be Used')
-  NetherMachine.toggle.create('usescorch', 'Interface\\ICONS\\Spell_fire_soulburn', 'Use Scorch', 'If you have the Lego Waist use this')
+   NetherMachine.toggle.create('trinkets', 'Interface\\ICONS\\sha_spell_fire_bluepyroblast_nightmare', 'Trinkets', 'Use your Trinkets on CD')
+ 
+ 
   NetherMachine.toggle.create('cinderstorm', 'Interface\\ICONS\\spell_fire_flare', 'Use Cinderstorm!', 'Turn off if your pulling to many adds')
   NetherMachine.toggle.create('dragons', 'Interface\\ICONS\\inv_misc_head_dragon_01', 'Use Dragons Breath', 'Turn on when talented with Dragons Breath')
   NetherMachine.toggle.create('raiding', 'Interface\\ICONS\\Achievement_boss_general_nazgrim', 'PreCast', 'Will Combust on Pull')
-  NetherMachine.toggle.create('trinkets', 'Interface\\ICONS\\sha_spell_fire_bluepyroblast_nightmare', 'Trinkets', 'Use your Trinkets on CD')
-  NetherMachine.toggle.create('slowfall', 'Interface\\ICONS\\spell_magic_featherfall', 'Slow Fall', 'Auto Slow Fall')
-   NetherMachine.toggle.create('bubble', 'Interface\\ICONS\\ability_mage_moltenarmor', 'bubble', 'Blazing Barrier will now be used when not in combat')
+ 
+   NetherMachine.toggle.create('flames', 'Interface\\ICONS\\artifactability_firemage_phoenixbolt', 'Use Flames!', 'Phoenix Flames Will be Used')
+   NetherMachine.toggle.create('usescorch', 'Interface\\ICONS\\Spell_fire_soulburn', 'Use Scorch', 'If you have the Lego Waist use this')
+  --NetherMachine.toggle.create('slowfall', 'Interface\\ICONS\\spell_magic_featherfall', 'Slow Fall', 'Auto Slow Fall')
+   --NetherMachine.toggle.create('bubble', 'Interface\\ICONS\\ability_mage_moltenarmor', 'bubble', 'Blazing Barrier will now be used when not in combat')
 end)
 
 
